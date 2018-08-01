@@ -79,21 +79,11 @@ module CustomFieldsHelper
 
   # Return custom field html tag corresponding to its format
   def custom_field_tag(prefix, custom_value)
-    # binding.pry
-    if params[:copy_from].present? && custom_value.value.present?
-      custom_value.custom_field.format.edit_tag self,
-      custom_field_tag_id(prefix, custom_value.custom_field),
-      custom_field_tag_name(prefix, custom_value.custom_field),
-      custom_value,
-      :class => "#{custom_value.custom_field.field_format}_cf",
-      :readonly => "true"
-    else
-      custom_value.custom_field.format.edit_tag self,
+    custom_value.custom_field.format.edit_tag self,
       custom_field_tag_id(prefix, custom_value.custom_field),
       custom_field_tag_name(prefix, custom_value.custom_field),
       custom_value,
       :class => "#{custom_value.custom_field.field_format}_cf"
-    end
   end
 
   # Return custom field name tag
@@ -159,7 +149,7 @@ module CustomFieldsHelper
   def render_api_custom_values(custom_values, api)
     api.array :custom_fields do
       custom_values.each do |custom_value|
-        attrs = {:id => custom_value.custom_field_id, :name => custom_value.custom_field.name,:is_show =>custom_value.custom_field.is_show}
+        attrs = {:id => custom_value.custom_field_id, :name => custom_value.custom_field.name}
         attrs.merge!(:multiple => true) if custom_value.custom_field.multiple?
         api.custom_field attrs do
           if custom_value.value.is_a?(Array)

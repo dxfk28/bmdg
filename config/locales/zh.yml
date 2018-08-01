@@ -219,7 +219,6 @@ zh:
   field_description: 描述
   field_summary: 摘要
   field_is_required: 必填
-  field_is_show: 是否点检项
   field_firstname: 名字
   field_lastname: 姓氏
   field_mail: 邮件地址
@@ -256,7 +255,7 @@ zh:
   field_homepage: 主页
   field_is_public: 公开
   field_parent: 上级项目
-  field_is_in_roadmap: 在路线图中显示
+  field_is_in_roadmap: 在各项目使用状况中显示
   field_login: 登录名
   field_mail_notification: 邮件通知
   field_admin: 管理员
@@ -441,19 +440,19 @@ zh:
   label_user_plural: 用户
   label_user_new: 新建用户
   label_user_anonymous: 匿名用户
-  label_project: 项目
-  label_project_new: 新建项目
-  label_project_plural: 项目
+  label_project: 管理对象
+  label_project_new: 新建管理对象
+  label_project_plural: 管理对象
   label_x_projects:
     zero:  无项目
     one:   1 个项目
     other: "%{count} 个项目"
   label_project_all: 所有的项目
   label_project_latest: 最近的项目
-  label_issue: 问题
-  label_issue_new: 新建问题
-  label_issue_plural: 问题
-  label_issue_view_all: 查看所有问题
+  label_issue: 数据
+  label_issue_new: 新建数据
+  label_issue_plural: 数据
+  label_issue_view_all: 查看所有数据
   label_issues_by: "按 %{value} 分组显示问题"
   label_issue_added: 问题已添加
   label_issue_updated: 问题已更新
@@ -513,7 +512,7 @@ zh:
   label_auth_source_new: 新建认证模式
   label_auth_source_plural: 认证模式
   label_subproject_plural: 子项目
-  label_subproject_new: 新建子项目
+  label_subproject_new: 新建子管理对象
   label_and_its_subprojects: "%{value} 及其子项目"
   label_min_max_length: 最小 - 最大 长度
   label_list: 列表
@@ -642,7 +641,7 @@ zh:
   label_sort_higher: 上移
   label_sort_lower: 下移
   label_sort_lowest: 置底
-  label_roadmap: 路线图
+  label_roadmap: 各项目使用状况
   label_roadmap_due_in: "截止日期到  %{value}"
   label_roadmap_overdue: "%{value} 延期"
   label_roadmap_no_issues: 该版本没有问题
@@ -660,7 +659,7 @@ zh:
   label_preview: 预览
   label_feed_plural: Feeds
   label_changes_details: 所有变更的详情
-  label_issue_tracking: 问题跟踪
+  label_issue_tracking: 数据跟踪
   label_spent_time: 耗时
   label_overall_spent_time: 总体耗时
   label_f_hour: "%{value} 小时"
@@ -720,7 +719,7 @@ zh:
   label_added_time_by: "由 %{author} 在 %{age} 之前添加"
   label_updated_time: " 更新于 %{value} 之前"
   label_updated_time_by: "由 %{author} 更新于 %{age} 之前"
-  label_jump_to_a_project: 选择一个项目...
+  label_jump_to_a_project: 选择一个管理对象...
   label_file_plural: 文件
   label_changeset_plural: 变更
   label_default_columns: 默认列
