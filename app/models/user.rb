@@ -83,8 +83,6 @@ class User < Principal
   has_one :api_token, lambda {where "action='api'"}, :class_name => 'Token'
   has_one :email_address, lambda {where :is_default => true}, :autosave => true
   has_many :email_addresses, :dependent => :delete_all
-  has_many :issues, :foreign_key => 'assigned_to_id'
-  # has_many :relations_to, :class_name => 'IssueRelation', :foreign_key => 'issue_to_id', :dependent => :delete_all
   belongs_to :auth_source
 
   scope :logged, lambda { where("#{User.table_name}.status <> #{STATUS_ANONYMOUS}") }

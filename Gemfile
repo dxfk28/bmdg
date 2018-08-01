@@ -1,4 +1,4 @@
-source "https://gems.ruby-china.org/"
+source 'https://rubygems.org'
 
 if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.5.0')
   abort "Redmine requires Bundler 1.5.0 or higher (you're using #{Bundler::VERSION}).\nPlease update with 'gem update bundler'."
@@ -15,8 +15,7 @@ gem "actionpack-action_caching"
 gem "actionpack-xml_parser"
 gem "roadie-rails"
 gem "mimemagic"
-gem 'pry'
-gem "pry-nav"
+
 # Request at least nokogiri 1.6.7.2 because of security advisories
 gem "nokogiri", ">= 1.6.7.2"
 
@@ -26,24 +25,7 @@ gem "rails-html-sanitizer", ">= 1.0.3"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin, :jruby]
 gem "rbpdf", "~> 1.19.0"
-# 查询
-gem 'ransack', '1.7.0'
-# 一对一，一对多表单
-gem 'nested_form', '0.3.2'
-# 分页
-gem 'kaminari', '0.16.3'
-# form增强
-gem "simple_form", "3.2.1"
-group :development, :test do
-  gem "thin"
-  gem "pry-rails", "~> 0.3.2"
-  # 这2个加起来是自动，报错的地方会停下来，也能写代码
-  gem 'better_errors', '2.1.1'
-  gem "binding_of_caller", "~> 0.7.2"
-  # 开发模式加速 4.2有bug反而慢
-  # gem 'rails-dev-tweaks', '~> 1.2.0'
-  gem 'quiet_assets'
-end
+
 # Optional gem for LDAP authentication
 group :ldap do
   gem "net-ldap", "~> 0.12.0"
@@ -85,7 +67,7 @@ if File.exist?(database_file)
     adapters.each do |adapter|
       case adapter
       when 'mysql2'
-        gem "mysql2", "~> 0.3.21", :platforms => [:mri, :mingw, :x64_mingw]
+        gem "mysql2", "~> 0.3.11", :platforms => [:mri, :mingw, :x64_mingw]
         gem "activerecord-jdbcmysql-adapter", :platforms => :jruby
       when 'mysql'
         gem "activerecord-jdbcmysql-adapter", :platforms => :jruby

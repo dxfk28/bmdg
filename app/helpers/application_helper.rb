@@ -1275,14 +1275,6 @@ module ApplicationHelper
     tags
   end
 
-  def javascript_heads_plugin
-    tags = javascript_include_tag('layer','H-ui.min','H-ui.admin.page','jquery.validate','validate-methods','messages_zh')
-    unless User.current.pref.warn_on_leaving_unsaved == '0'
-      tags << "\n".html_safe
-    end
-    tags
-  end
-
   def favicon
     "<link rel='shortcut icon' href='#{favicon_path}' />".html_safe
   end

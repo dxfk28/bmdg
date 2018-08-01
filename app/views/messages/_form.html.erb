@@ -3,7 +3,7 @@
 
 <div class="box">
 <!--[form:message]-->
-<p><label for="message_subject"><%#= l(:field_subject) %></label><br />
+<p><label for="message_subject"><%= l(:field_subject) %></label><br />
 <%= f.text_field :subject, :size => 120, :id => "message_subject" %>
 
 <% unless replying %>

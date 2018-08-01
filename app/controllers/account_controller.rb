@@ -48,7 +48,7 @@ class AccountController < ApplicationController
   def logout
     if User.current.anonymous?
       redirect_to home_url
-    elsif request.post? || params[:plugin] == "true"
+    elsif request.post?
       logout_user
       redirect_to home_url
     end
@@ -260,7 +260,7 @@ class AccountController < ApplicationController
       set_autologin_cookie(user)
     end
     call_hook(:controller_account_success_authentication_after, {:user => user })
-    redirect_back_or_default welcome_polls_path()
+    redirect_back_or_default my_page_path
   end
 
   def set_autologin_cookie(user)

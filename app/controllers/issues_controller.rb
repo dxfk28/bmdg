@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
   menu_item :new_issue, :only => [:new, :create]
   default_search_scope :issues
 
-  before_filter :find_issue, :only => [:show, :edit, :update, :list_show]
+  before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
   before_filter :authorize, :except => [:index, :new, :create]
   before_filter :find_optional_project, :only => [:index, :new, :create]
@@ -111,7 +111,6 @@ class IssuesController < ApplicationController
     @priorities = IssuePriority.active
     @time_entry = TimeEntry.new(:issue => @issue, :project => @issue.project)
     @relation = IssueRelation.new
-    @to_tracker = Tracker.find_by(name:"点检记录")
 
     respond_to do |format|
       format.html {

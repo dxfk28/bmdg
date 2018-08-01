@@ -22,10 +22,6 @@ class WelcomeController < ApplicationController
     @news = News.latest User.current
   end
 
-  def home
-  	
-  end
-
   def robots
     @projects = Project.all_public.active
     render :layout => false, :content_type => 'text/plain'
