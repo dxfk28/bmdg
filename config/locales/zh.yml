@@ -219,6 +219,7 @@ zh:
   field_description: 描述
   field_summary: 摘要
   field_is_required: 必填
+  field_is_show: 是否点检项
   field_firstname: 名字
   field_lastname: 姓氏
   field_mail: 邮件地址

@@ -26,7 +26,24 @@ gem "rails-html-sanitizer", ">= 1.0.3"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin, :jruby]
 gem "rbpdf", "~> 1.19.0"
-
+# 查询
+gem 'ransack', '1.7.0'
+# 一对一，一对多表单
+gem 'nested_form', '0.3.2'
+# 分页
+gem 'kaminari', '0.16.3'
+# form增强
+gem "simple_form", "3.2.1"
+group :development, :test do
+  gem "thin"
+  gem "pry-rails", "~> 0.3.2"
+  # 这2个加起来是自动，报错的地方会停下来，也能写代码
+  gem 'better_errors', '2.1.1'
+  gem "binding_of_caller", "~> 0.7.2"
+  # 开发模式加速 4.2有bug反而慢
+  # gem 'rails-dev-tweaks', '~> 1.2.0'
+  gem 'quiet_assets'
+end
 # Optional gem for LDAP authentication
 group :ldap do
   gem "net-ldap", "~> 0.12.0"

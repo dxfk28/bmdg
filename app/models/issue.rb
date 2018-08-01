@@ -543,6 +543,14 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  # Returns the custom_field_values that can be edited by the given user and is_show == true
+  def is_show_editable_custom_field_values(user=nil)
+    visible_custom_field_values(user).reject do |value|
+      read_only_attribute_names(user).include?(value.custom_field_id.to_s)
+      value.custom_field.is_show == false
+    end
+  end
+
   # Returns the custom fields that can be edited by the given user
   def editable_custom_fields(user=nil)
     editable_custom_field_values(user).map(&:custom_field).uniq
