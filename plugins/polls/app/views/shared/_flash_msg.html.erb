@@ -1,0 +1,27 @@
+<% if flash.present? && flash.keys.all?(&:present?) %>
+
+    <% flash.each do |status, msg| %>
+      <% next unless [:error, :alert, :success, :notice, :info].include?(status.to_sym) %>
+      <style type="text/css">
+      	.closed{
+      		color: white;
+      		margin-right: 5px;
+      		border-radius:10px;
+      	}
+      	.flash_p{
+      		padding-left: 20px;
+      		background-color: #d87d92;
+      		margin-bottom: 0px;
+      	}
+      </style>
+         <p class="flash_p"><a class="closed">关闭</a><%= raw msg%></p>
+         <script type="text/javascript">
+         	$('.Hui-article').css('top','70px')
+         	$(".closed").on("click",function (argument) {
+         		$(this).parent().hide()
+         		$('.Hui-article').css('top','34px')
+         	})
+         </script>
+    <% end %>
+  <% flash.clear %>
+<% end -%>
