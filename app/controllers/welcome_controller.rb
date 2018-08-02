@@ -26,4 +26,8 @@ class WelcomeController < ApplicationController
     @projects = Project.all_public.active
     render :layout => false, :content_type => 'text/plain'
   end
+
+  def home
+  	
+  end
 end

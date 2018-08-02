@@ -1274,6 +1274,13 @@ module ApplicationHelper
     end
     tags
   end
+  def javascript_heads_plugin
+    tags = javascript_include_tag('jquery-1.11.1-ui-1.11.0-ujs-3.1.4', 'application', 'responsive','layer','H-ui.min','H-ui.admin.page')
+    unless User.current.pref.warn_on_leaving_unsaved == '0'
+      tags << "\n".html_safe + javascript_tag("$(window).load(function(){ warnLeavingUnsaved('#{escape_javascript l(:text_warn_on_leaving_unsaved)}'); });")
+    end
+    tags
+  end
 
   def favicon
     "<link rel='shortcut icon' href='#{favicon_path}' />".html_safe
