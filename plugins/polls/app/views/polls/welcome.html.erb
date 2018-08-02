@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+<title><%= html_title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="<%= Redmine::Info.app_name %>" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<%= csrf_meta_tag %>
+<%= favicon %>
+<%= stylesheet_link_tag 'H-ui.min','H-ui.admin','iconfont', 'skin','style', :media => 'all' %>
+<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+<%= javascript_heads_plugin %>
+<%= heads_for_theme %>
+<%= call_hook :view_layouts_base_html_head %>
+<%= yield :header_tags -%>
+</head>
+<body class="<%= body_css_classes %>">
+<style type="text/css">
+  .content_div{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 0px;
+    /*border-bottom: 1px solid;*/
+  }
+  .list_div{
+    width: 100%;
+    height: 100px;
+    display: inline-block;
+    text-align: center;
+    font-size: 10px;
+    /*background: url(/images/tubiao2.png);*/
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+  }
+  .content_div a{
+    text-align: center;
+    display: inline-block;
+    width: 12%;
+    height: 100%;
+    margin-top: 3px;
+  }
+  .content_div p{
+    color: black;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  h2{
+    background-color: #efefef;
+  }
+</style>
+<div class="navbar navbar-fixed-top">
+    <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">BMDG资产管理</a>
+        <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+        <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+          <ul class="cl">
+            <li>超级管理员</li>
+            <li class="dropDown dropDown_hover" style="margin-right:40px;">
+                <a href="#" class="dropDown_A">admin</a>
+                <ul class="dropDown-menu menu radius box-shadow">
+                    <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
+                    <li><a href="#">切换账户</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </li>
+            <li id="Hui-skin" class="dropDown right dropDown_hover">
+            </li>
+          </ul>
+        </nav>
+    </div>
+</div>
+
+  </div>
+</div>
+<div style="margin-top: 44px;width: 100%;">
+  <div class="content_div">
+    <h2>常用功能</h2>
+    <%= link_to point_check_index_polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -8px -6px;width:75px;height:72px;">       
+       </div>
+       <p>票据管理</p>
+     <% end %>
+     <%= link_to polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -116px -8px;width: 75px;height: 75px;">       
+       </div>
+       <p>部门盘点</p>
+     <% end %>
+     <%= link_to polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -205px 0;
+  width: 75px;
+  height: 75px;">       
+       </div>
+       <p>场所变动管理</p>
+     <% end %>
+     <%= link_to polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -297px -8px;
+  width: 61px;
+  height: 75px;">       
+       </div>
+       <p>资产废弃管理</p>
+     <% end %>
+     <%= link_to polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -380px 0;
+  width: 75px;
+  height: 75px;">       
+       </div>
+       <p>点检项管理</p>
+     <% end %>
+     <%= link_to polls_path(project_id:params[:project_id]) do %>
+       <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -487px -17px;
+  width: 75px;
+  height: 65px;">       
+       </div>
+       <p>点检设备管理</p>
+     <% end %>
+  </div>
+  <div class="content_div">
+    <h2>现场资产管理</h2>
+      <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao3.png') no-repeat -301px -16px;
+  width: 72px;
+  height: 75px;">       
+         </div>
+         <p>现场固定资产</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao3.png') no-repeat -205px -16px;
+  width: 71px;
+  height: 75px;">       
+         </div>
+         <p>现场非固定资产</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -204px -144px;
+  width: 75px;
+  height: 75px;">       
+         </div>
+         <p>场所变动管理</p>
+       <% end %>
+  </div>
+  <div class="content_div">
+    <h2>在库资产管理</h2>
+      <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat 0 -302px;
+  width: 75px;
+  height: 75px;">       
+         </div>
+         <p>在库固定资产</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -97px -302px;
+  width: 75px;
+  height: 75px;">       
+         </div>
+         <p>在库非固定资产</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -189px -290px;
+  width: 61px;
+  height: 75px;">       
+         </div>
+         <p>资产废弃管理</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -279px -303px;
+  width: 75px;
+  height: 73px;">       
+         </div>
+         <p>资产回收管理</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -363px -298px;
+  width: 75px;
+  height: 59px;">       
+         </div>
+         <p>治工具发放</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -465px -293px;
+  width: 75px;
+  height: 59px;">       
+         </div>
+         <p>非治工具发放</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -560px -293px;
+  width: 75px;
+  height: 59px;">       
+         </div>
+         <p>治工具申请</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -645px -293px;
+  width: 75px;
+  height: 59px;">       
+         </div>
+         <p>非治工具申请</p>
+       <% end %>
+  </div>
+  <div class="content_div">
+    <h2>点检管理</h2>
+      <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -4px -443px;
+  width: 67px;
+  height: 75px;">       
+         </div>
+         <p>作业员点检</p>
+       <% end %>
+       <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao3.png') no-repeat -89px -9px;
+  width: 91px;
+  height: 73px;">       
+         </div>
+         <p>非作业员点检</p>
+       <% end %>
+  </div>
+  <div class="content_div">
+    <h2>盘点管理</h2>
+      <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao2.png') no-repeat -116px -8px;width: 75px;height: 75px;">       
+         </div>
+         <p>部门盘点</p>
+       <% end %>
+  </div>
+  <div class="content_div">
+    <h2>维修管理</h2>
+      <%= link_to polls_path(project_id:params[:project_id]) do %>
+         <div class="list_div" style="background: url('/images/tubiao3.png') no-repeat 0 -16px;
+  width: 75px;
+  height: 75px;">       
+         </div>
+         <p>维修申请</p>
+       <% end %>
+  </div>
+</div>
+<%= call_hook :view_layouts_base_body_bottom %>
+</body>
+</html>

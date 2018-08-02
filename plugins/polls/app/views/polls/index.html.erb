@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+<title><%= html_title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="<%= Redmine::Info.app_name %>" />
+<meta name="keywords" content="issue,bug,tracker" />
+<%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', 'responsive', :media => 'all' %>
+
+<%= javascript_heads %>
+</head>
+    <div id="content">
+        <% for journal in @journals %>
+              <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
+                <div id="note-<%= journal.indice %>">
+                <h4><a href="#note-<%= journal.indice %>" class="journal-link">#<%= journal.indice %></a>
+                <%= avatar(journal.user, :size => "24") %>
+                <%# binding.pry%>
+                <%= authoring journal.created_on, journal.user, :label => :label_updated_time_by %>
+                <%= content_tag('span', l(:field_is_private), :class => 'private') if journal.private_notes? %></h4>
+
+                <% if journal.details.any? %>
+                <ul class="details">
+                  <% details_to_strings(journal.visible_details).each do |string| %>
+                   <li><%= string %></li>
+                  <% end %>
+                </ul>
+                <% if Setting.thumbnails_enabled? && (thumbnail_attachments = journal_thumbnail_attachments(journal)).any? %>
+                  <div class="thumbnails">
+                    <% thumbnail_attachments.each do |attachment| %>
+                      <div><%= thumbnail_tag(attachment) %></div>
+                    <% end %>
+                  </div>
+                <% end %>
+                <% end %>
+                <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
+                </div>
+              </div>
+        <% end %>
+    </div>
+</html>
