@@ -1,7 +1,8 @@
 class PollsController < ApplicationController
   # unloadable
   layout "index"
-  before_filter :find_project, :check_if_login_required
+  before_filter :find_project
+  before_filter :check_if_login_required, :except => :index
 
   helper :issues
   helper :journals
