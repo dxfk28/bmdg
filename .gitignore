@@ -20,6 +20,7 @@
 /log/mongrel_debug
 !/plugins
 !/public
+!/config
 !/plugins/README
 /public/dispatch.*
 /public/plugin_assets/*
