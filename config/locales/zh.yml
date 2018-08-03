@@ -216,6 +216,9 @@ zh:
 
   field_name: 名称
   field_description: 描述
+  field_is_mobile: 是否手机端显示
+  field_is_check: 是否盘点显示
+  field_is_pc: 是否web显示
   field_summary: 摘要
   field_is_required: 必填
   field_firstname: 名字
