@@ -20,7 +20,7 @@
 /log/mongrel_debug
 !/plugins
 !/public
-/public/mobile
+/public/mobile/*
 !/config
 !/plugins/README
 /public/dispatch.*
