@@ -19,11 +19,16 @@
 /log/*.log*
 /log/mongrel_debug
 !/plugins
-!/public
+!/public/images/
+!/public/javascripts/
+!/public/stylesheets
+!/public/themes/
 !/config
+/public/mobile/*
 !/plugins/README
 /public/dispatch.*
 /public/plugin_assets/*
+/public/mobile_web/*
 !/public/themes/alternate
 !/public/themes/classic
 !/public/themes/README
