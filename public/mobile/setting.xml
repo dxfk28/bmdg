@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
-<xml>
-<DBUSER>redmine</DBUSER>                                        
-<DBPWD>Develop100$</DBPWD>                                    
-<DBHOST>10.241.38.51</DBHOST>
-<redmineApi>http://10.241.38.51</redmineApi>                                    
-</xml> 
