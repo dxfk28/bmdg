@@ -151,7 +151,7 @@ module CustomFieldsHelper
       custom_values.each do |custom_value|
         attrs = {:id => custom_value.custom_field_id, :name => custom_value.custom_field.name,
           :is_mobile => custom_value.custom_field.is_mobile, :is_check => custom_value.custom_field.is_check, 
-          :field_format => custom_value.custom_field.field_format}
+          :field_format => custom_value.custom_field.field_format, :is_required => custom_value.custom_field.is_required}
         attrs.merge!(:all_values => custom_value.custom_field.possible_values) if custom_value.custom_field.field_format == 'list'
         attrs.merge!(:multiple => true) if custom_value.custom_field.multiple?
         api.custom_field attrs do
