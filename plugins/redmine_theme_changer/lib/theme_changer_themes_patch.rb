@@ -20,18 +20,18 @@ require_dependency 'redmine/themes'
 #require_dependency 'theme_changer_user_setting'
 
 module ApplicationHelper
-  def get_theme
-    setting = ThemeChangerUserSetting.find_theme_by_user_id(User.current.id)
-    return Setting.ui_theme unless setting
-    return Setting.ui_theme if setting.theme == ThemeChangerUserSetting::SYSTEM_SETTING
-    return setting.theme_name
-  end
+  # def get_theme
+  #   setting = ThemeChangerUserSetting.find_theme_by_user_id(User.current.id)
+  #   return Setting.ui_theme unless setting
+  #   return Setting.ui_theme if setting.theme == ThemeChangerUserSetting::SYSTEM_SETTING
+  #   return setting.theme_name
+  # end
   
-  def current_theme
-    unless instance_variable_defined?(:@current_theme)
-      @current_theme = Redmine::Themes.theme(get_theme)
-    end
-    @current_theme
-  end
+  # def current_theme
+  #   unless instance_variable_defined?(:@current_theme)
+  #     @current_theme = Redmine::Themes.theme(get_theme)
+  #   end
+  #   @current_theme
+  # end
 
 end

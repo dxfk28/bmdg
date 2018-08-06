@@ -89,6 +89,7 @@ class Project < ActiveRecord::Base
   }
   scope :active, lambda { where(:status => STATUS_ACTIVE) }
   scope :status, lambda {|arg| where(arg.blank? ? nil : {:status => arg.to_i}) }
+  scope :first_show, lambda { where(:status => 1, :is_public => true, :parent_id =>nil).order(:lft)}
   scope :all_public, lambda { where(:is_public => true) }
   scope :visible, lambda {|*args| where(Project.visible_condition(args.shift || User.current, *args)) }
   scope :allowed_to, lambda {|*args|

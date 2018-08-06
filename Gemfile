@@ -21,6 +21,9 @@ gem 'migration_comments', '0.3.2'
 gem 'kaminari', '0.16.3'
 #binding
 gem "pry-rails", "~> 0.3.2"
+gem 'better_errors', '2.1.1'
+gem "binding_of_caller", "~> 0.7.2"
+gem 'pry-byebug'
 
 # Request at least nokogiri 1.6.7.2 because of security advisories
 gem "nokogiri", ">= 1.6.7.2"

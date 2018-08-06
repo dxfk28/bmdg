@@ -28,6 +28,6 @@ class WelcomeController < ApplicationController
   end
 
   def home
-  	
+  	@projects = Project.first_show
   end
 end

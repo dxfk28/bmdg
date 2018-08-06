@@ -8,6 +8,7 @@ RedmineApp::Application.routes.draw do
        get 'welcome'
        get 'point_check_index'
        get 'point_check_new'
+       get 'point_check_list'
     end
   end
 end

@@ -79,7 +79,6 @@ module CustomFieldsHelper
 
   # Return custom field html tag corresponding to its format
   def custom_field_tag(prefix, custom_value)
-    # binding.pry
     if params[:copy_from].present? && custom_value.value.present?
       custom_value.custom_field.format.edit_tag self,
       custom_field_tag_id(prefix, custom_value.custom_field),

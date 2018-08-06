@@ -20,22 +20,22 @@ require 'theme_changer_my_account_hooks'
 require 'theme_changer_user_patch'
 require 'theme_changer_themes_patch'
 
-Rails.configuration.to_prepare do
-  # Guards against including the module multiple time (like in tests)
-  # and registering multiple callbacks
-  require_dependency 'user_preference'
+# Rails.configuration.to_prepare do
+#   # Guards against including the module multiple time (like in tests)
+#   # and registering multiple callbacks
+#   require_dependency 'user_preference'
 
-  unless UserPreference.included_modules.include? ThemeChangerUserPreferencePatch
-    UserPreference.send(:include, ThemeChangerUserPreferencePatch)
-  end 
-end
+#   unless UserPreference.included_modules.include? ThemeChangerUserPreferencePatch
+#     UserPreference.send(:include, ThemeChangerUserPreferencePatch)
+#   end 
+# end
 
-Redmine::Plugin.register :redmine_theme_changer do
-  name 'Redmine Theme Changer plugin'
-  author 'Haruyuki Iida'
-  description 'Lets each user select a theme for Redmine'
-  version '0.2.0'
-  url 'http://www.r-labs.org/projects/themechanger'
-  author_url 'http://twitter.com/haru_iida'
-  requires_redmine :version_or_higher => '3.0.0'
-end
+# Redmine::Plugin.register :redmine_theme_changer do
+#   name 'Redmine Theme Changer plugin'
+#   author 'Haruyuki Iida'
+#   description 'Lets each user select a theme for Redmine'
+#   version '0.2.0'
+#   url 'http://www.r-labs.org/projects/themechanger'
+#   author_url 'http://twitter.com/haru_iida'
+#   requires_redmine :version_or_higher => '3.0.0'
+# end

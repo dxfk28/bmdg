@@ -17,7 +17,6 @@
                 <div id="note-<%= journal.indice %>">
                 <h4><a href="#note-<%= journal.indice %>" class="journal-link">#<%= journal.indice %></a>
                 <%= avatar(journal.user, :size => "24") %>
-                <%# binding.pry%>
                 <%= authoring journal.created_on, journal.user, :label => :label_updated_time_by %>
                 <%= content_tag('span', l(:field_is_private), :class => 'private') if journal.private_notes? %></h4>
 

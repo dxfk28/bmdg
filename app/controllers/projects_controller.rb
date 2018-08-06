@@ -74,7 +74,6 @@ class ProjectsController < ApplicationController
     @trackers = Tracker.sorted.to_a
     @project = Project.new
     @project.safe_attributes = params[:project]
-
     if @project.save
       unless User.current.admin?
         @project.add_default_member(User.current)
