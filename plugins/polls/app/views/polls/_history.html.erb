@@ -1,0 +1,30 @@
+<% reply_links = authorize_for('issues', 'edit') -%>
+<% for journal in journals %>
+  <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
+    <div id="note-<%= journal.indice %>">
+    <h4><a href="javascript:void(0);" class="journal-link" style="text-decoration: none;">#<%= journal.indice %></a>
+    <%= avatar(journal.user, :size => "24") %>
+    由<%= link_to journal.user.try(:name),"javascript:void(0);", style:"text-decoration: none;"%>
+    更新于<%= link_to distance_of_time_in_words(Time.now, journal.created_on), "javascript:void(0);", style:"text-decoration: none;" %>之前.
+    <%= content_tag('span', l(:field_is_private), :class => 'private') if journal.private_notes? %></h4>
+    <% if journal.details.any? %>
+    <ul class="details">
+      <% details_to_strings(journal.visible_details).each do |string| %>
+       <li><%= string %></li>
+      <% end %>
+    </ul>
+    <% if Setting.thumbnails_enabled? && (thumbnail_attachments = journal_thumbnail_attachments(journal)).any? %>
+      <div class="thumbnails">
+        <% thumbnail_attachments.each do |attachment| %>
+          <div><%= thumbnail_tag(attachment) %></div>
+        <% end %>
+      </div>
+    <% end %>
+    <% end %>
+    <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
+    </div>
+  </div>
+  <%= call_hook(:view_issues_history_journal_bottom, { :journal => journal }) %>
+<% end %>
+
+<% heads_for_wiki_formatter if User.current.allowed_to?(:edit_issue_notes, issue.project) || User.current.allowed_to?(:edit_own_issue_notes, issue.project) %>

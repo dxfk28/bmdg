@@ -133,6 +133,36 @@ module QueriesHelper
       column_value(column, issue, value)
     end
   end
+
+  def column_content_plugin(url,column, issue)
+    value = column.value_object(issue)
+    if value.is_a?(Array)
+      value.collect {|v| column_value_plugin(url,column, issue, v)}.compact.join(', ').html_safe
+    else
+      column_value_plugin(url,column, issue, value)
+    end
+  end
+
+  def column_value_plugin(url,column, issue, value)
+    case column.name
+    when :id
+      '<a href=\'/' + url + '/' + issue.id.to_s+'?project_id='+ issue.project.id.to_s + '\'>'+issue.id.to_s + '</a>'
+    when :subject
+      '<a href=\'/' + url + '/' + issue.id.to_s+'?project_id='+ issue.project.id.to_s + '\'>'+issue.id.to_s + '</a>'
+    when :parent
+      value ? (value.visible? ? link_to_issue(value, :subject => false) : "##{value.id}") : ''
+    when :description
+      issue.description? ? content_tag('div', textilizable(issue, :description), :class => "wiki") : ''
+    when :done_ratio
+      progress_bar(value)
+    when :relations
+      content_tag('span',
+        value.to_s(issue) {|other| link_to_issue(other, :subject => false, :tracker => false)}.html_safe,
+        :class => value.css_classes_for(issue))
+    else
+      format_object(value)
+    end
+  end
   
   def column_value(column, issue, value)
     case column.name

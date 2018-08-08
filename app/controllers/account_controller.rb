@@ -48,7 +48,7 @@ class AccountController < ApplicationController
   def logout
     if User.current.anonymous?
       redirect_to home_url
-    elsif request.post?
+    elsif request.post? || params[:plugin] == "true"
       logout_user
       redirect_to home_url
     end

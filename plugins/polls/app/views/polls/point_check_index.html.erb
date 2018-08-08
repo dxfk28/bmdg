@@ -28,13 +28,13 @@ html{overflow-y: unset;}
 				<%= hidden_field_tag 'tracker_id', params[:tracker_id] %>
 				<div id="query_form_content">
 				<fieldset id="filters" class="collapsible <%= @query.new_record? ? "" : "collapsed" %>">
-				  <legend style="width:auto; border: none; font-size: 15px;" onclick="toggleFieldset(this);"><%= l(:label_filter_plural) %></legend>
+				  <legend style="width:auto; border: none; font-size: 15px; margin-bottom: 1px;" onclick="toggleFieldset(this);"><%= l(:label_filter_plural) %></legend>
 				  <div style="<%= @query.new_record? ? "" : "display: none;" %>">
 				    <%= render :partial => 'queries/filters', :locals => {:query => @query} %>
 				  </div>
 				</fieldset>
 				<fieldset class="collapsible collapsed">
-				  <legend style="width:auto; border: none; font-size: 15px;" onclick="toggleFieldset(this);"><%= l(:label_options) %></legend>
+				  <legend style="width:auto; border: none; font-size: 15px;margin-bottom: 1px;" onclick="toggleFieldset(this);"><%= l(:label_options) %></legend>
 				  <div style="display: none;">
 				    <table>
 				      <tr>
@@ -69,7 +69,7 @@ html{overflow-y: unset;}
 				                         "$('#query_form').attr('action', '#{ @project ? new_project_query_path(@project) : new_query_path }').submit()",
 				                         :class => 'icon icon-save' %>
 	   			<% end %>
-	   			<img src="/images/bullet_add.png" style="width: 25px;">
+	   			<img src="/images/add.png">
 	   			<%= link_to "新建", point_check_new_polls_path(project_id:params[:project_id]),class:"icon ",style:"padding-left:0px;"%>
 			    </p>
 			  </div>

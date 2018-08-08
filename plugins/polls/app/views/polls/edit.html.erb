@@ -1,0 +1,13 @@
+<nav class="breadcrumb"> <%= @issue.project.try(:parent).try(:name)%>
+	<span class="c-gray en">&gt;</span>
+	<%= @issue.project.try(:name) %>
+	<span class="c-gray en">&gt;</span>
+	<%= @issue.tracker.try(:name) %>
+	<span class="c-gray en">&gt;</span>
+	<%= '#' + @issue.id.to_s %>
+</nav>
+
+<%= render :partial => 'edit' %>
+<% content_for :header_tags do %>
+    <%= robot_exclusion_tag %>
+<% end %>

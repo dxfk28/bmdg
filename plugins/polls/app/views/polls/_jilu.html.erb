@@ -11,7 +11,7 @@
 <%= javascript_heads %>
 </head>
 <body style="background-color: #e8e8e8;">
-    <div>
+    <div style="margin-left: 10px; margin-right: 10px;">
         <% for journal in @journals %>
               <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
                 <div id="note-<%= journal.indice %>">

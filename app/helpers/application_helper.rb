@@ -439,6 +439,11 @@ module ApplicationHelper
     end
   end
 
+  def time_tag_plugin(time)
+    text = distance_of_time_in_words(Time.now, time)
+    link_to text, 'javascript:void(0);'
+  end
+
   def syntax_highlight_lines(name, content)
     lines = []
     syntax_highlight(name, content).each_line { |line| lines << line }

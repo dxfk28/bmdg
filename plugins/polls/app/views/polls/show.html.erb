@@ -1,13 +1,35 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/application.css">
+<style type="text/css">
+  html{overflow-y: unset;}
+  .label{
+    color: black;
+    background-color: unset;
+    width: 230px;
+  }
+  div.issue .attribute .label{width: 230px;}
+  .progress{width: 300px;overflow:unset;}
+  .value{font-size: 10px;line-height: 20px;}
+  abbr{color: blue;text-decoration: none;}
+  abbr[title], abbr[data-original-title]{border: none;}
+  a{text-decoration: none}
+</style>
+<div id='content' style="width: 98%;">
 <%= render :partial => 'action_menu' %>
-
-<h2><%= issue_heading(@issue) %></h2>
+<nav class="breadcrumb" style="background-color: #ffffff; border: 0px;"> <%= @issue.project.try(:parent).try(:name)%>
+  <span class="c-gray en">&gt;</span>
+  <%= @issue.project.try(:name) %>
+  <span class="c-gray en">&gt;</span>
+  <%= @issue.tracker.try(:name) %>
+  <span class="c-gray en">&gt;</span>
+  <%= '#' + @issue.id.to_s %>
+</nav>
 
 <div class="<%= @issue.css_classes %> details">
   <% if @prev_issue_id || @next_issue_id %>
     <div class="next-prev-links contextual">
       <%= link_to_if @prev_issue_id,
                      "\xc2\xab #{l(:label_previous)}",
-                     (@prev_issue_id ? issue_path(@prev_issue_id) : nil),
+                     (@prev_issue_id ? poll_path(@prev_issue_id,project_id:@issue.project_id) : nil),
                      :title => "##{@prev_issue_id}",
                      :accesskey => accesskey(:previous) %> |
       <% if @issue_position && @issue_count %>
@@ -15,7 +37,7 @@
       <% end %>
       <%= link_to_if @next_issue_id,
                      "#{l(:label_next)} \xc2\xbb",
-                     (@next_issue_id ? issue_path(@next_issue_id) : nil),
+                     (@next_issue_id ? poll_path(@next_issue_id,project_id:@issue.project_id) : nil),
                      :title => "##{@next_issue_id}",
                      :accesskey => accesskey(:next) %>
     </div>
@@ -26,12 +48,13 @@
 <div class="subject">
 <%= render_issue_subject_with_tree(@issue) %>
 </div>
-        <p class="author">
-        <%= authoring @issue.created_on, @issue.author %>.
-        <% if @issue.created_on != @issue.updated_on %>
-        <%= l(:label_updated_time, time_tag(@issue.updated_on)).html_safe %>.
-        <% end %>
-        </p>
+<p class="author">
+由<%= link_to @issue.author.try(:name),"javascript:void(0);", style:"text-decoration: none;"%>
+在<%= link_to time_tag_plugin(@issue.created_on),'javascript:viod(0);', style:"text-decoration: none;"%>之前添加.
+<% if @issue.created_on != @issue.updated_on %>
+更新于<%= link_to distance_of_time_in_words(Time.now, @issue.updated_on), "javascript:void(0);", style:"text-decoration: none;"%>之前.
+<% end %>
+</p>
 
 <div class="attributes">
 <%= issue_fields_rows do |rows|
@@ -77,7 +100,7 @@ end %>
 <% if @issue.description? %>
 <div class="description">
   <div class="contextual">
-  <%= link_to l(:button_quote), quoted_issue_path(@issue), :remote => true, :method => 'post', :class => 'icon icon-comment' if authorize_for('issues', 'edit') %>
+  <%#= link_to l(:button_quote), quoted_issue_path(@issue), :remote => true, :method => 'post', :class => 'icon icon-comment' if authorize_for('issues', 'edit') %>
   </div>
 
   <p><strong><%=l(:field_description)%></strong></p>
@@ -91,21 +114,10 @@ end %>
 
 <%= call_hook(:view_issues_show_description_bottom, :issue => @issue) %>
 
-<% if !@issue.leaf? || User.current.allowed_to?(:manage_subtasks, @project) %>
-<hr />
-<div id="issue_tree">
-<div class="contextual">
-  <%= link_to_new_subtask(@issue) if User.current.allowed_to?(:manage_subtasks, @project) %>
-</div>
-<p><strong><%=l(:label_subtask_plural)%></strong></p>
-<%= render_descendants_tree(@issue) unless @issue.leaf? %>
-</div>
-<% end %>
-
 <% if @relations.present? || User.current.allowed_to?(:manage_issue_relations, @project) %>
 <hr />
 <div id="relations">
-<%= render :partial => 'relations' %>
+<%= render :partial => 'issues/relations' %>
 </div>
 <% end %>
 
@@ -114,7 +126,7 @@ end %>
 <% if @changesets.present? %>
 <div id="issue-changesets">
 <h3><%=l(:label_associated_revisions)%></h3>
-<%= render :partial => 'changesets', :locals => { :changesets => @changesets} %>
+<%= render :partial => 'issues/changesets', :locals => { :changesets => @changesets} %>
 </div>
 <% end %>
 
@@ -129,7 +141,7 @@ end %>
 <% if @issue.editable? %>
   <div id="update" style="display:none;">
   <h3><%= l(:button_edit) %></h3>
-  <%= render :partial => 'edit' %>
+  <%#= render :partial => 'edit' %>
   </div>
 <% end %>
 
@@ -156,3 +168,4 @@ end %>
 <% end %>
 
 <%= context_menu issues_context_menu_path %>
+</div>
