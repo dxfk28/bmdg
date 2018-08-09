@@ -50,7 +50,6 @@ class CustomField < ActiveRecord::Base
   scope :visible, lambda {|*args|
     user = args.shift || User.current
     if user.admin?
-      # nop
     elsif user.memberships.any?
       where("#{table_name}.visible = ? OR #{table_name}.id IN (SELECT DISTINCT cfr.custom_field_id FROM #{Member.table_name} m" +
         " INNER JOIN #{MemberRole.table_name} mr ON mr.member_id = m.id" +

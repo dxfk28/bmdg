@@ -13,17 +13,7 @@
   abbr[title], abbr[data-original-title]{border: none;}
   a{text-decoration: none}
 </style>
-<div id='content' style="width: 98%;">
-<%= render :partial => 'action_menu' %>
-<nav class="breadcrumb" style="background-color: #ffffff; border: 0px;"> <%= @issue.project.try(:parent).try(:name)%>
-  <span class="c-gray en">&gt;</span>
-  <%= @issue.project.try(:name) %>
-  <span class="c-gray en">&gt;</span>
-  <%= @issue.tracker.try(:name) %>
-  <span class="c-gray en">&gt;</span>
-  <%= '#' + @issue.id.to_s %>
-</nav>
-
+<div id='content' style="width: 98%; min-height: 0px;">
 <div class="<%= @issue.css_classes %> details">
   <% if @prev_issue_id || @next_issue_id %>
     <div class="next-prev-links contextual">
@@ -117,7 +107,7 @@ end %>
 <% if @relations.present? || User.current.allowed_to?(:manage_issue_relations, @project) %>
 <hr />
 <div id="relations">
-<%= render :partial => 'relations' %>
+<%= render :partial => 'issues/relations' %>
 </div>
 <% end %>
 
@@ -143,11 +133,6 @@ end %>
   <h3><%= l(:button_edit) %></h3>
   <%#= render :partial => 'edit' %>
   </div>
-<% end %>
-
-<% other_formats_links do |f| %>
-  <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
-  <%= f.link_to 'PDF' %>
 <% end %>
 
 <% html_title "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}" %>

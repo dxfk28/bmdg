@@ -19,6 +19,7 @@ class PollsController < ApplicationController
   helper :timelog
   helper :issues
   helper :polls
+  helper :search
 
   def check_if_login_required
     # no check needed if user is already logged in
@@ -200,7 +201,10 @@ class PollsController < ApplicationController
 
   def edit
     @issue = Issue.find_by(id:params[:id])
+    @project = @issue.project
     update_issue_from_params
+    @relations = @issue.relations.select {|r| r.other_issue(@issue) && r.other_issue(@issue).visible? }
+    @relation = IssueRelation.new
   end
 
   def update
@@ -283,7 +287,74 @@ class PollsController < ApplicationController
     true
   end
 
+  def search_index
+    find_optional_project
+    @question = params[:q] || ""
+    @question.strip!
+    @all_words = params[:all_words] ? params[:all_words].present? : true
+    @titles_only = params[:titles_only] ? params[:titles_only].present? : false
+    @search_attachments = params[:attachments].presence || '0'
+    @open_issues = params[:open_issues] ? params[:open_issues].present? : false
+
+    # quick jump to an issue
+    if (m = @question.match(/^#?(\d+)$/)) && (issue = Issue.visible.find_by_id(m[1].to_i))
+      redirect_to poll_path(issue,project_id:issue.project_id)
+      return
+    end
+
+    projects_to_search =
+      case params[:scope]
+      when 'all'
+        nil
+      when 'my_projects'
+        User.current.projects
+      when 'subprojects'
+        @project ? (@project.self_and_descendants.active.to_a) : nil
+      else
+        @project
+      end
+
+    @object_types = Redmine::Search.available_search_types.dup
+    if projects_to_search.is_a? Project
+      # don't search projects
+      @object_types.delete('projects')
+      # only show what the user is allowed to view
+      @object_types = @object_types.select {|o| User.current.allowed_to?("view_#{o}".to_sym, projects_to_search)}
+    end
+
+    @scope = @object_types.select {|t| params[t]}
+    @scope = @object_types if @scope.empty?
+
+    fetcher = Redmine::Search::Fetcher.new(
+      @question, User.current, @scope, projects_to_search,
+      :all_words => @all_words, :titles_only => @titles_only, :attachments => @search_attachments, :open_issues => @open_issues,
+      :cache => params[:page].present?
+    )
+
+    if fetcher.tokens.present?
+      @result_count = fetcher.result_count
+      @result_count_by_type = fetcher.result_count_by_type
+      @tokens = fetcher.tokens
+
+      per_page = Setting.search_results_per_page.to_i
+      per_page = 10 if per_page == 0
+      @result_pages = Paginator.new @result_count, per_page, params['page']
+      @results = fetcher.results(@result_pages.offset, @result_pages.per_page)
+    else
+      @question = ""
+    end
+    render :layout => false if request.xhr?
+  end
+
   private
+
+  def find_optional_project
+    return true unless params[:id]
+    @project = Project.find(params[:id])
+    check_project_privacy
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end
   # Used by #new and #create to build a new issue from the params
   # The new issue will be copied from an existing one if copy_from parameter is given
   def build_new_issue_from_params

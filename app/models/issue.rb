@@ -226,7 +226,7 @@ class Issue < ActiveRecord::Base
   def visible_custom_field_values(user=nil)
     user_real = user || User.current
     custom_field_values.select do |value|
-      value.custom_field.visible_by?(project, user_real)
+      value.custom_field.visible_by?(project, user_real) && value.custom_field.is_pc
     end
   end
 
