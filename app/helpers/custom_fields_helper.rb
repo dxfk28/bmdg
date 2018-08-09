@@ -146,12 +146,17 @@ module CustomFieldsHelper
   end
 
   # Renders the custom_values in api views
-  def render_api_custom_values(custom_values, api)
+  def render_api_custom_values(custom_values, api,role_ids,tracker_id,old_status_id)
     api.array :custom_fields do
       custom_values.each do |custom_value|
-        attrs = {:id => custom_value.custom_field_id, :name => custom_value.custom_field.name,
-          :is_mobile => custom_value.custom_field.is_mobile, :is_check => custom_value.custom_field.is_check, 
-          :field_format => custom_value.custom_field.field_format, :is_required => custom_value.custom_field.is_required}
+        custom_field = custom_value.custom_field
+        rule = WorkflowPermission.where(field_name:custom_field.id,tracker_id:tracker_id,old_status_id:old_status_id,role_id:role_ids).pluck(:rule)
+        can_edit = rule.include?('readonly') ? false : true
+        attrs = {:id => custom_value.custom_field_id, :name => custom_field.name,
+          :is_mobile => custom_field.is_mobile, :is_check => custom_field.is_check, 
+          :field_format => custom_field.field_format, :is_required => custom_field.is_required,
+          :regexp => custom_field.regexp,:min_length => custom_field.min_length,
+          :max_length => custom_field.max_length,:can_edit => can_edit}
         attrs.merge!(:all_values => custom_value.custom_field.possible_values) if custom_value.custom_field.field_format == 'list'
         attrs.merge!(:multiple => true) if custom_value.custom_field.multiple?
         api.custom_field attrs do

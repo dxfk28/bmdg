@@ -19,7 +19,7 @@ api.issue do
   api.estimated_hours @issue.estimated_hours
   api.spent_hours(@issue.spent_hours) if User.current.allowed_to?(:view_time_entries, @project)
 
-  render_api_custom_values @issue.visible_custom_field_values, api
+  render_api_custom_values @issue.visible_custom_field_values, api,@role_ids,@tracker_id,@old_status_id
 
   api.created_on @issue.created_on
   api.updated_on @issue.updated_on

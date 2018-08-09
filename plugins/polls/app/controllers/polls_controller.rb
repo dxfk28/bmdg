@@ -36,16 +36,21 @@ class PollsController < ApplicationController
   end
 
   def index
-    @issue = Issue.find_by(id:params[:issue_id])
-    @journals = @issue.journals.includes(:user, :details).
-                    references(:user, :details).
-                    reorder(:created_on, :id).to_a
-    @journals.each_with_index {|j,i| j.indice = i+1}
-    @journals.reject!(&:private_notes?) unless User.current.allowed_to?(:view_private_notes, @issue.project)
-    Journal.preload_journals_details_custom_fields(@journals)
-    @journals.select! {|journal| journal.notes? || journal.visible_details.any?}
-    @journals.reverse! if User.current.wants_comments_in_reverse_order?
-    render partial: "jilu", layout: false
+    custom_value = CustomValue.where(value:params[:issue_code]).first
+    if custom_value.try(:issue).present?
+      @issue = custom_value.issue
+      @journals = @issue.journals.includes(:user, :details).
+                      references(:user, :details).
+                      reorder(:created_on, :id).to_a
+      @journals.each_with_index {|j,i| j.indice = i+1}
+      @journals.reject!(&:private_notes?) unless User.current.allowed_to?(:view_private_notes, @issue.project)
+      Journal.preload_journals_details_custom_fields(@journals)
+      @journals.select! {|journal| journal.notes? || journal.visible_details.any?}
+      @journals.reverse! if User.current.wants_comments_in_reverse_order?
+      render partial: "jilu", layout: false
+    else
+      render partial: "no_jilu", layout: false
+    end
   end
 
   def vote
