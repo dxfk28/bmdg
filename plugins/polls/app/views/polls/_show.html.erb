@@ -14,7 +14,7 @@
   a{text-decoration: none}
 </style>
 <div id='content' style="width: 98%; min-height: 0px;">
-<div class="<%= @issue.css_classes %> details">
+<div class="<%= @issue.css_classes %> details" style="background-color: rgb(239, 239, 239);">
   <% if @prev_issue_id || @next_issue_id %>
     <div class="next-prev-links contextual">
       <%= link_to_if @prev_issue_id,

@@ -4,17 +4,18 @@
       <% next unless [:error, :alert, :success, :notice, :info].include?(status.to_sym) %>
       <style type="text/css">
       	.closed{
-      		color: white;
+      		color: #0c669a;
       		margin-right: 5px;
       		border-radius:10px;
       	}
       	.flash_p{
       		padding-left: 20px;
-      		background-color: #d87d92;
+      		background-color: #efefef;
       		margin-bottom: 0px;
+          color: #0c669a;
       	}
       </style>
-         <p class="flash_p"><%= raw msg%><a class="closed">关闭</a></p>
+         <p class="flash_p"><%= raw msg%></p>
          <script type="text/javascript">
          	$('.Hui-article').css('top','70px')
          	$(".closed").on("click",function (argument) {

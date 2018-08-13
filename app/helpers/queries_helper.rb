@@ -160,7 +160,7 @@ module QueriesHelper
         value.to_s(issue) {|other| link_to_issue(other, :subject => false, :tracker => false)}.html_safe,
         :class => value.css_classes_for(issue))
     else
-      format_object(value)
+      plugin_format_object(value)
     end
   end
   

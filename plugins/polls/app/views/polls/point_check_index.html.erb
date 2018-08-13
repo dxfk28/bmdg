@@ -10,8 +10,9 @@ fieldset.collapsible.collapsed>legend { background-image: url(/images/arrow_coll
     margin-top: 0px;
 }
 html{overflow-y: unset;}
+.table tbody tr.active, .table tbody tr.active > td, .table tbody tr.active > th, .table tbody tr .active {background-color: none !important;}
 </style>
-
+<div id='content' style="width: 98%; padding: 0px;">
 <nav class="breadcrumb"> <%= @project.try(:parent).try(:name)%>
 	<span class="c-gray en">&gt;</span>
 	<%= @project.try(:name) %>
@@ -81,3 +82,5 @@ html{overflow-y: unset;}
   			<%= f.link_to 'PDF', :url => params %>
 		<% end %>
 </div>
+</div>
+<%= context_menu plugin_issues_context_menu_path %>

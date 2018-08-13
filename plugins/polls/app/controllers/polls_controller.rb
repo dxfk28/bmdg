@@ -4,6 +4,7 @@ class PollsController < ApplicationController
   before_filter :find_project
   before_filter :check_if_login_required, :except => :index
   before_filter :build_new_issue_from_params, :only => [:point_check_new, :point_check_create]
+  before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
 
   helper :journals
   helper :projects
@@ -349,6 +350,135 @@ class PollsController < ApplicationController
       @question = ""
     end
     render :layout => false if request.xhr?
+  end
+
+  # Bulk edit/copy a set of issues
+  def bulk_edit
+    @issues.sort!
+    @copy = params[:copy].present?
+    @notes = params[:notes]
+
+    if @copy
+      unless User.current.allowed_to?(:copy_issues, @projects)
+        raise ::Unauthorized
+      end
+    end
+
+    @allowed_projects = Issue.allowed_target_projects
+    if params[:issue]
+      @target_project = @allowed_projects.detect {|p| p.id.to_s == params[:issue][:project_id].to_s}
+      if @target_project
+        target_projects = [@target_project]
+      end
+    end
+    target_projects ||= @projects
+
+    if @copy
+      # Copied issues will get their default statuses
+      @available_statuses = []
+    else
+      @available_statuses = @issues.map(&:new_statuses_allowed_to).reduce(:&)
+    end
+    @custom_fields = @issues.map{|i|i.editable_custom_fields}.reduce(:&)
+    @assignables = target_projects.map(&:assignable_users).reduce(:&)
+    @trackers = target_projects.map(&:trackers).reduce(:&)
+    @versions = target_projects.map {|p| p.shared_versions.open}.reduce(:&)
+    @categories = target_projects.map {|p| p.issue_categories}.reduce(:&)
+    if @copy
+      @attachments_present = @issues.detect {|i| i.attachments.any?}.present?
+      @subtasks_present = @issues.detect {|i| !i.leaf?}.present?
+    end
+
+    @safe_attributes = @issues.map(&:safe_attribute_names).reduce(:&)
+
+    @issue_params = params[:issue] || {}
+    @issue_params[:custom_field_values] ||= {}
+  end
+
+  def bulk_update
+    @issues.sort!
+    @copy = params[:copy].present?
+
+    attributes = parse_params_for_bulk_issue_attributes(params)
+    copy_subtasks = (params[:copy_subtasks] == '1')
+    copy_attachments = (params[:copy_attachments] == '1')
+
+    if @copy
+      unless User.current.allowed_to?(:copy_issues, @projects)
+        raise ::Unauthorized
+      end
+      target_projects = @projects
+      if attributes['project_id'].present?
+        target_projects = Project.where(:id => attributes['project_id']).to_a
+      end
+      unless User.current.allowed_to?(:add_issues, target_projects)
+        raise ::Unauthorized
+      end
+    end
+
+    unsaved_issues = []
+    saved_issues = []
+
+    if @copy && copy_subtasks
+      # Descendant issues will be copied with the parent task
+      # Don't copy them twice
+      @issues.reject! {|issue| @issues.detect {|other| issue.is_descendant_of?(other)}}
+    end
+
+    @issues.each do |orig_issue|
+      orig_issue.reload
+      if @copy
+        issue = orig_issue.copy({},
+          :attachments => copy_attachments,
+          :subtasks => copy_subtasks,
+          :link => link_copy?(params[:link_copy])
+        )
+      else
+        issue = orig_issue
+      end
+      journal = issue.init_journal(User.current, params[:notes])
+      issue.safe_attributes = attributes
+      call_hook(:controller_issues_bulk_edit_before_save, { :params => params, :issue => issue })
+      if issue.save
+        saved_issues << issue
+      else
+        unsaved_issues << orig_issue
+      end
+    end
+    if unsaved_issues.empty?
+      flash[:notice] = l(:notice_successful_update) unless saved_issues.empty?
+      if params[:follow]
+        if @issues.size == 1 && saved_issues.size == 1
+          redirect_to poll_path(saved_issues.first)
+        elsif saved_issues.map(&:project).uniq.size == 1
+          redirect_to point_check_index_polls_path(project_id:saved_issues.map(&:project).first.id,set_filter: 1,tracker_id:saved_issues.map(&:tracker).first.id)
+        end
+      else
+        redirect_back_or_default point_check_index_polls_path(project_id:saved_issues.map(&:project).first.id,set_filter: 1,tracker_id:saved_issues.map(&:tracker).first.id) 
+      end
+    else
+      @saved_issues = @issues
+      @unsaved_issues = unsaved_issues
+      @issues = Issue.visible.where(:id => @unsaved_issues.map(&:id)).to_a
+      bulk_edit
+      render :action => 'bulk_edit'
+    end
+  end
+
+  def parse_params_for_bulk_issue_attributes(params)
+    attributes = (params[:issue] || {}).reject {|k,v| v.blank?}
+    attributes.keys.each {|k| attributes[k] = '' if attributes[k] == 'none'}
+    if custom = attributes[:custom_field_values]
+      custom.reject! {|k,v| v.blank?}
+      custom.keys.each do |k|
+        if custom[k].is_a?(Array)
+          custom[k] << '' if custom[k].delete('__none__')
+        else
+          custom[k] = '' if custom[k] == '__none__'
+        end
+      end
+    end
+    attributes
   end
 
   private

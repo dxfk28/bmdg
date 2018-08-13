@@ -21,24 +21,22 @@
 <!-- page specific tags -->
 <%= yield :header_tags -%>
 </head>
+<style type="text/css">
+    .navbar-nav > ul > li > a{font-size: 13px;}
+    #Hui-userbar > ul > li > a{padding: 0px 0px;}
+    .cl li{ margin-right: 8px;  }
+</style>
 <body>
 <!--_header 作为公共模版分离出去-->
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl">
-            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="javascript:viod(0)" style="color: white;">BMDG资产管理系统</a>
+            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/" style="color: white;">BMDG资产管理系统</a>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs" style="margin-right: 50px;">
                 <ul class="cl" style="display: inline-block;">
                     <li>您好!<%= User.current.try(:name)%></li>
-                    <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A">操作</a>
-                        <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="/" >主页</a></li>
-                            <li>
-                                 <a href="/logout?plugin=true" method="post" rel="nofollow">退出</a> 
-                            </li>
-                        </ul>
-                    </li>
+                    <li><%= link_to '主页', home_path()%></li>
+                    <li><%= link_to '退出', signout_path(plugin:true)%></li>
                 </ul>
                <% if User.current.logged? || !Setting.login_required? %>
                     <div id="quick-search" style="display: inline-block;margin-top: 10px;">
@@ -67,7 +65,7 @@
                 <dd style="<%= project.children.map(&:id).include?(params[:project_id].to_i) ? 'display: block' : '' %>">
                     <ul>
                         <% if project.children.present? %>
-                            <% project.children.each_with_index do |pr, index| %>
+                            <% project.children.second_show.sorted.each_with_index do |pr, index| %>
                                 <li class="<%= pr.id == params[:project_id].to_i ? 'current' : '' %>">
                                    <%= link_to pr.name, point_check_list_polls_path(project_id:pr.id)%>
                                 </li>
@@ -88,10 +86,10 @@
         position: none;
     }
 </style>
-<section class="Hui-article-box" style="overflow-y: auto;">
-    <%= render partial: "/shared/flash_msg"%>
-     <%= yield %>
- </section>
+    <section class="Hui-article-box" style="overflow-y: auto;">
+        <%= render partial: "/shared/flash_msg"%>
+         <%= yield %>
+     </section>
 </body>
 
 </html>

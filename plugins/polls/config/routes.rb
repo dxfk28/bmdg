@@ -10,6 +10,8 @@ RedmineApp::Application.routes.draw do
        get 'point_check_index'
        get 'point_check_new'
        get 'point_check_list'
+       match 'bulk_edit', :via => [:get, :post]
+       post 'bulk_update'
     end
   end
   resources :projects do

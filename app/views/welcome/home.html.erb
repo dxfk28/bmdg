@@ -45,7 +45,7 @@
     <div class="content_div">
         <h2> <%= link_to project.name, point_check_list_polls_path(project_id:project.id) %> </h2>
         <% if project.children.present? %>
-          <% project.children.sorted.all_public.each do |pr| %>
+          <% project.children.second_show.sorted.each do |pr| %>
             <%= link_to point_check_list_polls_path(project_id:pr.id), class:" pr_a" do%>
               <div class="list_div">       
               </div>

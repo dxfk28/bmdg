@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   # Misc issue routes. TODO: move into resources
   match '/issues/auto_complete', :to => 'auto_completes#issues', :via => :get, :as => 'auto_complete_issues'
   match '/issues/context_menu', :to => 'context_menus#issues', :as => 'issues_context_menu', :via => [:get, :post]
+  match '/plugin_issues/context_menu', :to => 'context_menus#plugin_issues', :as => 'plugin_issues_context_menu', :via => [:get, :post]
   match '/issues/changes', :to => 'journals#index', :as => 'issue_changes', :via => :get
   match '/issues/:id/quoted', :to => 'journals#new', :id => /\d+/, :via => :post, :as => 'quoted_issue'
 

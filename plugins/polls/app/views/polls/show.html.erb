@@ -24,7 +24,7 @@
   <%= '#' + @issue.id.to_s %>
 </nav>
 
-<div class="<%= @issue.css_classes %> details">
+<div class="<%= @issue.css_classes %> details" style="background-color: rgb(239, 239, 239);">
   <% if @prev_issue_id || @next_issue_id %>
     <div class="next-prev-links contextual">
       <%= link_to_if @prev_issue_id,
@@ -132,8 +132,11 @@ end %>
 
 <% if @journals.present? %>
 <div id="history">
-<h3><%=l(:label_history)%></h3>
-<%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
+<a href="javascript:void(0);" style="text-decoration: none;" class="jilu"><h3><%=l(:label_history)%></h3></a>
+<div style="display: none;" class="lishi">
+  <%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
+</div>
+
 </div>
 <% end %>
 
@@ -169,3 +172,12 @@ end %>
 
 <%= context_menu issues_context_menu_path %>
 </div>
+<script type="text/javascript">
+  $(".jilu").on('click',function () {
+    if($('.lishi').is(":hidden")){
+      $('.lishi').show();
+    }else{
+      $(".lishi").hide();
+    }
+  })
+</script>
