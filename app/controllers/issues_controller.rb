@@ -115,7 +115,7 @@ class IssuesController < ApplicationController
     @project_id = @issue.project_id
     @old_status_id = @issue.status_id
     member = Member.find_by(user_id:params[:user_id],project_id:@project_id)
-    @role_ids = member.member_roles.pluck(:role_id).uniq
+    @role_ids = member.member_roles.pluck(:role_id).uniq if member.present?
     respond_to do |format|
       format.html {
         retrieve_previous_and_next_issue_ids
