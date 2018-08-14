@@ -390,7 +390,6 @@ function showModal(id, width, title) {
   $(".modal").zIndex(99);
   el.dialog({
     width: width,
-    height: "200px",
     modal: true,
     resizable: false,
     dialogClass: 'modal',
