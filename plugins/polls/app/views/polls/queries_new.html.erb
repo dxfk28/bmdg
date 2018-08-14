@@ -1,0 +1,22 @@
+<style type="text/css">
+	html{ overflow-y: unset; }
+  .bulk_edit{margin-left: 10px;}
+  input[type="submit"] {
+    background: none repeat scroll 0 0 #36A9E1;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    margin: 5px 0px;
+}
+</style>
+<h2><%= l(:label_query_new) %></h2>
+<%# binding.pry %>
+<%= form_tag(@project ? queries_create_project_polls_path(@project,tracker_id:params[:tracker_id	]) : queries_path) do %>
+  <%= render :partial => 'queries_form', :locals => {:query => @query} %>
+  <%= submit_tag l(:button_save) %>
+<% end %>

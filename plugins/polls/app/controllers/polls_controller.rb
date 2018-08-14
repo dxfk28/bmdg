@@ -481,6 +481,49 @@ class PollsController < ApplicationController
     attributes
   end
 
+  def queries_create
+    @project = Project.find(params[:project_id])
+    @query = IssueQuery.new
+    @query.user = User.current
+    @query.project = @project
+    update_query_from_params
+    if @query.save
+      flash[:notice] = l(:notice_successful_create)
+      redirect_to point_check_index_polls_path(project_id:@project.id,tracker_id:params[:tracker_id],set_filter:1 ,:query_id => @query)
+    else
+      render :action => 'queries_new', :layout => !request.xhr?
+    end
+  end
+
+  def queries_new
+    find_optional_project
+    @project = Project.find(params[:project_id])
+    @query = IssueQuery.new
+    @query.user = User.current
+    @query.project = @project
+    @query.build_from_params(params)
+  end
+  def find_optional_project
+    @project = Project.find(params[:project_id]) if params[:project_id]
+    render_403 unless User.current.allowed_to?(:save_queries, @project, :global => true)
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end
+
+  def update_query_from_params
+    @query.project = params[:query_is_for_all] ? nil : @project
+    @query.build_from_params(params)
+    @query.column_names = nil if params[:default_columns]
+    @query.sort_criteria = params[:query] && params[:query][:sort_criteria]
+    @query.name = params[:query] && params[:query][:name]
+    if User.current.allowed_to?(:manage_public_queries, @query.project) || User.current.admin?
+      @query.visibility = (params[:query] && params[:query][:visibility]) || IssueQuery::VISIBILITY_PRIVATE
+      @query.role_ids = params[:query] && params[:query][:role_ids]
+    else
+      @query.visibility = IssueQuery::VISIBILITY_PRIVATE
+    end
+    @query
+  end
   private
 
   def find_optional_project

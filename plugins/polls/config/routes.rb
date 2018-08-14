@@ -18,6 +18,8 @@ RedmineApp::Application.routes.draw do
     resources :polls do
       collection do
          post 'point_check_create'
+         post 'queries_create'
+         get 'queries_new'
       end
     end
   end

@@ -282,7 +282,7 @@ module IssuesHelper
     # links to #index on issues/show
     url_params = controller_name == 'issues' ? {:controller => 'issues', :action => 'index', :project_id => @project} : params
 
-    content_tag('h3', title) + "\n" +
+    content_tag('h4', title) + "\n" +
       content_tag('ul',
         queries.collect {|query|
             css = 'query'
