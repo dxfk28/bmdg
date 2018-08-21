@@ -83,6 +83,17 @@
 end %>
 <%= render_custom_fields_rows(@issue) %>
 <%= call_hook(:view_issues_show_details_bottom, :issue => @issue) %>
+<div class="attribute">
+  <div class="label">
+    <span>设备位置信息:</span>
+  </div>
+  <div class="value">
+    <%= CustomValue.find_by(custom_field_id:170,customized_id:@issue.id).value%>
+    <%= CustomValue.find_by(custom_field_id:171,customized_id:@issue.id).value%>
+    <%= CustomValue.find_by(custom_field_id:172,customized_id:@issue.id).value%>
+    <%= CustomValue.find_by(custom_field_id:173,customized_id:@issue.id).value%>
+  </div>
+</div>
 </div>
 
 <% if @issue.description? || @issue.attachments.any? -%>
