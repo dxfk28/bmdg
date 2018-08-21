@@ -38,8 +38,8 @@ class PollsController < ApplicationController
 
   def index
     custom_value = CustomValue.where(value:params[:issue_code]).first
-    if custom_value.try(:issue).present?
-      @issue = custom_value.issue
+    @issue = Issue.find_by(id:custom_value.try(:customized_id))
+    if @issue.present?
       @journals = @issue.journals.includes(:user, :details).
                       references(:user, :details).
                       reorder(:created_on, :id).to_a

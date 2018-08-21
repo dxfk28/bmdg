@@ -156,7 +156,11 @@ module CustomFieldsHelper
           :is_mobile => custom_field.is_mobile, :is_check => custom_field.is_check, 
           :field_format => custom_field.field_format, :is_required => custom_field.is_required,
           :regexp => custom_field.regexp,:min_length => custom_field.min_length,
-          :max_length => custom_field.max_length,:can_edit => can_edit}
+          :max_length => custom_field.max_length,:can_edit => can_edit,:is_zichan => custom_field.is_zichan,
+          :is_changsuo => custom_field.is_changsuo, :is_zaiku => custom_field.is_zaiku, :is_feiqi => custom_field.is_feiqi,
+          :is_huishou => custom_field.is_huishou, :si_ruku => custom_field.si_ruku, :is_zifafang => custom_field.is_zifafang,
+          :is_shiwufafang => custom_field.is_shiwufafang, :is_bumenpd => custom_field.is_bumenpd, :zhengze => custom_field.zhengze
+        }
         attrs.merge!(:all_values => custom_value.custom_field.possible_values) if custom_value.custom_field.field_format == 'list'
         attrs.merge!(:multiple => true) if custom_value.custom_field.multiple?
         api.custom_field attrs do
