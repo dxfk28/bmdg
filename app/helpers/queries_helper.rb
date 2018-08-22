@@ -148,7 +148,7 @@ module QueriesHelper
     when :id
       '<a href=\'/' + url + '/' + issue.id.to_s+'?project_id='+ issue.project.id.to_s + '\'>'+issue.id.to_s + '</a>'
     when :subject
-      '<a href=\'/' + url + '/' + issue.id.to_s+'?project_id='+ issue.project.id.to_s + '\'>'+issue.id.to_s + '</a>'
+      '<a href=\'/' + url + '/' + issue.id.to_s+'?project_id='+ issue.project.id.to_s + '\'>'+issue.subject.to_s + '</a>'
     when :parent
       value ? (value.visible? ? link_to_issue(value, :subject => false) : "##{value.id}") : ''
     when :description
