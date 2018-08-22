@@ -631,13 +631,13 @@ class ApplicationController < ActionController::Base
 
   # Renders a 200 response for successfull updates or deletions via the API
   def render_api_ok
-    render_api_head :ok
+    render :json => {status:true}
   end
 
   # Renders a head API response
   def render_api_head(status)
     # #head would return a response body with one space
-    render :text => 'true', :status => status, :layout => nil
+    render :text => '', :status => status, :layout => nil
   end
 
   # Renders API response on validation failure
