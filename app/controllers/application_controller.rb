@@ -637,7 +637,7 @@ class ApplicationController < ActionController::Base
   # Renders a head API response
   def render_api_head(status)
     # #head would return a response body with one space
-    render :text => '', :status => status, :layout => nil
+    render :text => '123123', :status => status, :layout => nil
   end
 
   # Renders API response on validation failure
