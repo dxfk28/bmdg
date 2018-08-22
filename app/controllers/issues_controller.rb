@@ -196,7 +196,8 @@ class IssuesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_back_or_default issue_path(@issue) }
-        format.api  { render_api_ok }
+        # format.api  { render_api_ok }
+        format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
       end
     else
       respond_to do |format|

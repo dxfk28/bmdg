@@ -631,7 +631,7 @@ class ApplicationController < ActionController::Base
 
   # Renders a 200 response for successfull updates or deletions via the API
   def render_api_ok
-    render :json => {status:true}
+    render_api_head :ok
   end
 
   # Renders a head API response
