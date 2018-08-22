@@ -71,6 +71,31 @@ class CustomFieldsController < ApplicationController
     redirect_to custom_fields_path(:tab => @custom_field.class.name)
   end
 
+  def change_position
+    custom_field = CustomField.find_by(position:params[:from_position])
+    if params[:from_position].to_i > params[:to_position].to_i
+      custom_fields = CustomField.where("position >= ? and position < ?",params[:to_position],params[:from_position])
+      custom_fields.each do |cf|
+        cf.position = cf.position + 1
+        cf.save
+      end
+      custom_field.position = params[:to_position]
+      custom_field.save
+      render json: {"success" => true} 
+    elsif params[:from_position].to_i < params[:to_position].to_i
+      custom_fields = CustomField.where("position <= ? and position > ?",params[:to_position],params[:from_position])
+      custom_fields.each do |cf|
+        cf.position = cf.position - 1
+        cf.save
+      end
+      custom_field.position = params[:to_position]
+      custom_field.save
+      render json: {"success" => true} 
+    else
+      render json: {"success" => true} 
+    end
+  end
+
   private
 
   def build_new_custom_field

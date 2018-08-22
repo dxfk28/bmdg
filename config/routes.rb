@@ -315,6 +315,10 @@ Rails.application.routes.draw do
   resources :custom_fields, :except => :show do
     resources :enumerations, :controller => 'custom_field_enumerations', :except => [:show, :new, :edit]
     put 'enumerations', :to => 'custom_field_enumerations#update_each'
+
+    collection do
+      get :change_position
+    end
   end
   resources :roles do
     collection do

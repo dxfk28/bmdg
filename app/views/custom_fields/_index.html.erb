@@ -21,11 +21,28 @@
       <td><%= checked_image custom_field.is_for_all? %></td>
       <td><%= l(:label_x_projects, :count => custom_field.projects.count) if custom_field.is_a? IssueCustomField and !custom_field.is_for_all? %></td>
       <% end %>
-      <td class="reorder"><%= reorder_links('custom_field', {:action => 'update', :id => custom_field, :back_url => back_url}, :put) %></td>
+      <td class="reorder"><%#= reorder_links('custom_field', {:action => 'update', :id => custom_field, :back_url => back_url}, :put) %>
+        <input type="text" name="position" value="<%= custom_field.position %>" style="width: 20px;" class="cf_<%=custom_field.position %>">
+      </td>
       <td class="buttons">
         <%= delete_link custom_field_path(custom_field) %>
+        <%= link_to '提交', "javascript:void(0);", class:"tijiao", value:custom_field.position %>
       </td>
     </tr>
   <% end; reset_cycle %>
   </tbody>
 </table>
+<script type="text/javascript">
+  $(".tijiao").on('click',function (argument) {
+      from_position = $(this).attr("value");
+      to_position = $('.cf_' + from_position).val();
+      $.ajax({
+        type: 'get',
+        dataType: "json",
+        url: "/custom_fields/change_position?from_position=" + from_position + "&to_position=" + to_position ,
+        success: function(data) {
+          window.location.reload();
+        }
+      });
+  })
+</script>
