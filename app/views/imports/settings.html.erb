@@ -24,7 +24,9 @@
   </fieldset>
   <p><%= submit_tag l(:label_next).html_safe + " &#187;".html_safe, :name => nil %></p>
 <% end %>
-
-<% content_for :sidebar do %>
-    <%= render :partial => 'issues/sidebar' %>
-<% end %>
+<script type="text/javascript">
+  $(document).ready(function (argument) {
+    $("#main").css("margin-left","10%")
+    $("#main").css("width","80%")
+  })
+</script>

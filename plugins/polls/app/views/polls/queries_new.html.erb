@@ -15,7 +15,6 @@
 }
 </style>
 <h2><%= l(:label_query_new) %></h2>
-<%# binding.pry %>
 <%= form_tag(@project ? queries_create_project_polls_path(@project,tracker_id:params[:tracker_id	]) : queries_path) do %>
   <%= render :partial => 'queries_form', :locals => {:query => @query} %>
   <%= submit_tag l(:button_save) %>

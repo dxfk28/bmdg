@@ -58,97 +58,130 @@ class IssueImport < Import
   end
 
   private
+  def create_issue(issue,row)
+    attributes = {
+        'project_id' => mapping['project_id'],
+        'tracker_id' => mapping['tracker_id'],
+        'subject' => row_value(row, 'subject'),
+        'description' => row_value(row, 'description')
+      }
+      issue.send :safe_attributes=, attributes, user
+
+      attributes = {}
+      if priority_name = row_value(row, 'priority')
+        if priority_id = IssuePriority.active.named(priority_name).first.try(:id)
+          attributes['priority_id'] = priority_id
+        end
+      end
+      if issue.project && category_name = row_value(row, 'category')
+        if category = issue.project.issue_categories.named(category_name).first
+          attributes['category_id'] = category.id
+        elsif create_categories?
+          category = issue.project.issue_categories.build
+          category.name = category_name
+          if category.save
+            attributes['category_id'] = category.id
+          end
+        end
+      end
+      if assignee_name = row_value(row, 'assigned_to')
+        if assignee = Principal.detect_by_keyword(issue.assignable_users, assignee_name)
+          attributes['assigned_to_id'] = assignee.id
+        end
+      end
+      if issue.project && version_name = row_value(row, 'fixed_version')
+        if version = issue.project.versions.named(version_name).first
+          attributes['fixed_version_id'] = version.id
+        elsif create_versions?
+          version = issue.project.versions.build
+          version.name = version_name
+          if version.save
+            attributes['fixed_version_id'] = version.id
+          end
+        end
+      end
+      if is_private = row_value(row, 'is_private')
+        if yes?(is_private)
+          attributes['is_private'] = '1'
+        end
+      end
+      if parent_issue_id = row_value(row, 'parent_issue_id')
+        if parent_issue_id =~ /\A(#)?(\d+)\z/
+          parent_issue_id = $2
+          if $1
+            attributes['parent_issue_id'] = parent_issue_id
+          elsif issue_id = items.where(:position => parent_issue_id).first.try(:obj_id)
+            attributes['parent_issue_id'] = issue_id
+          end
+        else
+          attributes['parent_issue_id'] = parent_issue_id
+        end
+      end
+      if start_date = row_date(row, 'start_date')
+        attributes['start_date'] = start_date
+      end
+      if due_date = row_date(row, 'due_date')
+        attributes['due_date'] = due_date
+      end
+      if estimated_hours = row_value(row, 'estimated_hours')
+        attributes['estimated_hours'] = estimated_hours
+      end
+      if done_ratio = row_value(row, 'done_ratio')
+        attributes['done_ratio'] = done_ratio
+      end
+
+      attributes['custom_field_values'] = issue.custom_field_values.inject({}) do |h, v|
+        value = case v.custom_field.field_format
+        when 'date'
+          row_date(row, "cf_#{v.custom_field.id}")
+        else
+          row_value(row, "cf_#{v.custom_field.id}")
+        end
+        if value
+          h[v.custom_field.id.to_s] = v.custom_field.value_from_keyword(value, issue)
+        end
+        h
+      end
+
+      issue.send :safe_attributes=, attributes, user
+      issue
+  end
 
   def build_object(row)
-    issue = Issue.new
-    issue.author = user
-    issue.notify = false
-
-    attributes = {
-      'project_id' => mapping['project_id'],
-      'tracker_id' => mapping['tracker_id'],
-      'subject' => row_value(row, 'subject'),
-      'description' => row_value(row, 'description')
-    }
-    issue.send :safe_attributes=, attributes, user
-
-    attributes = {}
-    if priority_name = row_value(row, 'priority')
-      if priority_id = IssuePriority.active.named(priority_name).first.try(:id)
-        attributes['priority_id'] = priority_id
-      end
+    message = []
+    if row[1] == '否' && (row[0] == nil || row[0] == '')
+      message << '资产番号不能为空或填写不正确'
     end
-    if issue.project && category_name = row_value(row, 'category')
-      if category = issue.project.issue_categories.named(category_name).first
-        attributes['category_id'] = category.id
-      elsif create_categories?
-        category = issue.project.issue_categories.build
-        category.name = category_name
-        if category.save
-          attributes['category_id'] = category.id
-        end
-      end
+    if row[3] == nil || row[3] == ''
+      message << '数量不能为空或填写不正确'
     end
-    if assignee_name = row_value(row, 'assigned_to')
-      if assignee = Principal.detect_by_keyword(issue.assignable_users, assignee_name)
-        attributes['assigned_to_id'] = assignee.id
-      end
+    if row[1] == nil || row[1] == ''
+      message << '是否新规不能为空或填写不正确'
     end
-    if issue.project && version_name = row_value(row, 'fixed_version')
-      if version = issue.project.versions.named(version_name).first
-        attributes['fixed_version_id'] = version.id
-      elsif create_versions?
-        version = issue.project.versions.build
-        version.name = version_name
-        if version.save
-          attributes['fixed_version_id'] = version.id
-        end
-      end
+    if row[2] == nil || row[2] == ''
+      message << '是否单体不能为空或填写不正确'
     end
-    if is_private = row_value(row, 'is_private')
-      if yes?(is_private)
-        attributes['is_private'] = '1'
-      end
+    if message.size > 0
+      return message
     end
-    if parent_issue_id = row_value(row, 'parent_issue_id')
-      if parent_issue_id =~ /\A(#)?(\d+)\z/
-        parent_issue_id = $2
-        if $1
-          attributes['parent_issue_id'] = parent_issue_id
-        elsif issue_id = items.where(:position => parent_issue_id).first.try(:obj_id)
-          attributes['parent_issue_id'] = issue_id
-        end
+    if row[2] == "否"
+      if row[1] == "否"
+        custom_value = CustomValue.find_by(value:row[0])
+        issue = custom_value.customized
+        row[3] = row[3].to_i + CustomValue.find_by(customized_id:issue.id,custom_field_id:176).value.to_i
       else
-        attributes['parent_issue_id'] = parent_issue_id
+        issue = Issue.new
+        issue.author = user
+        issue.notify = false
+      end
+      create_issue(issue,row)
+    else
+      row[3].to_i.times.map do ||
+        issue = Issue.new
+        issue.author = user
+        issue.notify = false
+        create_issue(issue,row)
       end
     end
-    if start_date = row_date(row, 'start_date')
-      attributes['start_date'] = start_date
-    end
-    if due_date = row_date(row, 'due_date')
-      attributes['due_date'] = due_date
-    end
-    if estimated_hours = row_value(row, 'estimated_hours')
-      attributes['estimated_hours'] = estimated_hours
-    end
-    if done_ratio = row_value(row, 'done_ratio')
-      attributes['done_ratio'] = done_ratio
-    end
-
-    attributes['custom_field_values'] = issue.custom_field_values.inject({}) do |h, v|
-      value = case v.custom_field.field_format
-      when 'date'
-        row_date(row, "cf_#{v.custom_field.id}")
-      else
-        row_value(row, "cf_#{v.custom_field.id}")
-      end
-      if value
-        h[v.custom_field.id.to_s] = v.custom_field.value_from_keyword(value, issue)
-      end
-      h
-    end
-
-    issue.send :safe_attributes=, attributes, user
-    issue
   end
 end

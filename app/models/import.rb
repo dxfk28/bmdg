@@ -154,19 +154,37 @@ class Import < ActiveRecord::Base
         break
       end
       if position > resume_after
-        item = items.build
-        item.position = position
-
         if object = build_object(row)
-          if object.save
-            item.obj_id = object.id
+          if object.class != Array
+            item = items.build
+            item.position = position
+            if object.class == Array
+              item.message = object.join("\n")
+            elsif object.save
+              item.obj_id = object.id
+            else
+              item.message = object.errors.full_messages.join("\n")
+            end
+            item.save!
+            imported += 1
           else
-            item.message = object.errors.full_messages.join("\n")
+             item = items.build
+             item.position = position
+             if object[0].class == String
+                item.message = object.join("\n")
+             else
+                object.each do |object|
+                  if object.save
+                    item.obj_id = object.id
+                  else
+                    item.message = object.errors.full_messages.join("\n")
+                  end
+                end
+             end
+             item.save!
+             imported += 1
           end
         end
-
-        item.save!
-        imported += 1
       end
       current = position
     end
@@ -178,7 +196,6 @@ class Import < ActiveRecord::Base
       update_attribute :finished, true
       remove_file
     end
-
     current
   end
 

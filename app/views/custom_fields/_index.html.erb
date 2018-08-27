@@ -22,7 +22,7 @@
       <td><%= l(:label_x_projects, :count => custom_field.projects.count) if custom_field.is_a? IssueCustomField and !custom_field.is_for_all? %></td>
       <% end %>
       <td class="reorder"><%#= reorder_links('custom_field', {:action => 'update', :id => custom_field, :back_url => back_url}, :put) %>
-        <input type="text" name="position" value="<%= custom_field.position %>" style="width: 20px;" class="cf_<%=custom_field.position %>">
+        <input type="text" name="position" value="<%= custom_field.position %>" style="width: 60px;" class="cf_<%=custom_field.position %>">
       </td>
       <td class="buttons">
         <%= delete_link custom_field_path(custom_field) %>

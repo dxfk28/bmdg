@@ -24,13 +24,15 @@
 
   <p>
     <%= button_tag("\xc2\xab " + l(:label_previous), :name => 'previous') %>
-    <%= submit_tag l(:button_import) %>
+    <%= submit_tag l(:button_import), :name => 'submit' %>
   </p>
 <% end %>
-
-<% content_for :sidebar do %>
-    <%= render :partial => 'issues/sidebar' %>
-<% end %>
+<script type="text/javascript">
+  $(document).ready(function (argument) {
+    $("#main").css("margin-left","10%")
+    $("#main").css("width","80%")
+  })
+</script>
 
 
 <%= javascript_tag do %>

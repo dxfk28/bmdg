@@ -97,7 +97,7 @@ class PollsController < ApplicationController
     end
   end
 
-  def point_check_create   
+  def point_check_create
     unless User.current.allowed_to?(:add_issues, @issue.project, :global => true)
       raise ::Unauthorized
     end
@@ -108,7 +108,7 @@ class PollsController < ApplicationController
       respond_to do |format|
         format.html {
           render_attachment_warning_if_needed(@issue)
-          flash[:notice] = l(:notice_issue_successful_create, :id => view_context.link_to("##{@issue.id}", poll_path(@issue), :title => @issue.subject))
+          flash[:notice] = l(:notice_issue_successful_create, :id => view_context.link_to("##{@issue.id}", poll_path(@issue,project_id:@issue.project_id), :title => @issue.subject))
           redirect_after_create
         }
         format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
@@ -592,16 +592,17 @@ class PollsController < ApplicationController
 	end
   # Redirects user after a successful issue creation
   def redirect_after_create
+    binding.pry
     if params[:continue]
       attrs = {:tracker_id => @issue.tracker, :parent_issue_id => @issue.parent_issue_id}.reject {|k,v| v.nil?}
       if params[:project_id]
-        redirect_to point_check_new_polls_path(@issue.project, :issue => attrs,project_id:@issue.project_id)
+        return redirect_to point_check_new_polls_path(@issue.project, :issue => attrs,project_id:@issue.project_id)
       else
         attrs.merge! :project_id => @issue.project_id
-        redirect_to new_poll_path(:issue => attrs)
+        return redirect_to new_poll_path(:issue => attrs)
       end
     else
-      redirect_to poll_path(@issue,project_id:@issue.project_id)
+      return redirect_to poll_path(@issue,project_id:@issue.project_id)
     end
   end
 end
