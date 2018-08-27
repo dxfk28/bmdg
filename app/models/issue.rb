@@ -113,7 +113,7 @@ class Issue < ActiveRecord::Base
   # Should be after_create but would be called before previous after_save callbacks
   after_save :after_create_from_copy
   after_destroy :update_parent_attributes
-  after_create :send_notification
+  # after_create :send_notification
   # Keep it at the end of after_save callbacks
   after_save :clear_assigned_to_was
 
