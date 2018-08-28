@@ -592,7 +592,6 @@ class PollsController < ApplicationController
 	end
   # Redirects user after a successful issue creation
   def redirect_after_create
-    binding.pry
     if params[:continue]
       attrs = {:tracker_id => @issue.tracker, :parent_issue_id => @issue.parent_issue_id}.reject {|k,v| v.nil?}
       if params[:project_id]

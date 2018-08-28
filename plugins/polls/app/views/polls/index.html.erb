@@ -12,7 +12,7 @@
 <%= javascript_heads %>
 </head>
     <div id="content">
-        <% for journal in @journals %>
+        <% for journal in @journals.reverse %>
               <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">
                 <div id="note-<%= journal.indice %>">
                 <h4><a href="#note-<%= journal.indice %>" class="journal-link">#<%= journal.indice %></a>
