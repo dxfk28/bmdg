@@ -177,6 +177,7 @@ class IssueImport < Import
       create_issue(issue,row)
     else
       row[3].to_i.times.map do ||
+        row[3] = 1
         issue = Issue.new
         issue.author = user
         issue.notify = false

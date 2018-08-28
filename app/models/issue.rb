@@ -1678,6 +1678,8 @@ class Issue < ActiveRecord::Base
     num = CustomValue.where(custom_field_id:174).order("value").last.value.to_i
     ii = num + 1
     cv.value = "%08d" % ii
+    self.subject = "%08d" % ii
+    self.save
     cv.save
     if notify? && Setting.notified_events.include?('issue_added')
       Mailer.deliver_issue_add(self)
