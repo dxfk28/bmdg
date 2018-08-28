@@ -13,7 +13,7 @@
 <body style="background-color: #e8e8e8;">
     <div style="margin-left: 10px; margin-right: 10px;">
       <% if @journals.size == 0 %>
-        <h4 style="text-align: center;" >暂无履历</h4>
+        <h4 style="text-align: center; font-size: 30px;" >暂无履历</h4>
       <%else%>
         <% for journal in @journals.reverse[0..9] %>
               <div id="change-<%= journal.id %>" class="<%= journal.css_classes %>">

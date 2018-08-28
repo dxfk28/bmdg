@@ -50,7 +50,7 @@ class PollsController < ApplicationController
       @journals.reverse! if User.current.wants_comments_in_reverse_order?
       render partial: "jilu", layout: false
     else
-      render partial: "no_jilu", layout: false
+      render partial: "jilu", layout: false
     end
   end
 
