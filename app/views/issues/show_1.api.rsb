@@ -1,0 +1,3 @@
+api.issue do
+  api.result true
+end

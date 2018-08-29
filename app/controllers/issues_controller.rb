@@ -21,7 +21,7 @@ class IssuesController < ApplicationController
 
   before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
-  before_filter :authorize, :except => [:index, :new, :create]
+  # before_filter :authorize, :except => [:index, :new, :create]
   before_filter :find_optional_project, :only => [:index, :new, :create]
   before_filter :build_new_issue_from_params, :only => [:new, :create]
   accept_rss_auth :index, :show
@@ -190,7 +190,6 @@ class IssuesController < ApplicationController
         @conflict_journals.reject!(&:private_notes?) unless User.current.allowed_to?(:view_private_notes, @issue.project)
       end
     end
-
     if saved
       render_attachment_warning_if_needed(@issue)
       flash[:notice] = l(:notice_successful_update) unless @issue.current_journal.new_record?
@@ -198,7 +197,8 @@ class IssuesController < ApplicationController
       respond_to do |format|
         format.html { redirect_back_or_default issue_path(@issue) }
         # format.api  { render_api_ok }
-        format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
+        # format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
+        format.api  { render :action => 'show_1', :status => :created, :location => issue_url(@issue) }
       end
     else
       respond_to do |format|
@@ -384,7 +384,6 @@ class IssuesController < ApplicationController
     if params[:time_entry]
       @time_entry.safe_attributes = params[:time_entry]
     end
-
     @issue.init_journal(User.current)
 
     issue_attributes = params[:issue]
