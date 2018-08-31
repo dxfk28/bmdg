@@ -1679,7 +1679,6 @@ class Issue < ActiveRecord::Base
     self.subject = "%08d" % ii
     self.save
     cv = CustomValue.find_by(custom_field_id:174,customized_type:"Issue",customized_id:self.id)
-    binding.pry
     cv.value = "%08d" % ii
     cv.save
     if notify? && Setting.notified_events.include?('issue_added')
