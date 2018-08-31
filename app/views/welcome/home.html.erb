@@ -43,7 +43,7 @@
 <div style="margin-top: 44px;width: 100%;">
   <% @projects.each do | project| %>
     <div class="content_div">
-        <h2> <%= link_to project.name, point_check_list_polls_path(project_id:project.id) %> </h2>
+        <h2 style="color:#101010;"> <%= project.name%> </h2>
         <% if project.children.present? %>
           <% project.children.second_show.sorted.each do |pr| %>
             <%= link_to point_check_list_polls_path(project_id:pr.id), class:" pr_a" do%>
@@ -53,7 +53,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if project.name == "方案2_ 在库资产信息管理"%>
+        <% if project.id == 15%>
           <%= link_to new_issues_import_path(), class:" pr_a" do%>
             <div class="list_div">
             </div>
