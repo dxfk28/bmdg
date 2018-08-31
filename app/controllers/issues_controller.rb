@@ -151,7 +151,7 @@ class IssuesController < ApplicationController
           flash[:notice] = l(:notice_issue_successful_create, :id => view_context.link_to("##{@issue.id}", issue_path(@issue), :title => @issue.subject))
           redirect_after_create
         }
-        format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
+        format.api  { render :action => 'show_1', :status => :created, :location => issue_url(@issue) }
       end
       return
     else
