@@ -1674,12 +1674,12 @@ class Issue < ActiveRecord::Base
   end
 
   def send_notification
-    cv = CustomValue.find_by(custom_field_id:174,customized_type:"Issue",customized_id:self.id)
     num = CustomValue.where(custom_field_id:174).order("value").last.value.to_i
     ii = num + 1
-    cv.value = "%08d" % ii
     self.subject = "%08d" % ii
     self.save
+    cv = CustomValue.find_by(custom_field_id:174,customized_type:"Issue",customized_id:self.id)
+    cv.value = "%08d" % ii
     cv.save
     if notify? && Setting.notified_events.include?('issue_added')
       Mailer.deliver_issue_add(self)
