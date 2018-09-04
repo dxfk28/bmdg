@@ -1,5 +1,6 @@
 <div class="contextual">
 <%= link_to l(:button_edit), edit_poll_path(@issue,project_id:@issue.project_id), :class => 'icon icon-edit' if @issue.editable? %>
+<%= link_to "履历", lvli_list_poll_path(@issue,project_id:@issue.project_id), :class => 'icon icon-copy' %>
 <%= link_to l(:button_log_time), new_issue_time_entry_path(@issue), :class => 'icon icon-time-add' if User.current.allowed_to?(:log_time, @project) %>
 <%= watcher_link(@issue, User.current) %>
 <%#= link_to l(:button_copy), project_copy_issue_path(@project, @issue), :class => 'icon icon-copy' if User.current.allowed_to?(:copy_issues, @project) && Issue.allowed_target_projects.any? %>

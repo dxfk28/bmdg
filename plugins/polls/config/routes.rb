@@ -12,6 +12,10 @@ RedmineApp::Application.routes.draw do
        get 'point_check_list'
        match 'bulk_edit', :via => [:get, :post]
        post 'bulk_update'
+       get 'pandian_tubiao'
+    end
+    member do
+       get 'lvli_list' 
     end
   end
   resources :projects do

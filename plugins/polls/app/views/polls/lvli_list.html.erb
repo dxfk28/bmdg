@@ -1,0 +1,40 @@
+<div id='content' style="width: 98%;">
+  <div class="contextual">
+  <%= link_to "返回", poll_path(@issue,project_id:@issue.project_id), :class => 'icon' %>
+</div>
+<nav class="breadcrumb" style="background-color: #ffffff; border: 0px; padding: 0px;"> <%= @issue.project.try(:parent).try(:name)%>
+  <span class="c-gray en">&gt;</span>
+  <%= @issue.project.try(:name) %>
+  <span class="c-gray en">&gt;</span>
+  <%= @issue.tracker.try(:name) %>
+  <span class="c-gray en">&gt;</span>
+  <%= '#' + @issue.id.to_s %>
+  <span class="c-gray en">&gt;</span>
+  <%= "盘点履历"%>
+</nav>
+
+<div class="autoscroll" style="margin: 10px;">
+<table class="list issues table table-border table-bordered table-bg table-hover table-sort">
+  <thead>
+    <tr>
+      <th style="color:#169;">设备盘点者</th>
+      <th style="color:#169;">盘点时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @journals.present? %>
+      <% for journal in @journals.reverse %>
+        <% journal.visible_details.each do |j| %>
+          <% if j.prop_key == "185" %>
+            <tr class="group open">
+              <td><%= journal.user.try(:name)%></td>
+              <td><%= j.value.to_date%></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

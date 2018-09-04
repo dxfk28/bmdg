@@ -15,7 +15,7 @@
 </style>
 <div id='content' style="width: 98%;">
 <%= render :partial => 'action_menu' %>
-<nav class="breadcrumb" style="background-color: #ffffff; border: 0px;"> <%= @issue.project.try(:parent).try(:name)%>
+<nav class="breadcrumb" style="background-color: #ffffff; border: 0px;padding: 0px;"> <%= @issue.project.try(:parent).try(:name)%>
   <span class="c-gray en">&gt;</span>
   <%= @issue.project.try(:name) %>
   <span class="c-gray en">&gt;</span>

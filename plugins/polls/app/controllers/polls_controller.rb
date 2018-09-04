@@ -2,7 +2,7 @@ class PollsController < ApplicationController
   # unloadable
   layout "index"
   before_filter :find_project
-  before_filter :check_if_login_required, :except => :index
+  before_filter :check_if_login_required, :except => [:index,:pandian_tubiao]
   before_filter :build_new_issue_from_params, :only => [:point_check_new, :point_check_create]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
 
@@ -524,6 +524,34 @@ class PollsController < ApplicationController
     end
     @query
   end
+
+  def pandian_tubiao
+    start_time = params[:start_time].to_date
+    end_time = params[:end_time].to_date
+    user = User.find_by(id:params[:user_id])
+    name_value = user.login + "_" + user.firstname + user.lastname
+    issue_ids = CustomValue.where(value:name_value,custom_field_id: 201).pluck(:customized_id)
+    @issues = Issue.where(id:issue_ids)
+    finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,185,start_time,end_time).pluck(:customized_id)
+    @no_issues = @issues.where.not(id:finish_issue_ids)
+    respond_to do |format|
+      format.api
+    end
+  end
+
+  def lvli_list
+    @issue = Issue.find_by(id:params[:id])
+    @journals = @issue.journals.includes(:user, :details).
+                    references(:user, :details).
+                    reorder(:created_on, :id).to_a
+    @journals.each_with_index {|j,i| j.indice = i+1}
+    @journals.reject!(&:private_notes?) unless User.current.allowed_to?(:view_private_notes, @issue.project)
+    Journal.preload_journals_details_custom_fields(@journals)
+    @journals.select! {|journal| journal.notes? || journal.visible_details.any?}
+    @journals.reverse! if User.current.wants_comments_in_reverse_order?
+
+  end
+
   private
 
   def find_optional_project
