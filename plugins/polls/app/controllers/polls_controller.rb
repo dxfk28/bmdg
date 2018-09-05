@@ -528,8 +528,8 @@ class PollsController < ApplicationController
   def pandian_tubiao
     start_time = params[:start_time].to_date
     end_time = params[:end_time].to_date
-    user = User.find_by(id:params[:user_id])
-    name_value = user.login + "_" + user.firstname + user.lastname
+    @user = User.find_by(login:params[:user_name])
+    name_value = @user.login + "_" + @user.firstname + @user.lastname
     issue_ids = CustomValue.where(value:name_value,custom_field_id: 201).pluck(:customized_id)
     @issues = Issue.where(id:issue_ids)
     finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,185,start_time,end_time).pluck(:customized_id)
@@ -549,7 +549,8 @@ class PollsController < ApplicationController
     Journal.preload_journals_details_custom_fields(@journals)
     @journals.select! {|journal| journal.notes? || journal.visible_details.any?}
     @journals.reverse! if User.current.wants_comments_in_reverse_order?
-
+    @journal_details = JournalDetail.where(id:@journals.map(&:visible_details).flatten.map{|i| i.id},prop_key:185)
+    @journal_details = @journal_details.page(params[:page]).per(20)
   end
 
   private

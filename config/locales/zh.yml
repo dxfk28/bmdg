@@ -1189,3 +1189,11 @@ zh:
   label_any_open_issues: 任意进行中的问题
   label_no_open_issues: 任意已关闭的问题
   label_default_values_for_new_users: 新用户默认值
+
+  views:
+    pagination:
+      first: 首页
+      previous: 上一页
+      next: 下一页
+      last: 末页
+      truncate: "..."

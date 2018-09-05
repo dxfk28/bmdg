@@ -22,19 +22,14 @@
     </tr>
   </thead>
   <tbody>
-    <% if @journals.present? %>
-      <% for journal in @journals.reverse %>
-        <% journal.visible_details.each do |j| %>
-          <% if j.prop_key == "185" %>
-            <tr class="group open">
-              <td><%= journal.user.try(:name)%></td>
-              <td><%= j.value.to_date%></td>
-            </tr>
-          <% end %>
-        <% end %>
-      <% end %>
+    <% @journal_details.order("value desc").each do |j| %>
+        <tr class="group open">
+          <td><%= j.journal.user.try(:name)%></td>
+          <td><%= j.value.to_date%></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
 </div>
+<%= paginate @journal_details %>
 </div>
