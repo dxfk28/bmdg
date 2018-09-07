@@ -1190,6 +1190,22 @@ module ApplicationHelper
     javascript_tag "contextMenuInit('#{ url_for(url) }')"
   end
 
+  def plugin_context_menu(url)
+    unless @context_menu_included
+      content_for :header_tags do
+        javascript_include_tag('plugin_context_menu') +
+          stylesheet_link_tag('plugin_context_menu')
+      end
+      if l(:direction) == 'rtl'
+        content_for :header_tags do
+          stylesheet_link_tag('context_menu_rtl')
+        end
+      end
+      @context_menu_included = true
+    end
+    javascript_tag "contextMenuInit('#{ url_for(url) }')"
+  end
+
   def calendar_for(field_id)
     include_calendar_headers_tags
     javascript_tag("$(function() { $('##{field_id}').addClass('date').datepicker(datepickerOptions); });")
