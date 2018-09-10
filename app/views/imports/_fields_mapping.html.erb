@@ -51,7 +51,7 @@
 <% @custom_fields.each do |field| %>
   <p>
     <label><%= field.name %></label>
-    <%= mapping_select_tag @import, "cf_#{field.id}" %>
+    <%= plugin_mapping_select_tag @import, "cf_#{field.id}", field.name %>
   </p>
 <% end %>
 </div>
@@ -82,5 +82,5 @@
   <%= mapping_select_tag @import, 'done_ratio' %>
 </p>
 </div>
+<p class="tishi" style="color: red;font-size: 15px; text-align: left; display: none;">*csv文件属性与系统自定义属性不符，无法导入请联系管理员</p>
 </div>
-

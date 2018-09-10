@@ -1163,7 +1163,7 @@ zh:
   error_invalid_csv_file_or_settings: 这不是一个CSV文件或者不符合以下设置
   error_can_not_read_import_file: 读取导入文件时发生错误
   permission_import_issues: 问题导入
-  label_import_issues: 问题导入
+  label_import_issues: 资产入库
   label_select_file_to_import: 选择要导入的文件
   label_fields_separator: 字段分隔符
   label_fields_wrapper: 字段包装识别符

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   match '/issues/preview/new/:project_id', :to => 'previews#issue', :as => 'preview_new_issue', :via => [:get, :post, :put, :patch]
   match '/issues/preview/edit/:id', :to => 'previews#issue', :as => 'preview_edit_issue', :via => [:get, :post, :put, :patch]
   match '/issues/preview', :to => 'previews#issue', :as => 'preview_issue', :via => [:get, :post, :put, :patch]
+  match '/issues/plugin_issues', :to => 'issues#plugin_issues', :as => 'plugin_issues', :via => [:get, :post, :put, :patch]
 
   match 'projects/:id/wiki', :to => 'wikis#edit', :via => :post
   match 'projects/:id/wiki/destroy', :to => 'wikis#destroy', :via => [:get, :post]
@@ -180,6 +181,7 @@ Rails.application.routes.draw do
     member do
       # Used when updating the form of an existing issue
       patch 'edit', :to => 'issues#edit'
+      get 'add_num', :to => 'issues#add_num'
     end
     collection do
       match 'bulk_edit', :via => [:get, :post]

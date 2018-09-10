@@ -24,13 +24,24 @@
 
   <p>
     <%= button_tag("\xc2\xab " + l(:label_previous), :name => 'previous') %>
-    <%= submit_tag l(:button_import), :name => 'submit' %>
+    <%= submit_tag l(:button_import), :name => 'submit', :class => 'anniu' %>
   </p>
 <% end %>
 <script type="text/javascript">
   $(document).ready(function (argument) {
     $("#main").css("margin-left","10%")
     $("#main").css("width","80%")
+  })
+  var not_use = false
+  $(".is_select").each(function (){
+    if($(this).val()==""){
+      $(this).prev().css("color","red");
+      not_use = true;
+    }
+    if(not_use){
+      $(".tishi").show();
+      $(".anniu").hide();
+    }
   })
 </script>
 
@@ -41,7 +52,20 @@ $(document).ready(function() {
     $.ajax({
       url: '<%= import_mapping_path(@import, :format => 'js') %>',
       type: 'post',
-      data: $('#import-form').serialize()
+      data: $('#import-form').serialize(),
+      success:function(){
+         var not_use = false
+          $(".is_select").each(function (){
+            if($(this).val()==""){
+              $(this).prev().css("color","red");
+              not_use = true;
+            }
+            if(not_use){
+              $(".tishi").show();
+              $(".anniu").hide();
+            }
+          })
+      }
     });
   });
 

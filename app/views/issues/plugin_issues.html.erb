@@ -8,7 +8,7 @@
 <h2><%= @query.new_record? ? l(:label_issue_plural) : @query.name %></h2>
 <% html_title(@query.new_record? ? l(:label_issue_plural) : @query.name) %>
 
-<%= form_tag({ :controller => 'issues', :action => 'index', :project_id => @project },
+<%= form_tag({ :controller => 'issues', :action => 'plugin_issues', :project_id => @project },
             :method => :get, :id => 'query_form') do %>
   <div id="query_form_with_buttons" class="hide-when-print">
     <%= hidden_field_tag 'set_filter', '1' %>
@@ -66,13 +66,8 @@
 <% else %>
 <%= render_query_totals(@query) %>
 
-<%= render :partial => 'issues/list', :locals => {:issues => @issues, :query => @query} %>
+<%= render :partial => 'issues/plugin_list', :locals => {:issues => @issues, :query => @query} %>
 <span class="pagination"><%= pagination_links_full @issue_pages, @issue_count %></span>
-<% end %>
-<% other_formats_links do |f| %>
-  <%= f.link_to 'Atom', :url => params.merge(:key => User.current.rss_key) %>
-  <%= f.link_to 'CSV', :url => params, :onclick => "showModal('csv-export-options', '350px'); return false;" %>
-  <%= f.link_to 'PDF', :url => params %>
 <% end %>
 
 <div id="csv-export-options" style="display:none;">

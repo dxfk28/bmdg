@@ -21,11 +21,11 @@ class IssuesController < ApplicationController
 
   before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
-  before_filter :authorize, :except => [:index, :new, :create]
-  before_filter :find_optional_project, :only => [:index, :new, :create]
+  before_filter :authorize, :except => [:index, :new, :create, :plugin_issues,:add_num]
+  before_filter :find_optional_project, :only => [:index, :new, :create, :plugin_issues]
   before_filter :build_new_issue_from_params, :only => [:new, :create]
-  accept_rss_auth :index, :show
-  accept_api_auth :index, :show, :create, :update, :destroy
+  accept_rss_auth :index, :show, :plugin_issues
+  accept_api_auth :index, :show, :create, :update, :destroy, :plugin_issues
 
   rescue_from Query::StatementInvalid, :with => :query_statement_invalid
 
@@ -63,7 +63,6 @@ class IssuesController < ApplicationController
       else
         @limit = per_page_option
       end
-
       @issue_count = @query.issue_count
       @issue_pages = Paginator.new @issue_count, @limit, params['page']
       @offset ||= @issue_pages.offset
@@ -90,6 +89,37 @@ class IssuesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def plugin_issues
+    retrieve_query
+    sort_init(@query.sort_criteria.empty? ? [['id', 'desc']] : @query.sort_criteria)
+    sort_update(@query.sortable_columns)
+    @query.sort_criteria = sort_criteria.to_a
+    @limit = per_page_option
+
+    @issue_count = @query.issue_count
+    @issue_pages = Paginator.new @issue_count, @limit, params['page']
+    @offset ||= @issue_pages.offset
+    if params[:v].present?
+      @issues = @query.issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version],
+                            :order => sort_clause,
+                            :offset => @offset,
+                            :limit => @limit)
+    else
+      @issues =[]
+    end
+    @issue_count_by_group = @query.issue_count_by_group
+  end
+
+  def add_num
+    cv = CustomValue.find_by(custom_field_id:176,customized_id:params[:id])
+    cv.value = params[:num].to_i + cv.value.to_i
+    if cv.save
+      render json: {"success" => true, "value" => cv.value}
+    else
+      render json: {"success" => false, "value" => cv.value}
+    end
   end
 
   def show

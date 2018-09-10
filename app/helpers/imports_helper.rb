@@ -40,4 +40,24 @@ module ImportsHelper
       [format, f]
     end
   end
+
+  def plugin_mapping_select_tag(import, field, s_name, options={})
+    name = "import_settings[mapping][#{field}]"
+    select_tag name, plugin_options_for_mapping_select(import, field, s_name, options), class:"is_select"
+  end
+
+    def plugin_options_for_mapping_select(import, field, s_name, options={})
+    tags = "".html_safe
+    blank_text = options[:required] ? "-- #{l(:actionview_instancetag_blank_option)} --" : "&nbsp;".html_safe
+    tags << content_tag('option', blank_text, :value => '')
+    import.columns_options.each do |i|
+      if i[0] == s_name
+        tags << content_tag('option', i[0], :value => i[1],:selected => 'selected')
+      else
+        tags << content_tag('option', i[0], :value => i[1])
+      end
+    end
+    tags
+  end
+
 end

@@ -149,35 +149,23 @@ class IssueImport < Import
 
   def build_object(row)
     message = []
-    if row[1] == '否' && (row[0] == nil || row[0] == '')
-      message << '资产番号不能为空或填写不正确'
-    end
-    if row[3] == nil || row[3] == ''
-      message << '数量不能为空或填写不正确'
-    end
-    if row[1] == nil || row[1] == ''
-      message << '是否新规不能为空或填写不正确'
-    end
-    if row[2] == nil || row[2] == ''
+    if row[0] == ""
       message << '是否单体不能为空或填写不正确'
+    end
+    if row[1] == ""
+      message << '数量不能为空或填写不正确'
     end
     if message.size > 0
       return message
     end
-    if row[2] == "否"
-      if row[1] == "否"
-        custom_value = CustomValue.find_by(value:row[0])
-        issue = custom_value.customized
-        row[3] = row[3].to_i + CustomValue.find_by(customized_id:issue.id,custom_field_id:176).value.to_i
-      else
+    if row[0] == "否"
         issue = Issue.new
         issue.author = user
         issue.notify = false
-      end
-      create_issue(issue,row)
+        create_issue(issue,row)
     else
-      row[3].to_i.times.map do ||
-        row[3] = 1
+      row[1].to_i.times.map do ||
+        row[1] = 1
         issue = Issue.new
         issue.author = user
         issue.notify = false
