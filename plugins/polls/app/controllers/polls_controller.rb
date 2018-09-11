@@ -529,7 +529,7 @@ class PollsController < ApplicationController
     start_time = params[:start_time].to_date
     end_time = params[:end_time].to_date
     @user = User.find_by(login:params[:user_name])
-    name_value = @user.login + "_" + @user.firstname + @user.lastname
+    name_value = @user.login
     issue_ids = CustomValue.where(value:name_value,custom_field_id: 201).pluck(:customized_id)
     @issues = Issue.where(id:issue_ids)
     finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,185,start_time,end_time).pluck(:customized_id)
