@@ -41,6 +41,19 @@
   }
 </style>
 <div style="margin-top: 44px;width: 100%;">
+  <div class="content_div">
+    <h2 style="color:#101010;">在库管理</h2>
+      <%= link_to new_issues_import_path(), class:" pr_a" do%>
+        <div class="list_div">
+        </div>
+        <p>资产入库</p>
+      <% end %>
+      <%= link_to plugin_issues_path(), class:" pr_a" do%>
+        <div class="list_div">
+        </div>
+        <p>库存修改</p>
+      <% end %>
+  </div>
   <% @projects.each do | project| %>
     <div class="content_div">
         <h2 style="color:#101010;"> <%= project.name%> </h2>
@@ -51,18 +64,6 @@
               </div>
               <p><%= pr.name%></p>
             <% end %>
-          <% end %>
-        <% end %>
-        <% if project.id == 15%>
-          <%= link_to new_issues_import_path(), class:" pr_a" do%>
-            <div class="list_div">
-            </div>
-            <p>新规入库</p>
-          <% end %>
-          <%= link_to plugin_issues_path(), class:" pr_a" do%>
-            <div class="list_div">
-            </div>
-            <p>库存修改</p>
           <% end %>
         <% end %>
     </div>

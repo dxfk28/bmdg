@@ -55,8 +55,12 @@
     var issue_id = $(this).attr('name');
     var num = $('.ti_' + issue_id).val();
     var yuan_num = $("#issue-" + issue_id).children(".cf_176").text();
-    var total = parseInt(num) + parseInt(yuan_num)
-    var ret = /^(\-|\+)?\d?$/;
+    if (yuan_num == "") {
+      var total = parseInt(num)
+    }else{
+      var total = parseInt(num) + parseInt(yuan_num)
+    }
+    var ret =  /^[0-9]*$/;
     if(ret.test(num)){
     }else{
         alert('请输入有效的数字');
