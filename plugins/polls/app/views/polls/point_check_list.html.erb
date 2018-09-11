@@ -1,8 +1,10 @@
 <!--请在下方写此页面业务相关的脚本-->
+ 
 	<nav class="breadcrumb"> <%= @project.parent.try(:name)%>
 		<span class="c-gray en">&gt;</span>
 		<%= @project.try(:name) %>
 	</nav>
+	 <% if User.current.allowed_to?(:view_issues, @project) %>
 	<div class="">
 		<article class="cl pd-20">
 			<div class="mt-20">
@@ -37,3 +39,4 @@
 			</div>
 		</article>
 	</div>
+	<% end %>
