@@ -46,7 +46,7 @@ module ImportsHelper
     select_tag name, plugin_options_for_mapping_select(import, field, s_name, options), class:"is_select"
   end
 
-    def plugin_options_for_mapping_select(import, field, s_name, options={})
+  def plugin_options_for_mapping_select(import, field, s_name, options={})
     tags = "".html_safe
     blank_text = options[:required] ? "-- #{l(:actionview_instancetag_blank_option)} --" : "&nbsp;".html_safe
     tags << content_tag('option', blank_text, :value => '')
