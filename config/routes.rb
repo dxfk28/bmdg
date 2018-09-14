@@ -84,6 +84,10 @@ Rails.application.routes.draw do
   match 'my/order_blocks', :controller => 'my', :action => 'order_blocks', :via => :post
 
   resources :users do
+    collection do
+      get :import_new
+      post :import
+    end
     resources :memberships, :controller => 'principal_memberships'
     resources :email_addresses, :only => [:index, :create, :update, :destroy]
   end

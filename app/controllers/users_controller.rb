@@ -175,6 +175,15 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def import_new
+  end
+
+  def import
+    User.import_users(params[:file].path)
+    redirect_to users_path()
+  end
+
   private
 
   def find_user

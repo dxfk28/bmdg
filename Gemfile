@@ -37,6 +37,8 @@ gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin, :jruby]
 gem "rbpdf", "~> 1.19.0"
 # 分页
 gem 'kaminari', '0.16.3'
+# 导出导入excel
+gem 'spreadsheet', '1.1.2'
 
 # Optional gem for LDAP authentication
 group :ldap do

@@ -1,0 +1,17 @@
+<h2><%= '用户导入'%></h2>
+
+<%= form_tag(import_users_path(), :multipart => true) do %>
+  <fieldset class="box">
+    <legend><%= l(:label_select_file_to_import) %> (CSV)</legend>
+    <p>
+      <%= file_field_tag 'file' %>
+    </p>
+  </fieldset>
+  <p><%= submit_tag "导入", :name => nil %></p>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function (argument) {
+    $("#main").css("margin-left","10%")
+    $("#main").css("width","80%")
+  })
+</script>
