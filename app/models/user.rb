@@ -766,7 +766,7 @@ class User < Principal
         else
           user = User.new(:language => 'zh', :mail_notification => Setting.default_notification_option)
           user.admin = false
-          user.login = row[0]
+          user.login = row[0].to_s
           user.firstname = row[1]
           user.lastname = row[2]
           user.mail = row[3]
