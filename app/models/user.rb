@@ -760,6 +760,8 @@ class User < Principal
     Spreadsheet.client_encoding = 'UTF-8'
     book = Spreadsheet.open(filepath)
     sheet = book.worksheet(0)
+    message =''
+    count = 0
     User.transaction do
       sheet.each_with_index do |row, index|
         if index == 0
@@ -774,10 +776,17 @@ class User < Principal
           user.password_confirmation = row[4].to_s
           user.generate_password = "0"
           user.must_change_passwd = '0'
-          raise ActiveRecord::Rollback unless user.save
+          if user.save
+            count = count + 1
+          else
+           message = '导入失败登录名' +user.login
+           raise ActiveRecord::Rollback
+          end
         end
       end
+      message = '成功导入' +count.to_s + '条'
     end
+    message
   end
 
   protected

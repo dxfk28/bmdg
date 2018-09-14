@@ -180,7 +180,8 @@ class UsersController < ApplicationController
   end
 
   def import
-    User.import_users(params[:file].path)
+    message = User.import_users(params[:file].path)
+    flash[:notice] = message
     redirect_to users_path()
   end
 
