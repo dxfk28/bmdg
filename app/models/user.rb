@@ -760,7 +760,7 @@ class User < Principal
     Spreadsheet.client_encoding = 'UTF-8'
     book = Spreadsheet.open(filepath)
     sheet = book.worksheet(0)
-    transaction do
+    User.transaction do
       sheet.each_with_index do |row, index|
         if index == 0
         else
