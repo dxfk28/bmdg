@@ -774,7 +774,6 @@ class User < Principal
           user.password_confirmation = row[4].to_s
           user.generate_password = "0"
           user.must_change_passwd = '0'
-          binding.pry
           user.save
         end
       end
