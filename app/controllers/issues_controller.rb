@@ -113,7 +113,7 @@ class IssuesController < ApplicationController
   end
 
   def add_num
-    cv = CustomValue.find_by(custom_field_id:176,customized_id:params[:id])
+    cv = CustomValue.find_or_create_by(custom_field_id:176,customized_id:params[:id])
     cv.value = params[:num].to_i + cv.value.to_i
     if cv.save
       render json: {"success" => true, "value" => cv.value}
