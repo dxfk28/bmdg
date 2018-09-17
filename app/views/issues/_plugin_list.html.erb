@@ -34,7 +34,7 @@
     <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
     <%= raw query.inline_columns.map {|column| "<td class=\"#{column.css_classes}\">#{column_content(column, issue)}</td>"}.join %>
     <%if params[:c].include?("cf_176")%>
-      <td class="num"><input type="text" name="<%= CustomValue.find_by(custom_field_id:176,customized_id:issue.id).value%>" style="width: 50px; height: 10px;" class="ti_<%= issue.id%>"></td>
+      <td class="num"><input type="text" name="<%= CustomValue.find_by(custom_field_id:176,customized_id:issue.id).try(:value)%>" style="width: 50px; height: 10px;" class="ti_<%= issue.id%>"></td>
       <td class="submit"><input type="button" name="<%= issue.id%>" value="提交" class="tijiao" ></td>
     <% end %>
   </tr>
