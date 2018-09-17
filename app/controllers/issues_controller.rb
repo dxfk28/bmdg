@@ -97,7 +97,7 @@ class IssuesController < ApplicationController
     sort_update(@query.sortable_columns)
     @query.sort_criteria = sort_criteria.to_a
     @limit = per_page_option
-
+    @cf = CustomField.find_by(id:176)
     @issue_count = @query.issue_count
     @issue_pages = Paginator.new @issue_count, @limit, params['page']
     @offset ||= @issue_pages.offset
