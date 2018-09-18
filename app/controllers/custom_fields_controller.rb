@@ -96,6 +96,22 @@ class CustomFieldsController < ApplicationController
     end
   end
 
+  def destroy_all
+    if params[:ids].size > 0
+      begin
+        params[:ids].split(",").each do |i|
+          custom_field = CustomField.find_by(id:i)
+          custom_field.destroy
+        end
+        render json: {"success" => "删除成功"} 
+      rescue Exception => e
+        render json: {"success" => "删除失败"} 
+      end
+    else
+      render json: {"success" => "删除失败"} 
+    end
+  end
+
   private
 
   def build_new_custom_field

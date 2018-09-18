@@ -1,5 +1,6 @@
 <table class="list">
   <thead><tr>
+    <th><input type="checkbox" name="check_all"  class="check_all"></th>
     <th><%=l(:field_name)%></th>
     <th><%=l(:field_field_format)%></th>
     <th><%=l(:field_is_required)%></th>
@@ -14,6 +15,7 @@
   <% (@custom_fields_by_type[tab[:name]] || []).sort.each do |custom_field| -%>
     <% back_url = custom_fields_path(:tab => tab[:name]) %>
     <tr class="<%= cycle("odd", "even") %>">
+      <td><input type="checkbox" name="check_delete" value='<%= custom_field.id%>' class="check"></td>
       <td class="name"><%= link_to custom_field.name, edit_custom_field_path(custom_field) %></td>
       <td><%= l(custom_field.format.label) %></td>
       <td><%= checked_image custom_field.is_required? %></td>
@@ -32,6 +34,7 @@
   <% end; reset_cycle %>
   </tbody>
 </table>
+<input type="button" name="" value="批量删除" class="destroy_all">
 <script type="text/javascript">
   $(".tijiao").on('click',function (argument) {
       from_position = $(this).attr("value");
@@ -44,5 +47,33 @@
           window.location.reload();
         }
       });
+  })
+  $(".check_all").on("change",function (argument) {
+    if ($(".check_all").prop("checked")) {
+      $(".check").prop("checked",'true')
+    }else{
+      $(".check").prop("checked",false)
+    };
+  })
+  $(".destroy_all").on("click",function (argument) {
+    var ids = [];
+    $(".check").each(function (argument) {
+      if ($(this).prop("checked") == true) {
+        ids.push($(this).val());
+      }
+    });
+    if(ids.size == 0){
+      alert('选项不能为空')
+    }else{
+      $.ajax({
+        type: 'get',
+        dataType: "json",
+        url: "/custom_fields/destroy_all?ids=" + ids,
+        success: function(data) {
+          alert(data.success)
+         window.location.reload();
+        }
+      });
+    }
   })
 </script>

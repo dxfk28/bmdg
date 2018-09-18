@@ -324,6 +324,7 @@ Rails.application.routes.draw do
 
     collection do
       get :change_position
+      get :destroy_all
     end
   end
   resources :roles do

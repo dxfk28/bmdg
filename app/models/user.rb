@@ -774,8 +774,6 @@ class User < Principal
           user.mail = row[3]
           user.password = row[4].to_s
           user.password_confirmation = row[4].to_s
-          user.generate_password = "0"
-          user.must_change_passwd = '0'
           if user.save
             count = count + 1
           else
