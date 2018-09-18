@@ -38,7 +38,7 @@
                 </ul>
                <% if User.current.logged? || !Setting.login_required? %>
                     <div id="quick-search" style="display: inline-block;margin-top: 10px;">
-                        <%= form_tag({:controller => 'polls', :action => 'search_index', :id => @project}, :method => :get ) do %>
+                        <%= form_tag({:controller => 'polls', :action => 'search_index', :id => @project}, :method => :post ) do %>
                         <%= hidden_field_tag(controller.default_search_scope, 1, :id => nil) if controller.default_search_scope %>
                         <label for='q'>
                           <%= link_to l(:label_search), {:controller => 'search', :action => 'index', :id => @project}, :accesskey => accesskey(:search), :style => 'color: white;font-size: 13px;' %>:

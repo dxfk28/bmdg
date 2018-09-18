@@ -29,5 +29,6 @@ class WelcomeController < ApplicationController
 
   def home
   	@projects = Project.first_show
+    render :layout => false
   end
 end

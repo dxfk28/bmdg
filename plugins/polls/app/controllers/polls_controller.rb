@@ -1,7 +1,7 @@
 class PollsController < ApplicationController
   # unloadable
   layout "index"
-  before_filter :find_project
+  before_filter :find_project, :except => [:search_index]
   before_filter :check_if_login_required, :except => [:index,:pandian_tubiao]
   before_filter :build_new_issue_from_params, :only => [:point_check_new, :point_check_create]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]

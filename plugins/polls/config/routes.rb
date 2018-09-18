@@ -1,7 +1,7 @@
 # Plugin's routes
 # See: http://guides.rubyonrails.org/routing.html
 RedmineApp::Application.routes.draw do
-  get 'projects/:id/search_index', :controller => 'polls', :action => 'search_index'
+  post 'projects/search_index', :controller => 'polls', :action => 'search_index'
   resources :polls do
   	collection do
        post 'point_check_create'

@@ -467,7 +467,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html {
-        render :template => 'common/error', :layout => use_layout, :status => @status
+        render :template => 'common/error', :layout => false, :status => @status
       }
       format.any { head @status }
     end
