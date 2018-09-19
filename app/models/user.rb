@@ -787,6 +787,40 @@ class User < Principal
     message
   end
 
+  def self.import_users_update(filepath)
+    Spreadsheet.client_encoding = 'UTF-8'
+    book = Spreadsheet.open(filepath)
+    sheet = book.worksheet(0)
+    message =''
+    count = 0
+    User.transaction do
+      sheet.each_with_index do |row, index|
+        if index == 0
+        else
+          user = User.find_by(login:row[0])
+          if user.present?
+            user.firstname = row[1]
+            user.lastname = row[2]
+            user.mail = row[3]
+            user.password = row[4].to_s
+            user.password_confirmation = row[4].to_s
+            if user.save
+              count = count + 1
+            else
+              message = '更新失败登录名' +user.login
+              raise ActiveRecord::Rollback
+            end
+          else
+            message = '更新失败登录名' +user.login
+            raise ActiveRecord::Rollback
+          end
+        end
+      end
+      message = '成功更新' +count.to_s + '条'
+    end
+    message
+  end
+
   protected
 
   def validate_password_length

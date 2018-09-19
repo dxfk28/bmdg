@@ -86,7 +86,9 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get :import_new
+      get :import_update
       post :import
+      post :import_users_update
     end
     resources :memberships, :controller => 'principal_memberships'
     resources :email_addresses, :only => [:index, :create, :update, :destroy]

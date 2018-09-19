@@ -179,8 +179,18 @@ class UsersController < ApplicationController
   def import_new
   end
 
+  def import_update
+    
+  end
+
   def import
     message = User.import_users(params[:file].path)
+    flash[:notice] = message
+    redirect_to users_path()
+  end
+
+  def import_users_update
+    message = User.import_users_update(params[:file].path)
     flash[:notice] = message
     redirect_to users_path()
   end
