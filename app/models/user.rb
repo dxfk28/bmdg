@@ -802,8 +802,6 @@ class User < Principal
             user.firstname = row[1]
             user.lastname = row[2]
             user.mail = row[3]
-            user.password = row[4].to_s
-            user.password_confirmation = row[4].to_s
             if user.save
               count = count + 1
             else
