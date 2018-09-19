@@ -4,8 +4,8 @@ api.array :issues do
 	@no_issues.each do |i|
 	  api.issue do
 		api.id i.id
-		api.code CustomValue.find_by(custom_field_id:174,customized_id:i.id).value
-		api.name CustomValue.find_by(custom_field_id:96,customized_id:i.id).value
+		api.code CustomValue.find_by(custom_field_id:384,customized_id:i.id).value
+		api.name CustomValue.find_by(custom_field_id:1400,customized_id:i.id).value
 	  end
 	end
 end

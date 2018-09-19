@@ -1674,13 +1674,13 @@ class Issue < ActiveRecord::Base
   end
 
   def send_notification
-    num = CustomValue.where(custom_field_id:174).order("value").last.value.to_i
+    num = CustomValue.where(custom_field_id:384).order("value").last.value.to_i
     ii = num + 1
     if self.subject == '-'
       self.subject = "%08d" % ii
       self.save
     end
-    cv = CustomValue.find_by(custom_field_id:174,customized_type:"Issue",customized_id:self.id)
+    cv = CustomValue.find_by(custom_field_id:384,customized_type:"Issue",customized_id:self.id)
     cv.value = "%08d" % ii
     cv.save
     if notify? && Setting.notified_events.include?('issue_added')

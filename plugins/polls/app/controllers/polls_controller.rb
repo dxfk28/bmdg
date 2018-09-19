@@ -238,11 +238,8 @@ class PollsController < ApplicationController
         format.api  { render_api_ok }
       end
     else
-      flash[:notice] = '更新失败' 
-      respond_to do |format|
-        format.html { render :action => 'edit' }
-        format.api  { render_validation_errors(@issue) }
-      end
+      flash[:notice] = @issue.errors.full_messages.join(',')
+      redirect_to edit_poll_path(@issue,project_id:@issue.project_id)
     end
   end
 
@@ -530,7 +527,7 @@ class PollsController < ApplicationController
     end_time = params[:end_time].to_date
     @user = User.find_by(login:params[:user_name])
     name_value = @user.login
-    issue_ids = CustomValue.where(value:name_value,custom_field_id: 201).pluck(:customized_id)
+    issue_ids = CustomValue.where(value:name_value,custom_field_id: 1398).pluck(:customized_id)
     @issues = Issue.where(id:issue_ids)
     finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,185,start_time,end_time).pluck(:customized_id)
     @no_issues = @issues.where.not(id:finish_issue_ids)
@@ -549,7 +546,7 @@ class PollsController < ApplicationController
     Journal.preload_journals_details_custom_fields(@journals)
     @journals.select! {|journal| journal.notes? || journal.visible_details.any?}
     @journals.reverse! if User.current.wants_comments_in_reverse_order?
-    @journal_details = JournalDetail.where(id:@journals.map(&:visible_details).flatten.map{|i| i.id},prop_key:185)
+    @journal_details = JournalDetail.where(id:@journals.map(&:visible_details).flatten.map{|i| i.id},prop_key:1399)
     @journal_details = @journal_details.page(params[:page]).per(20)
   end
 

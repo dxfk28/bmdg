@@ -97,10 +97,10 @@ end %>
     <span>设备位置信息:</span>
   </div>
   <div class="value">
-    <%= CustomValue.find_by(custom_field_id:170,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:171,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:172,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:173,customized_id:@issue.id).try(:value)%>
+    <%= CustomValue.find_by(custom_field_id:1394,customized_id:@issue.id).try(:value)%>
+    <%= CustomValue.find_by(custom_field_id:1395,customized_id:@issue.id).try(:value)%>
+    <%= CustomValue.find_by(custom_field_id:1396,customized_id:@issue.id).try(:value)%>
+    <%= CustomValue.find_by(custom_field_id:1397,customized_id:@issue.id).try(:value)%>
   </div>
 </div>
 <%= call_hook(:view_issues_show_details_bottom, :issue => @issue) %>
