@@ -529,7 +529,7 @@ class PollsController < ApplicationController
     name_value = @user.login
     issue_ids = CustomValue.where(value:name_value,custom_field_id: 1398).pluck(:customized_id)
     @issues = Issue.where(id:issue_ids)
-    finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,185,start_time,end_time).pluck(:customized_id)
+    finish_issue_ids = CustomValue.where("customized_id in (?) and custom_field_id = ? and value >= ? and value <= ?",issue_ids,1399,start_time,end_time).pluck(:customized_id)
     @no_issues = @issues.where.not(id:finish_issue_ids)
     respond_to do |format|
       format.api
