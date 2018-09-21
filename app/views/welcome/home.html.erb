@@ -9,7 +9,7 @@
 <meta name="keywords" content="issue,bug,tracker" />
 <%= csrf_meta_tag %>
 <%= favicon %>
-<%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', 'responsive', :media => 'all' %>
+<%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', 'responsive','animate', :media => 'all' %>
 <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
 <%= javascript_heads %>
 <%= heads_for_theme %>
@@ -65,16 +65,10 @@
     font-size: 15px;
     border-radius: 0px 0px 10px 10px;
   }
-  .list_div:hover {
-  }
-
 </style>
 <body class="<%= body_css_classes %>" style="min-width: 1200px;">
 <div id="wrapper" style="min-width: 1200px;">
-
-<div class="flyout-menu js-flyout-menu">
-
-
+<div class="flyout-menu js-flyout-menu"> 
     <% if User.current.logged? || !Setting.login_required? %>
         <div class="flyout-menu__search">
             <%= form_tag({:controller => 'search', :action => 'index', :id => @project}, :method => :get ) do %>
@@ -217,12 +211,14 @@
     $('#content').css('border','none')
   })
   $(".list_div").on('mouseover',function (argument) {
-    $(this).find('p').css('color','#F03331')
-    $(this).find('.back').css('color','#F03331')
+    $(this).find('p').css('color','#f35626')
+    $(this).find('.back').css('color','#f35626')
+    $(this).addClass('animated pulse')
   })
   $(".list_div").on('mouseout',function (argument) {
     $(this).find('p').css('color','white')
     $(this).find('.back').css('color','white')
+    $(this).removeClass('animated pulse')
   })
 </script>
 </html>
