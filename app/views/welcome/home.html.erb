@@ -66,12 +66,6 @@
     border-radius: 0px 0px 10px 10px;
   }
   .list_div:hover {
-    -webkit-transform: rotate3d(0,1,0,360deg);
-    -moz-transform: rotate3d(0,1,0,360deg);
-    transform: rotate3d(0,1,0,360deg);
-    transition: -webkit-transform 0.8s ease-in-out;
-    transition: -moz-transform 0.8s ease-in-out;
-    transition: transform 0.8s ease-in-out;
   }
 
 </style>
@@ -221,6 +215,14 @@
     $("#main").css('background','none repeat scroll 0 0 rgba(255, 255, 255,0)')
     $('#content').css('background','none repeat scroll 0 0 rgba(255, 255, 255,0)')
     $('#content').css('border','none')
+  })
+  $(".list_div").on('mouseover',function (argument) {
+    $(this).find('p').css('color','#F03331')
+    $(this).find('.back').css('color','#F03331')
+  })
+  $(".list_div").on('mouseout',function (argument) {
+    $(this).find('p').css('color','white')
+    $(this).find('.back').css('color','white')
   })
 </script>
 </html>
