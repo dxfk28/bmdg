@@ -466,6 +466,8 @@ ja:
   label_user: ユーザー
   label_user_plural: ユーザー
   label_user_new: 新しいユーザー
+  label_user_import: 一括導入
+  label_user_update: 一括更新
   label_user_anonymous: 匿名ユーザー
   label_profile: プロフィール
   label_project: プロジェクト
@@ -1195,3 +1197,18 @@ ja:
   label_any_open_issues: 未完了のチケット
   label_no_open_issues: なし または完了したチケット
   label_default_values_for_new_users: 新しいユーザーのデフォルト設定
+  csv_error_message: csvファイルの属性が違います、管理者に連絡してください
+  bmdg_management: BMDG資産管理システム
+  nin_hao: こんにちは
+  zi_ding_yi: カスタムショートカットクエリ
+  label_added_at: が
+  label_added_update: 前に追加.
+  label_added_update_form: が
+  label_added_update_before: 前に更新.
+  views:
+    pagination:
+      first: ファーストページ
+      previous: 前
+      next: 次
+      last: ラストページ
+      truncate: "..."

@@ -90,7 +90,7 @@ button.ui-dialog-titlebar-close{display: none !important;}
 				  </div>
 				</fieldset>
 				<fieldset id="filters" class="collapsible <%= @query.new_record? ? "collapsed" : "" %>">
-				  <legend style="width:auto; border: none; font-size: 15px; margin-bottom: 1px;" onclick="toggleFieldset(this);"><%='自定义快捷查询'%></legend>
+				  <legend style="width:auto; border: none; font-size: 15px; margin-bottom: 1px;" onclick="toggleFieldset(this);"><%= l(:zi_ding_yi)%></legend>
 				  <div style="<%= @query.new_record? ? "display: none;" : "" %> margin-left: 20px;">
 				    <%= render_sidebar_queries %>
 				  </div>
@@ -105,7 +105,7 @@ button.ui-dialog-titlebar-close{display: none !important;}
 				                         :class => 'icon icon-save' %>
 	   			<% end %>
 	   			<img src="/images/add.png">
-	   			<%= link_to "新建", point_check_new_polls_path(project_id:params[:project_id]),class:"icon ",style:"padding-left:0px;"%>
+	   			<%= link_to l(:label_new), point_check_new_polls_path(project_id:params[:project_id]),class:"icon ",style:"padding-left:0px;"%>
 			    </p>
 			  </div>
 			<% end %>

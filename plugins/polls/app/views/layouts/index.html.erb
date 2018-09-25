@@ -29,12 +29,12 @@
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl">
-            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/" style="color: white;">BMDG资产管理系统</a>
+            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/" style="color: white;"><%= l(:bmdg_management)%></a>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs" style="margin-right: 50px;">
                 <ul class="cl" style="display: inline-block;">
-                    <li>您好!<%= User.current.try(:name)%></li>
-                    <li><%= link_to '主页', home_path()%></li>
-                    <li><%= link_to '退出', signout_path(plugin:true)%></li>
+                    <li><%= l(:nin_hao)%>!<%= User.current.try(:name)%></li>
+                    <li><%= link_to l(:field_homepage), home_path()%></li>
+                    <li><%= link_to l(:label_logout), signout_path(plugin:true)%></li>
                 </ul>
                <% if User.current.logged? || !Setting.login_required? %>
                     <div id="quick-search" style="display: inline-block;margin-top: 10px;">

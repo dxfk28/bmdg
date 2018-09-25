@@ -511,6 +511,9 @@ en:
   label_user: User
   label_user_plural: Users
   label_user_new: New user
+  label_user_import: Bulk import
+  label_user_update: Bulk update
+
   label_user_anonymous: Anonymous
   label_project: Project
   label_project_new: New project
@@ -1169,3 +1172,18 @@ en:
   description_date_from: Enter start date
   description_date_to: Enter end date
   text_repository_identifier_info: 'Only lower case letters (a-z), numbers, dashes and underscores are allowed.<br />Once saved, the identifier cannot be changed.'
+  csv_error_message: Wrong CSV file typ. Please contact the administrator
+  bmdg_management: BMDG Asset management system
+  nin_hao: Hello
+  zi_ding_yi: Custom shortcut query
+  label_added_at: Added by
+  label_added_update: ago.
+  label_added_update_form: Updated by
+  label_added_update_before: ago.
+  views:
+    pagination:
+      first: first
+      previous: previous
+      next: next
+      last: last
+      truncate: "..."

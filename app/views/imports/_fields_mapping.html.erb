@@ -82,5 +82,5 @@
   <%= mapping_select_tag @import, 'done_ratio' %>
 </p>
 </div>
-<p class="tishi" style="color: red;font-size: 15px; text-align: left; display: none;">*csv文件属性与系统自定义属性不符，无法导入请联系管理员</p>
+<p class="tishi" style="color: red;font-size: 15px; text-align: left; display: none;"><%= l(:csv_error_message)%></p>
 </div>

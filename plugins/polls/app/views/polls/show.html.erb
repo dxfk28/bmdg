@@ -49,10 +49,10 @@
 <%= render_issue_subject_with_tree(@issue) %>
 </div>
 <p class="author">
-由<%= link_to @issue.author.try(:name),"javascript:void(0);", style:"text-decoration: none;"%>
-在<%= link_to time_tag_plugin(@issue.created_on),'javascript:viod(0);', style:"text-decoration: none;"%>之前添加.
+<%= link_to @issue.author.try(:name),"javascript:void(0);", style:"text-decoration: none;"%>
+<%= l(:label_added_at)%><%= link_to time_tag_plugin(@issue.created_on),'javascript:viod(0);', style:"text-decoration: none;"%><%= l(:label_added_update)%>
 <% if @issue.created_on != @issue.updated_on %>
-更新于<%= link_to distance_of_time_in_words(Time.now, @issue.updated_on), "javascript:void(0);", style:"text-decoration: none;"%>之前.
+<%= l(:label_added_update_form)%><%= link_to distance_of_time_in_words(Time.now, @issue.updated_on), "javascript:void(0);", style:"text-decoration: none;"%><%= l(:label_added_update_before)%>
 <% end %>
 </p>
 

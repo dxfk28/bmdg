@@ -451,6 +451,8 @@ zh:
   label_user: 用户
   label_user_plural: 用户
   label_user_new: 新建用户
+  label_user_import: 批量导入
+  label_user_update: 批量更新
   label_user_anonymous: 匿名用户
   label_project: 管理对象
   label_project_new: 新建管理对象
@@ -1189,6 +1191,15 @@ zh:
   label_any_open_issues: 任意进行中的问题
   label_no_open_issues: 任意已关闭的问题
   label_default_values_for_new_users: 新用户默认值
+  csv_error_message: csv文件属性与系统自定义属性不符，无法导入请联系管理员
+  bmdg_management: BMDG资产管理系统
+  nin_hao: 您好
+  zi_ding_yi: 自定义快捷查询
+  label_added_at: 在
+  label_added_update: 之前添加.
+  label_added_update_form: 更新于
+  label_added_update_before: 之前.
+
 
   views:
     pagination:
