@@ -534,7 +534,7 @@ ja:
   label_activity: 活動
   label_overall_activity: すべての活動
   label_user_activity: "%{value} の活動"
-  label_new: 新しく作成
+  label_new: 新規
   label_logged_as: ログイン中：
   label_environment: 環境
   label_authentication: 認証
@@ -691,7 +691,7 @@ ja:
   label_preview: プレビュー
   label_feed_plural: フィード
   label_changes_details: 全変更の詳細
-  label_issue_tracking: チケットトラッキング
+  label_issue_tracking: 資産種類
   label_spent_time: 作業時間
   label_overall_spent_time: すべての作業時間
   label_f_hour: "%{value}時間"
@@ -874,7 +874,7 @@ ja:
   status_registered: 登録
   status_locked: ロック
 
-  version_status_open: 進行中
+  version_status_open: 使用中
   version_status_locked: ロック中
   version_status_closed: 終了
 
@@ -957,7 +957,7 @@ ja:
   default_issue_status_in_progress: 進行中
   default_issue_status_resolved: 解決
   default_issue_status_feedback: フィードバック
-  default_issue_status_closed: 終了
+  default_issue_status_closed: 廃棄済み
   default_issue_status_rejected: 却下
   default_doc_category_user: ユーザー文書
   default_doc_category_tech: 技術文書
@@ -1199,7 +1199,7 @@ ja:
   label_default_values_for_new_users: 新しいユーザーのデフォルト設定
   csv_error_message: csvファイルの属性が違います、管理者に連絡してください
   bmdg_management: BMDG資産管理システム
-  nin_hao: こんにちは
+  nin_hao: ようこそ
   zi_ding_yi: カスタムショートカットクエリ
   label_added_at: が
   label_added_update: 前に追加.

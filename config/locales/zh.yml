@@ -673,7 +673,7 @@ zh:
   label_preview: 预览
   label_feed_plural: Feeds
   label_changes_details: 所有变更的详情
-  label_issue_tracking: 数据跟踪
+  label_issue_tracking: 资产分类
   label_spent_time: 耗时
   label_overall_spent_time: 总体耗时
   label_f_hour: "%{value} 小时"
@@ -850,7 +850,7 @@ zh:
   status_registered: 已注册
   status_locked: 已锁定
 
-  version_status_open: 打开
+  version_status_open: 使用中
   version_status_locked: 锁定
   version_status_closed: 关闭
 
@@ -924,7 +924,7 @@ zh:
   default_issue_status_in_progress: 进行中
   default_issue_status_resolved: 已解决
   default_issue_status_feedback: 反馈
-  default_issue_status_closed: 已关闭
+  default_issue_status_closed: 已废弃
   default_issue_status_rejected: 已拒绝
   default_doc_category_user: 用户文档
   default_doc_category_tech: 技术文档
