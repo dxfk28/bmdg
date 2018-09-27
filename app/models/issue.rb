@@ -139,6 +139,18 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def self.add_subject
+    Issue.all.each do |i|
+      if i.subject.size < 9
+        i.subject = "DG" + "%010d" % i.id
+        i.save
+      end
+      cv = CustomValue.find_by(customized_type:"Issue",customized_id:i.id,custom_field_id:384)
+      cv.value = i.subject
+      cv.save
+    end
+  end
+
   # Returns true if usr or current user is allowed to view the issue
   def visible?(usr=nil)
     (usr || User.current).allowed_to?(:view_issues, self.project) do |role, user|
@@ -1674,16 +1686,16 @@ class Issue < ActiveRecord::Base
   end
 
   def send_notification
-    ii = self.id.to_i
-    if self.subject == '-'
-      self.subject = "%08d" % ii
-      self.save
-    end
-    cv = CustomValue.find_by(custom_field_id:384,customized_type:"Issue",customized_id:self.id)
-    if cv.present?
-      cv.value = "%08d" % ii
-      cv.save
-    end
+    # ii = self.id.to_i
+    # if self.subject == '-'
+    #   self.subject = "%08d" % ii
+    #   self.save
+    # end
+    # cv = CustomValue.find_by(custom_field_id:384,customized_type:"Issue",customized_id:self.id)
+    # if cv.present?
+    #   cv.value = "%08d" % ii
+    #   cv.save
+    # end
     if notify? && Setting.notified_events.include?('issue_added')
       Mailer.deliver_issue_add(self)
     end
