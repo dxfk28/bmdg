@@ -97,7 +97,7 @@ class IssuesController < ApplicationController
     sort_update(@query.sortable_columns)
     @query.sort_criteria = sort_criteria.to_a
     @limit = per_page_option
-    @cf = CustomField.find_by(id:176)
+    @cf = CustomField.find_by(id:1401)
     @issue_count = @query.issue_count
     @issue_pages = Paginator.new @issue_count, @limit, params['page']
     @offset ||= @issue_pages.offset
@@ -113,7 +113,7 @@ class IssuesController < ApplicationController
   end
 
   def add_num
-    cv = CustomValue.find_or_create_by(custom_field_id:176,customized_id:params[:id])
+    cv = CustomValue.find_or_create_by(custom_field_id:1401,customized_id:params[:id])
     cv.value = params[:num].to_i + cv.value.to_i
     if cv.save
       render json: {"success" => true, "value" => cv.value}
