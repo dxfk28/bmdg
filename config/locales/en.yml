@@ -1180,6 +1180,7 @@ en:
   label_added_update: ago.
   label_added_update_form: Updated by
   label_added_update_before: ago.
+  lv_li: history
   views:
     pagination:
       first: first

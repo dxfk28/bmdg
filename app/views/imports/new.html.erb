@@ -7,11 +7,19 @@
       <%= file_field_tag 'file' %>
     </p>
   </fieldset>
-  <p><%= submit_tag l(:label_next).html_safe + " &#187;".html_safe, :name => nil %></p>
+  <p><%= submit_tag l(:label_next).html_safe + " &#187;".html_safe, :name => nil, :class=> 'yanzheng' %></p>
 <% end %>
 <script type="text/javascript">
 	$(document).ready(function (argument) {
 		$("#main").css("margin-left","10%")
 		$("#main").css("width","80%")
 	})
+  $(".yanzheng").on('click',function (argument) {
+    var file = $('#file').val();
+    var leixing = file.substring(file.lastIndexOf("."), file.length).toUpperCase();
+    if (leixing != '.CSV') {
+      alert('文件类型需为csv')
+      return false;
+    }
+  })
 </script>

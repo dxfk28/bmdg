@@ -1199,8 +1199,7 @@ zh:
   label_added_update: 之前添加.
   label_added_update_form: 更新于
   label_added_update_before: 之前.
-
-
+  lv_li: 履历.
   views:
     pagination:
       first: 首页

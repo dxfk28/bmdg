@@ -44,10 +44,9 @@ class ImportsController < ApplicationController
   end
 
   def settings
-    if request.post? && @import.parse_file
-      redirect_to import_mapping_path(@import)
-    end
-
+  if request.post? && @import.parse_file
+    redirect_to import_mapping_path(@import)
+  end
   rescue CSV::MalformedCSVError => e
     flash.now[:error] = l(:error_invalid_csv_file_or_settings)
   rescue ArgumentError, Encoding::InvalidByteSequenceError => e

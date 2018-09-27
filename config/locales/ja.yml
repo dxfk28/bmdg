@@ -1205,6 +1205,7 @@ ja:
   label_added_update: 前に追加.
   label_added_update_form: が
   label_added_update_before: 前に更新.
+  lv_li: 履歴.
   views:
     pagination:
       first: ファーストページ

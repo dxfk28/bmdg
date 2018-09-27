@@ -22,11 +22,17 @@
       <%= select_tag 'import_settings[date_format]', options_for_select(date_format_options, @import.settings['date_format']) %>
     </p>
   </fieldset>
-  <p><%= submit_tag l(:label_next).html_safe + " &#187;".html_safe, :name => nil %></p>
+  <p><%= submit_tag l(:label_next).html_safe + " &#187;".html_safe, :name => nil, :class=>'yanzheng' %></p>
 <% end %>
 <script type="text/javascript">
   $(document).ready(function (argument) {
     $("#main").css("margin-left","10%")
     $("#main").css("width","80%")
+  })
+  $('.yanzheng').on('click',function (argument) {
+    if ($("#import_settings_encoding").val() != 'GB18030') {
+      alert('编码需要为GB18030')
+      return false
+    }
   })
 </script>
