@@ -1181,6 +1181,9 @@ en:
   label_added_update_form: Updated by
   label_added_update_before: ago.
   lv_li: history
+  ru_ku_num: Quantity of warehousing
+  ti_jiao: Submit
+  cao_zuo: Operate
   views:
     pagination:
       first: first

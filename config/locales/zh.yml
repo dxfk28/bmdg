@@ -1200,6 +1200,9 @@ zh:
   label_added_update_form: 更新于
   label_added_update_before: 之前.
   lv_li: 履历.
+  ru_ku_num: 入库数量
+  ti_jiao: 提交
+  cao_zuo: 操作
   views:
     pagination:
       first: 首页

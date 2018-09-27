@@ -113,7 +113,7 @@ class IssuesController < ApplicationController
   end
 
   def add_num
-    cv = CustomValue.find_or_create_by(custom_field_id:1401,customized_id:params[:id])
+    cv = CustomValue.find_or_create_by(custom_field_id:1401,customized_id:params[:id],customized_type:'Issue')
     cv.value = params[:num].to_i + cv.value.to_i
     if cv.save
       render json: {"success" => true, "value" => cv.value}
@@ -225,8 +225,6 @@ class IssuesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_back_or_default issue_path(@issue) }
-        # format.api  { render_api_ok }
-        # format.api  { render :action => 'show', :status => :created, :location => issue_url(@issue) }
         format.api  { render :action => 'show_1', :status => :created, :location => issue_url(@issue) }
       end
     else

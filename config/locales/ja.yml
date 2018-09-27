@@ -1206,6 +1206,9 @@ ja:
   label_added_update_form: が
   label_added_update_before: 前に更新.
   lv_li: 履歴.
+  ru_ku_num: 入庫数
+  ti_jiao: 送信
+  cao_zuo: 操作
   views:
     pagination:
       first: ファーストページ
