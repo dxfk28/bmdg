@@ -11,7 +11,7 @@
       <% query.inline_columns.each do |column| %>
         <%= column_header(column) %>
       <% end %>
-    <%if params[:c].include?("cf_1401") && @cf.trackers.pluck(:id).include?(params[:v][:tracker_id][0].to_i) && @cf.projects.pluck(:id).include?(params[:v][:project_id][0].to_i) && params[:v][:tracker_id].size == 1 && params[:v][:project_id].size == 1 %>
+    <%if params[:c].include?("cf_1401") %>
         <th><a href="###"><%= l(:ru_ku_num)%></a></th>
         <th><a href="###"><%= l(:cao_zuo)%></a></th>
       <% end %>
@@ -34,7 +34,7 @@
     <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
     <%= raw query.inline_columns.map {|column| 
       "<td class=\"#{column.css_classes}\">#{column_content(column, issue)}</td>"}.join %>
-    <%if params[:c].include?("cf_1401") && @cf.trackers.pluck(:id).include?(params[:v][:tracker_id][0].to_i) && @cf.projects.pluck(:id).include?(params[:v][:project_id][0].to_i) && params[:v][:tracker_id].size == 1 && params[:v][:project_id].size == 1 %>
+    <%if params[:c].include?("cf_1401") %>
       <td class="num"><input type="text" name="<%= CustomValue.find_by(custom_field_id:1401,customized_id:issue.id).try(:value)%>" style="width: 50px; height: 10px;" class="ti_<%= issue.id%>"></td>
       <td class="submit"><input type="button" name="<%= issue.id%>" value="<%= l(:ti_jiao)%>" class="tijiao" ></td>
     <% end %>
