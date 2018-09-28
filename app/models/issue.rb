@@ -140,7 +140,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.add_subject(num)
-    Issue.where("id > ? and id < ?",num,num.to_i + 3000).all.each do |i|
+    Issue.where("id > ? and id < ?",num,num.to_i + 1000).all.each do |i|
       if i.subject.size < 9
         i.subject = "DG" + "%010d" % i.id
         i.save
