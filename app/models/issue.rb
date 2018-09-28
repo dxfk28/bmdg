@@ -139,14 +139,14 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  def self.add_subject
-    Issue.all.each do |i|
+  def self.add_subject(num)
+    Issue.where("id > ? and id < ?",num,num.to_i + 3000).all.each do |i|
       if i.subject.size < 9
         i.subject = "DG" + "%010d" % i.id
         i.save
       end
-      cv = CustomValue.find_by(customized_type:"Issue",customized_id:i.id,custom_field_id:384)
-      cv.value = i.subject
+      cv = CustomValue.find_by(customized_id:i.id,custom_field_id:384)
+      cv.value=i.subject
       cv.save
     end
   end
