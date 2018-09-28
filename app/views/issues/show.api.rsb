@@ -1,7 +1,7 @@
 api.issue do
   api.id @issue.id
   api.projects(
-    @issue.allowed_target_projects(@user).select(:name,:id)
+    Project.where(id:@project_ids).second_show.sorted.select(:name,:id)
   )
   api.project(:id => @issue.project_id, :name => @issue.project.name) unless @issue.project.nil?
   api.tracker(:id => @issue.tracker_id, :name => @issue.tracker.name) unless @issue.tracker.nil?
