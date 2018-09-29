@@ -244,7 +244,7 @@ en:
   field_updated_on: Updated
   field_closed_on: Closed
   field_field_format: Format
-  field_is_for_all: For all projects
+  field_is_for_all: For all departments
   field_possible_values: Possible values
   field_regexp: Regular expression
   field_min_length: Minimum length
@@ -252,7 +252,7 @@ en:
   field_value: Value
   field_category: Category
   field_title: Title
-  field_project: Project
+  field_project: Department
   field_issue: Issue
   field_status: Status
   field_notes: Notes
@@ -519,9 +519,9 @@ en:
   label_project_new: New project
   label_project_plural: Projects
   label_x_projects:
-    zero:  no projects
-    one:   1 project
-    other: "%{count} projects"
+    zero:  no departments
+    one:   1 departments
+    other: "%{count} departments"
   label_project_all: All Projects
   label_project_latest: Latest projects
   label_issue: Issue
@@ -573,7 +573,7 @@ en:
   label_home: Home
   label_my_page: My page
   label_my_account: My account
-  label_my_projects: My projects
+  label_my_projects: My departments
   label_my_page_block: My page block
   label_administration: Administration
   label_login: Sign in

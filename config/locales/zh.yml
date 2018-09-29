@@ -241,7 +241,7 @@ zh:
   field_created_on: 创建于
   field_updated_on: 更新于
   field_field_format: 格式
-  field_is_for_all: 用于所有项目
+  field_is_for_all: 用于所有部门
   field_possible_values: 可能的值
   field_regexp: 正则表达式
   field_min_length: 最小长度
@@ -249,7 +249,7 @@ zh:
   field_value: 值
   field_category: 类别
   field_title: 标题
-  field_project: 项目
+  field_project: 部门
   field_issue: 问题
   field_status: 状态
   field_notes: 说明
@@ -458,9 +458,9 @@ zh:
   label_project_new: 新建管理对象
   label_project_plural: 管理对象
   label_x_projects:
-    zero:  无项目
-    one:   1 个项目
-    other: "%{count} 个项目"
+    zero:  无部门
+    one:   1 个部门
+    other: "%{count} 个部门"
   label_project_all: 所有的项目
   label_project_latest: 最近的项目
   label_issue: 数据
@@ -505,7 +505,7 @@ zh:
   label_home: 主页
   label_my_page: 我的工作台
   label_my_account: 我的帐号
-  label_my_projects: 我的项目
+  label_my_projects: 我的部门
   label_my_page_block: 我的工作台模块
   label_administration: 管理
   label_login: 登录

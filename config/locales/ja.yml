@@ -247,7 +247,7 @@ ja:
   field_created_on: 作成日
   field_updated_on: 更新日
   field_field_format: 書式
-  field_is_for_all: 全プロジェクト向け
+  field_is_for_all: 全部門向け
   field_possible_values: 選択肢
   field_regexp: 正規表現
   field_min_length: 最短長
@@ -255,7 +255,7 @@ ja:
   field_value: 値
   field_category: カテゴリ
   field_title: タイトル
-  field_project: プロジェクト
+  field_project: 部門
   field_issue: チケット
   field_status: ステータス
   field_notes: 注記
@@ -474,9 +474,9 @@ ja:
   label_project_new: 新しいプロジェクト
   label_project_plural: プロジェクト
   label_x_projects:
-    zero:  プロジェクトはありません
-    one:   1プロジェクト
-    other: "%{count}プロジェクト"
+    zero:  部門はありません
+    one:   1部門
+    other: "%{count}部門"
   label_project_all: 全プロジェクト
   label_project_latest: 最近のプロジェクト
   label_issue: チケット
@@ -521,7 +521,7 @@ ja:
   label_home: ホーム
   label_my_page: マイページ
   label_my_account: 個人設定
-  label_my_projects: マイプロジェクト
+  label_my_projects: 自分の部門
   label_my_page_block: マイページパーツ
   label_administration: 管理
   label_login: ログイン
