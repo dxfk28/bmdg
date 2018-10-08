@@ -510,7 +510,8 @@ zh:
   label_administration: 管理
   label_login: 登录
   label_logout: 退出
-  label_help: 帮助
+  #label_help: 帮助
+  label_help: APP下载
   label_reported_issues: 已报告的问题
   label_assigned_to_me_issues: 指派给我的问题
   label_last_login: 最后登录

@@ -578,7 +578,8 @@ en:
   label_administration: Administration
   label_login: Sign in
   label_logout: Sign out
-  label_help: Help
+  #label_help: Help
+  label_help: APP Download
   label_reported_issues: Reported issues
   label_assigned_issues: Assigned issues
   label_assigned_to_me_issues: Issues assigned to me

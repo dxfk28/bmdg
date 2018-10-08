@@ -526,7 +526,8 @@ ja:
   label_administration: 管理
   label_login: ログイン
   label_logout: ログアウト
-  label_help: ヘルプ
+  #label_help: ヘルプ
+  label_help: APPダウンロード
   label_reported_issues: 報告したチケット
   label_assigned_to_me_issues: 担当しているチケット
   label_last_login: 最近の接続
