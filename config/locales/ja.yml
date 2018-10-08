@@ -1210,6 +1210,8 @@ ja:
   ru_ku_num: 入庫数
   ti_jiao: 送信
   cao_zuo: 操作
+  xin_ruku: 新しい資産入庫
+  yiyou_ruku: 既存資産種類入庫
   views:
     pagination:
       first: ファーストページ

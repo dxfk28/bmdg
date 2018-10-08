@@ -1204,6 +1204,8 @@ zh:
   ru_ku_num: 入库数量
   ti_jiao: 提交
   cao_zuo: 操作
+  xin_ruku: 新资产入库
+  yiyou_ruku: 已有资产种类入库
   views:
     pagination:
       first: 首页

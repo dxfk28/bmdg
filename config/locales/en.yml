@@ -1185,6 +1185,8 @@ en:
   ru_ku_num: Quantity of warehousing
   ti_jiao: Submit
   cao_zuo: Operate
+  xin_ruku: New assets warehousing
+  yiyou_ruku: Storage of existing assets
   views:
     pagination:
       first: first
