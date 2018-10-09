@@ -37,8 +37,7 @@ class PollsController < ApplicationController
   end
 
   def index
-    custom_value = CustomValue.where(value:params[:issue_code]).first
-    @issue = Issue.find_by(id:custom_value.try(:customized_id))
+    @issue = Issue.find_by(subject:params[:issue_code])
     if @issue.present?
       @journals = @issue.journals.includes(:user, :details).
                       references(:user, :details).

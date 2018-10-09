@@ -37,7 +37,7 @@
                   </div>
                 <% end %>
                 <% end %>
-                <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
+                <%= render_notes(@issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
                 </div>
               </div>
         <% end %>
