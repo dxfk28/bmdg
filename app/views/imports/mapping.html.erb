@@ -24,7 +24,7 @@
 
   <p>
     <%= button_tag("\xc2\xab " + l(:label_previous), :name => 'previous') %>
-    <%= submit_tag l(:button_import), :name => 'submit', :class => 'anniu' %>
+    <%= submit_tag l(:button_import), :name => 'submit', :class => 'anniu', :style => "display:none;" %>
   </p>
 <% end %>
 <script type="text/javascript">
@@ -32,17 +32,20 @@
     $("#main").css("margin-left","10%")
     $("#main").css("width","80%")
   })
-  var not_use = false
+  var not_use = 0
   $(".is_select").each(function (){
     if($(this).val()==""){
       $(this).prev().css("color","red");
-      not_use = true;
-    }
-    if(not_use){
-      $(".tishi").show();
-      // $(".anniu").hide();
+      not_use = not_use + 1;
     }
   })
+  if(not_use == 0){
+    $(".tishi").hide();
+    $(".anniu").show();
+  }else{
+    $(".tishi").show();
+    $(".anniu").hide();
+  }
 </script>
 
 
@@ -54,17 +57,20 @@ $(document).ready(function() {
       type: 'post',
       data: $('#import-form').serialize(),
       success:function(){
-         var not_use = false
+          var not_use = 0
           $(".is_select").each(function (){
             if($(this).val()==""){
               $(this).prev().css("color","red");
-              not_use = true;
-            }
-            if(not_use){
-              $(".tishi").show();
-              $(".anniu").hide();
+              not_use = not_use + 1;
             }
           })
+          if(not_use == 0){
+            $(".tishi").hide();
+            $(".anniu").show();
+          }else{
+            $(".tishi").show();
+            $(".anniu").hide();
+        }
       }
     });
   });
