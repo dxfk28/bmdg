@@ -555,6 +555,7 @@ class Issue < ActiveRecord::Base
     end
   end
 
+
   # Returns the custom fields that can be edited by the given user
   def editable_custom_fields(user=nil)
     editable_custom_field_values(user).map(&:custom_field).uniq

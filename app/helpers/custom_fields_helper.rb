@@ -146,11 +146,12 @@ module CustomFieldsHelper
   end
 
   # Renders the custom_values in api views
-  def render_api_custom_values(custom_values, api,role_ids,tracker_id,old_status_id)
+  def render_api_custom_values(custom_values, api,role_ids,tracker_id,old_status_id,user)
     api.array :custom_fields do
       custom_values.each do |custom_value|
         custom_field = custom_value.custom_field
-        rule = WorkflowPermission.where(field_name:custom_field.id,tracker_id:tracker_id,old_status_id:old_status_id,role_id:role_ids).pluck(:rule)
+        role_ids = user.roles_for_project(custom_value.customized.project).pluck(:id)
+        rule = WorkflowPermission.where(field_name:custom_field.id,tracker_id:tracker_id,old_status_id:old_status_id,role_id:role_ids).pluck(:rule).uniq
         can_edit = rule.include?('readonly') ? false : true
         attrs = {:id => custom_value.custom_field_id, :name => custom_field.name,
           :is_mobile => custom_field.is_mobile, :is_check => custom_field.is_check, 
