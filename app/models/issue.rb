@@ -596,7 +596,6 @@ class Issue < ActiveRecord::Base
   #   issue.workflow_rule_by_attribute # => {'due_date' => 'required', 'start_date' => 'readonly'}
   def workflow_rule_by_attribute(user=nil)
     return @workflow_rule_by_attribute if @workflow_rule_by_attribute && user.nil?
-
     user_real = user || User.current
     roles = user_real.admin ? Role.all.to_a : user_real.roles_for_project(project)
     roles = roles.select(&:consider_workflow?)
