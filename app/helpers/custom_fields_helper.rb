@@ -152,7 +152,8 @@ module CustomFieldsHelper
         custom_field = custom_value.custom_field
         if user.present? && user.admin?
            can_edit = true
-        elsif user.present? && member = Member.where(user_id:user.id,project_id:custom_value.customized.project_id).present?
+        elsif user.present? && Member.where(user_id:user.id,project_id:custom_value.customized.project_id).present?
+          member = Member.where(user_id:user.id,project_id:custom_value.customized.project_id).first
           role_ids = member.roles.pluck(:id)
           rule = WorkflowPermission.where(field_name:custom_field.id,tracker_id:tracker_id,old_status_id:old_status_id,role_id:role_ids).pluck(:rule).uniq
           can_edit = rule.include?('readonly') ? false : true
