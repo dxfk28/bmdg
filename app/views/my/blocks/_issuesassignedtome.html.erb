@@ -1,7 +1,7 @@
 <% assigned_issues = issuesassignedtome_items %>
 <h3>
   <%= link_to l(:label_assigned_to_me_issues),
-        issues_path(:set_filter => 1, :assigned_to_id => 'me', :sort => 'priority:desc,updated_on:desc') %>
+       point_check_index_polls_path(:set_filter => 1, :assigned_to_id => 'me', :sort => 'priority:desc,updated_on:desc') %>
   (<%= assigned_issues.limit(nil).count %>)
 </h3>
 

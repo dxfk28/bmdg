@@ -149,7 +149,9 @@ class MyController < ApplicationController
     @block_options = []
     BLOCKS.each do |k, v|
       unless @blocks.values.flatten.include?(k)
-        @block_options << [l("my.blocks.#{v}", :default => [v, v.to_s.humanize]), k.dasherize]
+        if ['issuesassignedtome','issuesreportedbyme','issueswatched'].include?(k)
+          @block_options << [l("my.blocks.#{v}", :default => [v, v.to_s.humanize]), k.dasherize]
+        end
       end
     end
   end

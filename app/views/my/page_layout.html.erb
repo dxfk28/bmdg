@@ -39,3 +39,8 @@
 <%= javascript_tag "initMyPageSortable('right', '#{ escape_javascript url_for(:action => "order_blocks", :group => "right") }');" %>
 
 <% html_title(l(:label_my_page)) -%>
+<script type="text/javascript">
+  $(document).ready(function (argument) {
+    $("#quick-search").hide();
+  })
+</script>
