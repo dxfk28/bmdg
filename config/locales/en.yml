@@ -1187,6 +1187,8 @@ en:
   cao_zuo: Operate
   xin_ruku: New assets warehousing
   yiyou_ruku: Storage of existing assets
+  zai_ku_guan_li: Inventory Management
+  logo_yu: BMDG asset management system
   views:
     pagination:
       first: first

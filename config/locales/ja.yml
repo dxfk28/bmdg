@@ -1212,6 +1212,8 @@ ja:
   cao_zuo: 操作
   xin_ruku: 新資産入庫
   yiyou_ruku: 既存資産種類入庫
+  zai_ku_guan_li: 在庫管理
+  logo_yu: BMDG資産管理システム
   views:
     pagination:
       first: ファーストページ
