@@ -1353,7 +1353,7 @@ module ApplicationHelper
 
   # Returns the path to the favicon
   def favicon_path
-    icon = (current_theme && current_theme.favicon?) ? current_theme.favicon_path : '/favicon.ico'
+    icon = (current_theme && current_theme.favicon?) ? current_theme.favicon_path : '/logo.png'
     image_path(icon)
   end
 

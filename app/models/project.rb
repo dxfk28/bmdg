@@ -144,6 +144,20 @@ class Project < ActiveRecord::Base
     super unless identifier_frozen?
   end
 
+  def language_name
+    if User.current.present?
+      if User.current.language == 'en'
+        en_name
+      elsif User.current.language == 'ja'
+        ja_name
+      else
+        name
+      end
+    else
+      name
+    end
+  end
+
   def identifier_frozen?
     errors[:identifier].blank? && !(new_record? || identifier.blank?)
   end

@@ -2,7 +2,9 @@
 
 <div class="box tabular">
 <!--[form:project]-->
-<p><%= f.text_field :name, :required => true, :size => 60 %></p>
+<p>中文名称<%= f.text_field :name, :required => true, :size => 60 %></p>
+<p>日文名称<%= f.text_field :ja_name, :required => true, :size => 60 %></p>
+<p>英文名称<%= f.text_field :en_name, :required => true, :size => 60 %></p>
 
 <p><%= f.text_area :description, :rows => 8, :class => 'wiki-edit' %></p>
 <p><%= f.text_field :identifier, :required => true, :size => 60, :disabled => @project.identifier_frozen?, :maxlength => Project::IDENTIFIER_MAX_LENGTH %>
