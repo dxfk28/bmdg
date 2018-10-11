@@ -65,7 +65,7 @@
                         <% if project.children.present? %>
                             <% project.children.second_show.sorted.each_with_index do |pr, index| %>
                                 <li class="<%= pr.id == params[:project_id].to_i ? 'current' : '' %>">
-                                   <%= link_to pr.name, point_check_list_polls_path(project_id:pr.id)%>
+                                   <%= link_to pr.language_name, point_check_list_polls_path(project_id:pr.id)%>
                                 </li>
                             <% end %>
                         <% end %>

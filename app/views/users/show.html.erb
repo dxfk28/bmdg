@@ -26,10 +26,10 @@
 <h3><%=l(:label_issue_plural)%></h3>
 <ul>
   <li><%= link_to l(:label_assigned_issues),
-        issues_path(:set_filter => 1, :assigned_to_id => @user.id, :sort => 'priority:desc,updated_on:desc') %>:
+        point_check_index_polls_path(:set_filter => 1, :assigned_to_id => @user.id, :sort => 'priority:desc,updated_on:desc') %>:
       <%= Issue.visible.open.assigned_to(@user).count %>
   <li><%= link_to l(:label_reported_issues),
-        issues_path(:set_filter => 1, :status_id => '*', :author_id => @user.id) %>:
+        point_check_index_polls_path(:set_filter => 1, :status_id => '*', :author_id => @user.id) %>:
       <%= Issue.visible.where(:author_id => @user.id).count %>
 </ul>
 
@@ -37,7 +37,7 @@
 <h3><%=l(:label_project_plural)%></h3>
 <ul>
 <% for membership in @memberships %>
-  <li><%= link_to_project(membership.project) %>
+  <li><%= link_to membership.project.language_name,point_check_list_polls_path(project_id:membership.project.id) %>
     (<%= membership.roles.sort.collect(&:to_s).join(', ') %>, <%= format_date(membership.created_on) %>)</li>
 <% end %>
 </ul>
@@ -79,3 +79,8 @@
 </div>
 
 <% html_title @user.name %>
+<script type="text/javascript">
+  $(document).ready(function (argument) {
+    $("#quick-search").hide();
+  })
+</script>

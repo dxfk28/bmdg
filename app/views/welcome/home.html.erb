@@ -30,9 +30,9 @@
     height: 100px;
     display: inline-block;
     background-color: #313539;
-    position: relative;
-    z-index: 1;
+    float: left;
     border-radius: 10px 10px 10px 10px;
+    position: relative;
   }
   .content_div a{
     text-align: center;
@@ -42,11 +42,14 @@
   }
   .content_div p{
     font-family: monospace;
-    line-height: 70px;
     color: white;
     font-weight: bold;
     font-size: 16px;
-    text-align: center;
+    position: absolute;
+    width: 150px;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,-50%);
   }
   h2{
     color:white;
@@ -171,7 +174,7 @@
                   <% project.children.second_show.sorted.each do |pr| %>
                     <%= link_to point_check_list_polls_path(project_id:pr.id), class:" pr_a" do%>
                       <div class="list_div">
-                        <p><%= pr.language_name%></p>  
+                        <p><%= pr.language_name%></p>
                       </div>
                     <% end %>
                   <% end %>

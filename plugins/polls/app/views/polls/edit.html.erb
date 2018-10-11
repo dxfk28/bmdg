@@ -1,7 +1,7 @@
 
-<nav class="breadcrumb"> <%= @issue.project.try(:parent).try(:name)%>
+<nav class="breadcrumb"> <%= @issue.project.try(:parent).try(:language_name)%>
 	<span class="c-gray en">&gt;</span>
-	<%= @issue.project.try(:name) %>
+	<%= @issue.project.try(:language_name) %>
 	<span class="c-gray en">&gt;</span>
 	<%= @issue.tracker.try(:name) %>
 	<span class="c-gray en">&gt;</span>

@@ -1,8 +1,8 @@
 <!--请在下方写此页面业务相关的脚本-->
  
-	<nav class="breadcrumb"> <%= @project.parent.try(:name)%>
+	<nav class="breadcrumb"> <%= @project.parent.try(:language_name)%>
 		<span class="c-gray en">&gt;</span>
-		<%= @project.try(:name) %>
+		<%= @project.try(:language_name) %>
 	</nav>
 	 <% if User.current.allowed_to?(:view_issues, @project) %>
 	<div class="">
