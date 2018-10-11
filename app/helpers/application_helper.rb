@@ -143,9 +143,9 @@ module ApplicationHelper
   #
   def link_to_project(project, options={}, html_options = nil)
     if project.archived?
-      h(project.name)
+      h(project.language_name)
     else
-      link_to project.name,
+      link_to project.language_name,
         project_url(project, {:only_path => true}.merge(options)),
         html_options
     end
@@ -154,11 +154,11 @@ module ApplicationHelper
   # Generates a link to a project settings if active
   def link_to_project_settings(project, options={}, html_options=nil)
     if project.active?
-      link_to project.name, settings_project_path(project, options), html_options
+      link_to project.language_name, settings_project_path(project, options), html_options
     elsif project.archived?
-      h(project.name)
+      h(project.language_name)
     else
-      link_to project.name, project_path(project, options), html_options
+      link_to project.language_name, project_path(project, options), html_options
     end
   end
 
@@ -324,7 +324,7 @@ module ApplicationHelper
         end
         classes = (ancestors.empty? ? 'root' : 'child')
         s << "<li class='#{classes}'><div class='#{classes}'>"
-        s << h(block_given? ? capture(project, &block) : project.name)
+        s << h(block_given? ? capture(project, &block) : project.language_name)
         s << "</div>\n"
         ancestors << project
       end
@@ -571,7 +571,7 @@ module ApplicationHelper
   def html_title(*args)
     if args.empty?
       title = @html_title || []
-      title << @project.name if @project
+      title << @project.language_name if @project
       title << Setting.app_title unless Setting.app_title == title.last
       title.reject(&:blank?).join(' - ')
     else

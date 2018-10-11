@@ -48,7 +48,7 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   def test_update
-    assert_equal "eCookbook", @jsmith.project.name
+    assert_equal "eCookbook", @jsmith.project.language_name
     assert_equal "Manager", @jsmith.roles.first.name
     assert_equal "jsmith", @jsmith.user.login
 

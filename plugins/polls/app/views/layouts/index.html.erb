@@ -59,7 +59,7 @@
     <div class="menu_dropdown bk_2">
         <% Project.first_show.each do |project|%>
             <dl id="menu-<%= project.id%>">
-                <dt class="<%= project.children.map(&:id).include?(params[:project_id].to_i) ? 'selected' : '' %>"><%= project.name %></dt>
+                <dt class="<%= project.children.map(&:id).include?(params[:project_id].to_i) ? 'selected' : '' %>"><%= project.language_name %></dt>
                 <dd style="<%= project.children.map(&:id).include?(params[:project_id].to_i) ? 'display: block' : '' %>">
                     <ul>
                         <% if project.children.present? %>

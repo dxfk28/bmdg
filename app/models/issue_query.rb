@@ -201,7 +201,7 @@ class IssueQuery < Query
 
     add_available_filter "fixed_version_id",
       :type => :list_optional,
-      :values => versions.sort.collect{|s| ["#{s.project.name} - #{s.name}", s.id.to_s] }
+      :values => versions.sort.collect{|s| ["#{s.project.language_name} - #{s.name}", s.id.to_s] }
 
     add_available_filter "category_id",
       :type => :list_optional,

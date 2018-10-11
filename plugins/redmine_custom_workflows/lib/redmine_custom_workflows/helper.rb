@@ -24,7 +24,7 @@ module RedmineCustomWorkflows
           end
           classes = (ancestors.empty? ? 'root' : 'child')
           s << "<li class='#{classes}'><div class='#{classes}'>"
-          s << h(block_given? ? yield(project) : project.name)
+          s << h(block_given? ? yield(project) : project.language_name)
           s << "</div>\n"
           ancestors << project
         end

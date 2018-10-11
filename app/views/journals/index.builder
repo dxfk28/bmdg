@@ -10,7 +10,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   @journals.each do |change|
     issue = change.issue
     xml.entry do
-      xml.title   "#{issue.project.name} - #{issue.tracker.name} ##{issue.id}: #{issue.subject}"
+      xml.title   "#{issue.project.language_name} - #{issue.tracker.name} ##{issue.id}: #{issue.subject}"
       xml.link    "rel" => "alternate", "href" => issue_url(issue)
       xml.id      issue_url(issue, :journal_id => change)
       xml.updated change.created_on.xmlschema

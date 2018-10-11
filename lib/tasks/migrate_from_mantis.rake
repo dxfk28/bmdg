@@ -263,7 +263,7 @@ task :migrate_from_mantis => :environment do
       versions_map = {}
       categories_map = {}
       MantisProject.all.each do |project|
-        p = Project.new :name => encode(project.name),
+        p = Project.new :name => encode(project.language_name),
                         :description => encode(project.description)
         p.identifier = project.identifier
         next unless p.save

@@ -145,7 +145,7 @@ class ProjectNestedSetTest < ActiveSupport::TestCase
     assert Project.valid?
     h.each do |project, expected|
       project.reload
-      assert_equal expected, [project.parent_id, project.lft, project.rgt], "Unexpected nested set values for #{project.name}"
+      assert_equal expected, [project.parent_id, project.lft, project.rgt], "Unexpected nested set values for #{project.language_name}"
     end
   end
 
@@ -158,12 +158,12 @@ class ProjectNestedSetTest < ActiveSupport::TestCase
 
     projects.each do |project|
       # lft should always be < rgt
-      assert project.lft < project.rgt, "lft=#{project.lft} was not < rgt=#{project.rgt} for project #{project.name}"
+      assert project.lft < project.rgt, "lft=#{project.lft} was not < rgt=#{project.rgt} for project #{project.language_name}"
       if project.parent_id
         # child lft/rgt values must be greater/lower
-        assert_not_nil project.parent, "parent was nil for project #{project.name}"
-        assert project.lft > project.parent.lft, "lft=#{project.lft} was not > parent.lft=#{project.parent.lft} for project #{project.name}"
-        assert project.rgt < project.parent.rgt, "rgt=#{project.rgt} was not < parent.rgt=#{project.parent.rgt} for project #{project.name}"
+        assert_not_nil project.parent, "parent was nil for project #{project.language_name}"
+        assert project.lft > project.parent.lft, "lft=#{project.lft} was not > parent.lft=#{project.parent.lft} for project #{project.language_name}"
+        assert project.rgt < project.parent.rgt, "rgt=#{project.rgt} was not < parent.rgt=#{project.parent.rgt} for project #{project.language_name}"
       end
       # no overlapping lft/rgt values
       overlapping = projects.detect {|other| 
@@ -172,7 +172,7 @@ class ProjectNestedSetTest < ActiveSupport::TestCase
           (other.rgt > project.lft && other.rgt < project.rgt && other.lft < project.lft)
         )
       }
-      assert_nil overlapping, (overlapping && "Project #{overlapping.name} (#{overlapping.lft}/#{overlapping.rgt}) overlapped #{project.name} (#{project.lft}/#{project.rgt})")
+      assert_nil overlapping, (overlapping && "Project #{overlapping.name} (#{overlapping.lft}/#{overlapping.rgt}) overlapped #{project.language_name} (#{project.lft}/#{project.rgt})")
     end
 
     # root projects sorted alphabetically
@@ -180,7 +180,7 @@ class ProjectNestedSetTest < ActiveSupport::TestCase
     projects.each do |project|
       if project.children.any?
         # sibling projects sorted alphabetically
-        assert_equal project.children.map(&:name).sort, project.children.sort_by(&:lft).map(&:name), "Project #{project.name}'s children were not properly sorted"
+        assert_equal project.children.map(&:name).sort, project.children.sort_by(&:lft).map(&:name), "Project #{project.language_name}'s children were not properly sorted"
       end
     end
   end

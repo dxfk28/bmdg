@@ -724,7 +724,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert copied_project
     # Cleared attributes
     assert copied_project.id.blank?
-    assert copied_project.name.blank?
+    assert copied_project.language_name.blank?
     assert copied_project.identifier.blank?
 
     # Duplicated attributes

@@ -15,7 +15,7 @@
              project.id,
              @user.notified_projects_ids.include?(project.id),
              :id => nil
-          ) + ' ' + h(project.name)
+          ) + ' ' + h(project.language_name)
         )
       end %>
   <%= hidden_field_tag 'user[notified_project_ids][]', '' %>

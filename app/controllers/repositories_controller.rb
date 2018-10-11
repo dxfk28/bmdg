@@ -149,7 +149,7 @@ class RepositoriesController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => false if request.xhr? }
-      format.atom { render_feed(@changesets, :title => "#{@project.name}: #{l(:label_revision_plural)}") }
+      format.atom { render_feed(@changesets, :title => "#{@project.language_name}: #{l(:label_revision_plural)}") }
     end
   end
 

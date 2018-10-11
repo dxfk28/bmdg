@@ -112,7 +112,7 @@ class MessagesControllerTest < ActionController::TestCase
 
     mail = ActionMailer::Base.deliveries.last
     assert_not_nil mail
-    assert_equal "[#{message.board.project.name} - #{message.board.name} - msg#{message.root.id}] Test created message", mail.subject
+    assert_equal "[#{message.board.project.language_name} - #{message.board.name} - msg#{message.root.id}] Test created message", mail.subject
     assert_mail_body_match 'Message body', mail
     # author
     assert mail.bcc.include?('jsmith@somenet.foo')

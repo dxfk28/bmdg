@@ -674,7 +674,7 @@ class WikiControllerTest < ActionController::TestCase
     assert_select 'select[name=?]', 'wiki_page[wiki_id]' do
       assert_select 'option', 2
       assert_select 'option[value=?][selected=selected]', '1', :text => /eCookbook/
-      assert_select 'option[value=?]', project.wiki.id.to_s, :text => /#{project.name}/
+      assert_select 'option[value=?]', project.wiki.id.to_s, :text => /#{project.language_name}/
     end
   end
 

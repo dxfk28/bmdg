@@ -2,7 +2,7 @@ api.array :news, api_meta(:total_count => @news_count, :offset => @offset, :limi
   @newss.each do |news|
     api.news do
       api.id news.id
-      api.project(:id => news.project_id, :name => news.project.name) unless news.project.nil?
+      api.project(:id => news.project_id, :name => news.project.language_name) unless news.project.nil?
       api.author(:id => news.author_id, :name => news.author.name) unless news.author.nil?
 
       api.title         news.title

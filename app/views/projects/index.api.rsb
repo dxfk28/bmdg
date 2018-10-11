@@ -2,7 +2,7 @@ api.array :projects, api_meta(:total_count => @project_count, :offset => @offset
   @projects.each do |project|
     api.project do
       api.id          project.id
-      api.name        project.name
+      api.name        project.language_name
       api.identifier  project.identifier
       api.description project.description
       api.parent(:id => project.parent.id, :name => project.parent.name) if project.parent && project.parent.visible?

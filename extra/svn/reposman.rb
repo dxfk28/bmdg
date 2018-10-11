@@ -214,13 +214,13 @@ def mswin?
 end
 
 projects.each do |project|
-  log("treating project #{project.name}", :level => 1)
+  log("treating project #{project.language_name}", :level => 1)
 
   if project.identifier.empty?
-    log("\tno identifier for project #{project.name}")
+    log("\tno identifier for project #{project.language_name}")
     next
   elsif not project.identifier.match(/^[a-z0-9\-_]+$/)
-    log("\tinvalid identifier for project #{project.name} : #{project.identifier}");
+    log("\tinvalid identifier for project #{project.language_name} : #{project.identifier}");
     next;
   end
 

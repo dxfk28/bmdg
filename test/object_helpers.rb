@@ -32,7 +32,7 @@ module ObjectHelpers
     @generated_project_identifier ||= 'project-0000'
     @generated_project_identifier.succ!
     project = Project.new(attributes)
-    project.name = @generated_project_identifier.dup if project.name.blank?
+    project.language_name = @generated_project_identifier.dup if project.language_name.blank?
     project.identifier = @generated_project_identifier.dup if project.identifier.blank?
     yield project if block_given?
     project.save!

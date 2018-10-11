@@ -24,12 +24,12 @@ module Redmine
         # Returns a PDF string of a set of wiki pages
         def wiki_pages_to_pdf(pages, project)
           pdf = Redmine::Export::PDF::ITCPDF.new(current_language)
-          pdf.set_title(project.name)
+          pdf.set_title(project.language_name)
           pdf.alias_nb_pages
           pdf.footer_date = format_date(Date.today)
           pdf.add_page
           pdf.SetFontStyle('B',11)
-          pdf.RDMMultiCell(190,5, project.name)
+          pdf.RDMMultiCell(190,5, project.language_name)
           pdf.ln
           # Set resize image scale
           pdf.set_image_scale(1.6)

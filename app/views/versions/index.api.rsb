@@ -2,7 +2,7 @@ api.array :versions, api_meta(:total_count => @versions.size) do
   @versions.each do |version|
     api.version do
       api.id version.id
-      api.project(:id => version.project_id, :name => version.project.name) unless version.project.nil?
+      api.project(:id => version.project_id, :name => version.project.language_name) unless version.project.nil?
 
       api.name        version.name
       api.description version.description

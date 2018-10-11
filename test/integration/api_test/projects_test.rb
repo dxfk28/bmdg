@@ -140,7 +140,7 @@ class Redmine::ApiTest::ProjectsTest < Redmine::ApiTest::Base
     end
 
     project = Project.order('id DESC').first
-    assert_equal 'API test', project.name
+    assert_equal 'API test', project.language_name
     assert_equal 'api-test', project.identifier
     assert_equal ['issue_tracking', 'repository'], project.enabled_module_names.sort
     assert_equal Tracker.all.size, project.trackers.size
@@ -190,7 +190,7 @@ class Redmine::ApiTest::ProjectsTest < Redmine::ApiTest::Base
     assert_equal '', @response.body
     assert_equal 'application/xml', @response.content_type
     project = Project.find(2)
-    assert_equal 'API update', project.name
+    assert_equal 'API update', project.language_name
   end
 
   test "PUT /projects/:id.xml should accept enabled_module_names attribute" do

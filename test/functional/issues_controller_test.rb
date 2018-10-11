@@ -3273,7 +3273,7 @@ class IssuesControllerTest < ActionController::TestCase
 
     mail = ActionMailer::Base.deliveries.last
     assert_not_nil mail
-    assert mail.subject.starts_with?("[#{issue.project.name} - #{issue.tracker.name} ##{issue.id}]")
+    assert mail.subject.starts_with?("[#{issue.project.language_name} - #{issue.tracker.name} ##{issue.id}]")
     assert_mail_body_match "Project changed from eCookbook to OnlineStore", mail
   end
 
@@ -3310,7 +3310,7 @@ class IssuesControllerTest < ActionController::TestCase
 
     mail = ActionMailer::Base.deliveries.last
     assert_not_nil mail
-    assert mail.subject.starts_with?("[#{issue.project.name} - #{issue.tracker.name} ##{issue.id}]")
+    assert mail.subject.starts_with?("[#{issue.project.language_name} - #{issue.tracker.name} ##{issue.id}]")
     assert_mail_body_match "Tracker changed from Bug to Feature request", mail
   end
 

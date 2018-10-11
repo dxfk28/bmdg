@@ -267,7 +267,7 @@ class RepositoryTest < ActiveSupport::TestCase
     mail = ActionMailer::Base.deliveries.first
     assert_not_nil mail
     assert mail.subject.starts_with?(
-        "[#{fixed_issue.project.name} - #{fixed_issue.tracker.name} ##{fixed_issue.id}]")
+        "[#{fixed_issue.project.language_name} - #{fixed_issue.tracker.name} ##{fixed_issue.id}]")
     assert_mail_body_match(
         "Status changed from #{old_status} to #{fixed_issue.status}", mail)
 

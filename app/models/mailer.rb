@@ -53,7 +53,7 @@ class Mailer < ActionMailer::Base
     @issue_url = url_for(:controller => 'issues', :action => 'show', :id => issue)
     mail :to => to_users,
       :cc => cc_users,
-      :subject => "[#{issue.project.name} - #{issue.tracker.name} ##{issue.id}] (#{issue.status.name}) #{issue.subject}"
+      :subject => "[#{issue.project.language_name} - #{issue.tracker.name} ##{issue.id}] (#{issue.status.name}) #{issue.subject}"
   end
 
   # Notifies users about a new issue
@@ -75,7 +75,7 @@ class Mailer < ActionMailer::Base
     message_id journal
     references issue
     @author = journal.user
-    s = "[#{issue.project.name} - #{issue.tracker.name} ##{issue.id}] "
+    s = "[#{issue.project.language_name} - #{issue.tracker.name} ##{issue.id}] "
     s << "(#{issue.status.name}) " if journal.new_value_for('status_id')
     s << issue.subject
     @issue = issue
@@ -122,7 +122,7 @@ class Mailer < ActionMailer::Base
     @document = document
     @document_url = url_for(:controller => 'documents', :action => 'show', :id => document)
     mail :to => document.notified_users,
-      :subject => "[#{document.project.name}] #{l(:label_document_new)}: #{document.title}"
+      :subject => "[#{document.project.language_name}] #{l(:label_document_new)}: #{document.title}"
   end
 
   # Builds a Mail::Message object used to email recipients of a project when an attachements are added.
@@ -154,7 +154,7 @@ class Mailer < ActionMailer::Base
     @added_to = added_to
     @added_to_url = added_to_url
     mail :to => recipients,
-      :subject => "[#{container.project.name}] #{l(:label_attachment_new)}"
+      :subject => "[#{container.project.language_name}] #{l(:label_attachment_new)}"
   end
 
   # Builds a Mail::Message object used to email recipients of a news' project when a news item is added.
@@ -171,7 +171,7 @@ class Mailer < ActionMailer::Base
     @news_url = url_for(:controller => 'news', :action => 'show', :id => news)
     mail :to => news.notified_users,
       :cc => news.notified_watchers_for_added_news,
-      :subject => "[#{news.project.name}] #{l(:label_news)}: #{news.title}"
+      :subject => "[#{news.project.language_name}] #{l(:label_news)}: #{news.title}"
   end
 
   # Builds a Mail::Message object used to email recipients of a news' project when a news comment is added.
@@ -190,7 +190,7 @@ class Mailer < ActionMailer::Base
     @news_url = url_for(:controller => 'news', :action => 'show', :id => news)
     mail :to => news.notified_users,
      :cc => news.notified_watchers,
-     :subject => "Re: [#{news.project.name}] #{l(:label_news)}: #{news.title}"
+     :subject => "Re: [#{news.project.language_name}] #{l(:label_news)}: #{news.title}"
   end
 
   # Builds a Mail::Message object used to email the recipients of the specified message that was posted.
@@ -210,7 +210,7 @@ class Mailer < ActionMailer::Base
     @message_url = url_for(message.event_url)
     mail :to => recipients,
       :cc => cc,
-      :subject => "[#{message.board.project.name} - #{message.board.name} - msg#{message.root.id}] #{message.subject}"
+      :subject => "[#{message.board.project.language_name} - #{message.board.name} - msg#{message.root.id}] #{message.subject}"
   end
 
   # Builds a Mail::Message object used to email the recipients of a project of the specified wiki content was added.
@@ -231,7 +231,7 @@ class Mailer < ActionMailer::Base
                                       :id => wiki_content.page.title)
     mail :to => recipients,
       :cc => cc,
-      :subject => "[#{wiki_content.project.name}] #{l(:mail_subject_wiki_content_added, :id => wiki_content.page.pretty_title)}"
+      :subject => "[#{wiki_content.project.language_name}] #{l(:mail_subject_wiki_content_added, :id => wiki_content.page.pretty_title)}"
   end
 
   # Builds a Mail::Message object used to email the recipients of a project of the specified wiki content was updated.
@@ -255,7 +255,7 @@ class Mailer < ActionMailer::Base
                                    :version => wiki_content.version)
     mail :to => recipients,
       :cc => cc,
-      :subject => "[#{wiki_content.project.name}] #{l(:mail_subject_wiki_content_updated, :id => wiki_content.page.pretty_title)}"
+      :subject => "[#{wiki_content.project.language_name}] #{l(:mail_subject_wiki_content_updated, :id => wiki_content.page.pretty_title)}"
   end
 
   # Builds a Mail::Message object used to email the specified user their account information.

@@ -283,13 +283,13 @@ module Redmine
       end
 
       def subject_for_project(project, options)
-        subject(project.name, options, project)
+        subject(project.language_name, options, project)
       end
 
       def line_for_project(project, options)
         # Skip projects that don't have a start_date or due date
         if project.is_a?(Project) && project.start_date && project.due_date
-          label = project.name
+          label = project.language_name
           line(project.start_date, project.due_date, nil, true, label, options, project)
         end
       end

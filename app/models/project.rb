@@ -564,7 +564,7 @@ class Project < ActiveRecord::Base
   end
 
   def <=>(project)
-    name.casecmp(project.name)
+    name.casecmp(project.language_name)
   end
 
   def to_s

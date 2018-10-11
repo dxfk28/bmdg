@@ -127,7 +127,7 @@ class Redmine::Helpers::GanttHelperTest < ActionView::TestCase
   test "#subjects project should be rendered" do
     setup_subjects
     @output_buffer = @gantt.subjects
-    assert_select "div.project-name a", /#{@project.name}/
+    assert_select "div.project-name a", /#{@project.language_name}/
     assert_select 'div.project-name[style*="left:4px"]'
   end
 
@@ -225,7 +225,7 @@ class Redmine::Helpers::GanttHelperTest < ActionView::TestCase
     assert_select "div.project.task_todo"
     assert_select "div.project.starting"
     assert_select "div.project.ending"
-    assert_select "div.label.project", /#{@project.name}/
+    assert_select "div.label.project", /#{@project.language_name}/
 
     assert_select "div.version.task_todo"
     assert_select "div.version.starting"
@@ -240,7 +240,7 @@ class Redmine::Helpers::GanttHelperTest < ActionView::TestCase
   test "#subject_for_project" do
     create_gantt
     @output_buffer = @gantt.subject_for_project(@project, :format => :html)
-    assert_select 'a[href=?]', "/projects/#{@project.identifier}", :text => /#{@project.name}/
+    assert_select 'a[href=?]', "/projects/#{@project.identifier}", :text => /#{@project.language_name}/
   end
 
   test "#subject_for_project should style overdue projects" do
@@ -306,7 +306,7 @@ class Redmine::Helpers::GanttHelperTest < ActionView::TestCase
     @project.stubs(:start_date).returns(today - 7)
     @project.stubs(:due_date).returns(today + 7)
     @output_buffer = @gantt.line_for_project(@project, :format => :html)
-    assert_select "div.project.label", :text => @project.name
+    assert_select "div.project.label", :text => @project.language_name
   end
 
   test "#line_for_version" do

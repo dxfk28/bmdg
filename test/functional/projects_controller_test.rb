@@ -301,7 +301,7 @@ class ProjectsControllerTest < ActionController::TestCase
     end
 
     project = Project.order('id desc').first
-    assert_equal 'inherited', project.name
+    assert_equal 'inherited', project.language_name
     assert_equal parent, project.parent
     assert project.memberships.count > 0
     assert_equal parent.memberships.count, project.memberships.count
@@ -467,7 +467,7 @@ class ProjectsControllerTest < ActionController::TestCase
                                        :issue_custom_field_ids => ['']}
     assert_redirected_to '/projects/ecookbook/settings'
     project = Project.find(1)
-    assert_equal 'Test changed name', project.name
+    assert_equal 'Test changed name', project.language_name
   end
 
   def test_update_with_failure

@@ -164,12 +164,12 @@
           </div>
           <% @projects.each do | project| %>
             <div class="content_div">
-                <h2> <%= project.name%> </h2>
+                <h2> <%= project.language_name%> </h2>
                 <% if project.children.present? %>
                   <% project.children.second_show.sorted.each do |pr| %>
                     <%= link_to point_check_list_polls_path(project_id:pr.id), class:" pr_a" do%>
                       <div class="list_div">
-                        <p><%= pr.name%></p>  
+                        <p><%= pr.language_name%></p>  
                       </div>
                     <% end %>
                   <% end %>
