@@ -699,6 +699,8 @@ class Project < ActiveRecord::Base
   end
 
   safe_attributes 'name',
+    'ja_name',
+    'en_name',
     'description',
     'homepage',
     'is_public',

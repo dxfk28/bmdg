@@ -23,7 +23,7 @@ module Redmine
           belongs_to :parent, :class_name => self.name
 
           before_create :add_to_nested_set
-          before_update :move_in_nested_set, :if => lambda {|project| project.parent_id_changed? || project.language_name_changed?}
+          before_update :move_in_nested_set, :if => lambda {|project| project.parent_id_changed? || project.name_changed? || project.ja_name_changed? || project.en_name_changed?}
           before_destroy :destroy_children
         end
         base.extend ClassMethods
