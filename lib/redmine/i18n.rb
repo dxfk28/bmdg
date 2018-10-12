@@ -113,7 +113,7 @@ module Redmine
           languages_options :cache => false
         end
       end
-      options.map {|name, lang| [name.force_encoding("UTF-8"), lang.force_encoding("UTF-8")]}
+      options.find_all{|k| ['zh','ja','en'].include?(k[1])}.map {|name, lang| [name.force_encoding("UTF-8"), lang.force_encoding("UTF-8")]}
     end
 
     def find_language(lang)

@@ -9,7 +9,7 @@
 	font-size: 0; /* IE Fix */
 }
 #wrapper {
-  background-image: url(../images/bg-dawn.png);  /* Change this in order to set your own background image */
+  background-image: url(../images/background.jpg);  /* Change this in order to set your own background image */
   background-repeat: no-repeat;
   background-size: cover;
 }

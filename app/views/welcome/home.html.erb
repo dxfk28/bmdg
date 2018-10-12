@@ -29,24 +29,27 @@
     width: 100%;
     height: 100px;
     display: inline-block;
-    background-color: #313539;
+    background-image: url('/images/b2.png');
+    background-size: 100% 100%;
+    opacity: 0.6;
     float: left;
     border-radius: 10px 10px 10px 10px;
     position: relative;
   }
   .content_div a{
+    position: relative;
     text-align: center;
     display: inline-block;
     height: 100%;
     margin-bottom: 20px;
   }
   .content_div p{
-    font-family: monospace;
     color: white;
     font-weight: bold;
     font-size: 16px;
+    font-family: "微软雅黑";
     position: absolute;
-    width: 150px;
+    width: 100%;
     top: 35%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -113,7 +116,7 @@
     <div id="account">
         <%= render_menu :account_menu -%>
     </div>
-    <%= content_tag('div', "#{l(:label_logged_as)} #{link_to_user(User.current, :format => :username)}".html_safe, :id => 'loggedas') if User.current.logged? %>
+    <%= content_tag('div', "#{l(:label_logged_as)} #{User.current.login}".html_safe, :id => 'loggedas') if User.current.logged? %>
     <%= render_menu :top_menu if User.current.logged? || !Setting.login_required? -%>
 </div>
 
@@ -156,14 +159,14 @@
             <div class="content_div">
               <h2><%= l(:zai_ku_guan_li) %></h2>
                 <%= link_to new_issues_import_path(), class:" pr_a" do%>
-                  <div class="list_div">
-                    <p><%= l(:xin_ruku) %></p>
+                  <div class="list_div" >
                   </div>
+                  <p><%= l(:xin_ruku) %></p>
                 <% end %>
                 <%= link_to plugin_issues_path(), class:" pr_a" do%>
                   <div class="list_div">
-                    <p><%= l(:yiyou_ruku) %></p>
                   </div>
+                  <p><%= l(:yiyou_ruku) %></p>
                 <% end %>
             </div>
           <% end %>
@@ -174,8 +177,8 @@
                   <% project.children.second_show.sorted.each do |pr| %>
                     <%= link_to point_check_list_polls_path(project_id:pr.id), class:" pr_a" do%>
                       <div class="list_div">
-                        <p><%= pr.language_name%></p>
                       </div>
+                      <p><%= pr.language_name%></p>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -206,14 +209,12 @@
     $('#content').css('background','none repeat scroll 0 0 rgba(255, 255, 255,0)')
     $('#content').css('border','none')
   })
-  $(".list_div").on('mouseover',function (argument) {
+  $(".pr_a").on('mouseover',function (argument) {
     $(this).find('p').css('color','#f35626')
-    $(this).find('.back').css('color','#f35626')
     $(this).addClass('animated pulse')
   })
-  $(".list_div").on('mouseout',function (argument) {
+  $(".pr_a").on('mouseout',function (argument) {
     $(this).find('p').css('color','white')
-    $(this).find('.back').css('color','white')
     $(this).removeClass('animated pulse')
   })
 </script>
