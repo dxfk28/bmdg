@@ -3465,7 +3465,7 @@ font-weight: bold;height: 30px;line-height: 30px;padding: 0 15px}
 	Explain:		.badge-default 默认|.badge-primary 主要|.badge-secondary 次要|.badge-success 成功|.badge-warning 警告|.badge-danger 危险
 
 */
-.label, .badge{display: inline-block;padding:2px 4px;font-size: 11.844px;font-weight: bold;line-height:14px;color: #fff;white-space: nowrap;vertical-align:middle;background-color: #999; overflow: hidden}
+/*.label, .badge{display: inline-block;padding:2px 4px;font-size: 11.844px;font-weight: bold;line-height:14px;color: #fff;white-space: nowrap;vertical-align:middle;background-color: #999; overflow: hidden}*/
 /*圆角*/
 .label.radius{border-radius: 3px}
 .badge{padding-right:9px;padding-left:9px;border-radius:9px}
