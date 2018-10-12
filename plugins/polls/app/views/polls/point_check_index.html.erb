@@ -51,6 +51,13 @@ button.ui-dialog-titlebar-close{display: none !important;}
 		<article class="cl pd-20">
 			<%= form_tag({ :controller => 'polls', :action => 'point_check_index', :project_id => @project },
             :method => :get, :id => 'query_form') do %>
+            <div class="contextual">
+				<% if !@query.new_record? && @query.editable_by?(User.current) %>
+				  <%= link_to l(:button_edit), queries_edit_project_polls_path(query_id:@query.id,project_id:@project.id), :class => 'icon icon-edit' %>
+				  <%= link_to l(:button_delete), polls_destroy_query_path(@query,project_id:params[:project_id],tracker_id:params[:tracker_id]) %>
+				<% end %>
+			</div>
+			<h2><%= @query.new_record? ? l(:label_issue_plural) : @query.name %></h2>
 				<div id="query_form_with_buttons" class="hide-when-print">
 				<%= hidden_field_tag 'set_filter', '1' %>
 				<%= hidden_field_tag 'project_id', params[:project_id] %>

@@ -84,6 +84,11 @@ class QueriesController < ApplicationController
     redirect_to_issues(:set_filter => 1)
   end
 
+  def polls_destroy
+    @query.destroy
+    redirect_to point_check_index_polls_path(:set_filter => 1,project_id:params[:project_id],tracker_id:params[:tracker_id])
+  end
+
 private
   def find_query
     @query = IssueQuery.find(params[:id])

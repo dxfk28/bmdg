@@ -499,6 +499,23 @@ class PollsController < ApplicationController
     @query.project = @project
     @query.build_from_params(params)
   end
+
+  def queries_edit
+    @project = Project.find_by(id:params[:project_id])
+    @query = Query.find_by(id:params[:query_id])
+  end
+
+  def queries_update
+    @query = Query.find_by(id:params[:query_id])
+    update_query_from_params
+    if @query.save
+      flash[:notice] = l(:notice_successful_update)
+      redirect_to point_check_index_polls_path(:query_id => @query,project_id:params[:project_id])
+    else
+      render :action => 'edit'
+    end
+  end
+
   def find_optional_project
     @project = Project.find(params[:project_id]) if params[:project_id]
     render_403 unless User.current.allowed_to?(:save_queries, @project, :global => true)

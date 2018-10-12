@@ -206,7 +206,11 @@ Rails.application.routes.draw do
   post '/issues/new', :to => 'issues#new'
   match '/issues', :controller => 'issues', :action => 'destroy', :via => :delete
 
-  resources :queries, :except => [:show]
+  resources :queries, :except => [:show] do
+    member do
+      get :polls_destroy
+    end
+  end
 
   resources :news, :only => [:index, :show, :edit, :update, :destroy]
   match '/news/:id/comments', :to => 'comments#create', :via => :post

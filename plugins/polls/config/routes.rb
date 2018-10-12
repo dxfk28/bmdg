@@ -24,6 +24,8 @@ RedmineApp::Application.routes.draw do
          post 'point_check_create'
          post 'queries_create'
          get 'queries_new'
+         get 'queries_edit'
+         post 'queries_update'
       end
     end
   end
