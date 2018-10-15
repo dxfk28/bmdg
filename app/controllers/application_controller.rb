@@ -319,7 +319,9 @@ class ApplicationController < ActionController::Base
     # Issue.visible.find(...) can not be used to redirect user to the login form
     # if the issue actually exists but requires authentication
     @issue = Issue.find(params[:id])
-    raise Unauthorized unless @issue.visible?
+    if params[:is_mobile] != 'true'
+      raise Unauthorized unless @issue.visible?
+    end
     @project = @issue.project
   rescue ActiveRecord::RecordNotFound
     render_404
