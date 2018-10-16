@@ -109,6 +109,7 @@ class IssuesController < ApplicationController
     else
       @issues =[]
     end
+    @issues = @issues.select{|i| i.custom_values.find_by(custom_field_id:1458).try(:value) == "否"}
     @issue_count_by_group = @query.issue_count_by_group
   end
 

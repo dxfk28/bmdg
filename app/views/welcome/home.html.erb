@@ -133,7 +133,7 @@
         </label>
         <%= text_field_tag 'q', @question, :size => 20, :class => 'small', :accesskey => accesskey(:quick_search) %>
         <% end %>
-        <%= render_project_jump_box %>
+        <%#= render_project_jump_box %>
     </div>
     <% end %>
     <img src="../images/logo.png" style="height: 45px; width: 72px; float: left; background-repeat: no-repeat; background-size: 10px;">
@@ -163,7 +163,7 @@
                   </div>
                   <p><%= l(:xin_ruku) %></p>
                 <% end %>
-                <%= link_to plugin_issues_path(), class:" pr_a" do%>
+                <%= link_to plugin_issues_path(project_id:3,set_filter:1,tracker_id:1), class:" pr_a" do%>
                   <div class="list_div">
                   </div>
                   <p><%= l(:yiyou_ruku) %></p>
