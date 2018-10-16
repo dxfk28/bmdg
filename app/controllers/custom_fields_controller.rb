@@ -112,6 +112,13 @@ class CustomFieldsController < ApplicationController
     end
   end
 
+
+  def import_custom_field_update
+    message = CustomField.import_custom_field_update(params[:file].path)
+    flash[:notice] = message
+    redirect_to custom_fields_path()
+  end
+
   private
 
   def build_new_custom_field

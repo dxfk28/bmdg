@@ -493,6 +493,7 @@ zh:
   label_issue_category_new: 新建问题类别
   label_custom_field: 自定义属性
   label_custom_field_plural: 自定义属性
+  label_custom_field_update: 自定义更新
   label_custom_field_new: 新建自定义属性
   label_enumerations: 枚举值
   label_enumeration_new: 新建枚举值

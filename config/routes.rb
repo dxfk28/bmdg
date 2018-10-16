@@ -331,6 +331,8 @@ Rails.application.routes.draw do
     collection do
       get :change_position
       get :destroy_all
+      get :import_update
+      post :import_custom_field_update
     end
   end
   resources :roles do

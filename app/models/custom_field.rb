@@ -269,6 +269,37 @@ class CustomField < ActiveRecord::Base
     super(attr_name, *args)
   end
 
+  def self.import_custom_field_update(filepath)
+    Spreadsheet.client_encoding = 'UTF-8'
+    book = Spreadsheet.open(filepath)
+    sheet = book.worksheet(0)
+    message =''
+    count = 0
+    CustomField.transaction do
+      sheet.each_with_index do |row, index|
+        if index == 0
+        else
+          cv = CustomField.find_by(name:row[0])
+          if cv.present?
+            cv.is_mobile = row[1] == "是" ? true : false
+            if cv.save
+              count = count + 1
+            else
+              message = '更新失败自定义' +cv.name
+              raise ActiveRecord::Rollback
+            end
+          else
+            message = '更新失败自定义' +row[0]
+            raise ActiveRecord::Rollback
+          end
+        end
+      end
+      message = '成功更新' +count.to_s + '条'
+    end
+    message
+  end
+
+
   protected
 
   # Removes multiple values for the custom field after setting the multiple attribute to false
@@ -287,5 +318,4 @@ class CustomField < ActiveRecord::Base
     end
   end
 end
-
 require_dependency 'redmine/field_format'

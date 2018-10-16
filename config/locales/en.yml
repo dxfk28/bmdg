@@ -560,6 +560,7 @@ en:
   label_issue_category_new: New category
   label_custom_field: Custom field
   label_custom_field_plural: Custom fields
+  label_custom_field_update: Custom update
   label_custom_field_new: New custom field
   label_enumerations: Enumerations
   label_enumeration_new: New value
