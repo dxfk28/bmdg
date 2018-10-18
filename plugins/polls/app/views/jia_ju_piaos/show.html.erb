@@ -1,0 +1,185 @@
+
+<head>
+	<%= stylesheet_link_tag 'style_piao','style',:media => 'all' %>
+	<%= javascript_heads_piao %>
+</head>
+<style type="text/css">
+	html{overflow-y: unset;}
+</style>
+<body>
+<nav class="breadcrumb"> <%= l(:piaoju_guanli)%>
+	<span class="c-gray en">&gt;</span>
+	夹具申请表
+	<span class="c-gray en">&gt;</span>
+	新建
+	<%= link_to l(:button_back), jia_ju_piaos_path(),style:"float:right;"%>
+</nav>
+<div class="piao_style">
+<label class="th_style1">夹具申请表</label>
+<br><br>
+<%= form_for @jia_ju_piao,url: jia_ju_piaos_path(), :html => {:multipart => true,:method => :post} do |f| %>
+<table>			
+	<tr>
+		<td colspan="3">夹具番号</td>
+		<td colspan="3"><%= @jia_ju_piao.try(:fan_hao) %></td>
+		<td class="td_style1">申请日</td>
+		<td colspan="2"><%= @jia_ju_piao.try(:sqr).try(:to_date) %></td>
+	</tr>
+	<tr>
+		<td colspan="3">夹具名称</td>
+		<td colspan="3"><%= @jia_ju_piao.try(:name) %></td>
+		<td class="td_style1">申请部门</td>
+		<td colspan="2"><%= @jia_ju_piao.try(:sqbm) %></td>
+	</tr>
+	<tr>
+		<td colspan="3">申请数量</td>
+		<td colspan="3"><%= @jia_ju_piao.try(:sqsl) %></td>
+		<td class="td_style1">承认</td>
+		<td class="td_style1">确认</td>
+		<td class="td_style1">担当</td>
+	</tr>
+	<tr>
+		<td colspan="3">夹具使用场所</td>
+		<td colspan="3"><%= @jia_ju_piao.try(:jjsycs) %></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_cr_user).try(:lastname)%></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_qr_user).try(:lastname)%></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_dd_user).try(:lastname)%></td>
+	</tr>
+	<tr>
+		<td colspan="3">关联标准书管理番号及整理番号</td>
+		<td colspan="3"><%= @jia_ju_piao.try(:shu_hao) %></td>
+	</tr>
+</table>
+<br>
+<table id="myTable">
+	<tr>
+		<td rowspan="10" class="td_style8">申请理由</td>
+		<td rowspan="4">新设</td>
+		<td colspan="6" class="td_style9"><label class="demo--label">
+			<%= f.radio_button :xin_she, 1,disabled:'disabled' %>
+        	新增作业(请添附标准书)
+    </label></td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9"><label class="demo--label">
+        <%= f.radio_button :xin_she, 2,disabled:'disabled' %>品质对应(请添附标准书或问题点表)
+    </label></td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9"><label class="demo--label">
+			<%= f.radio_button :xin_she, 3,disabled:'disabled' %>作业改进(请提出分析报告及预测效果)</label></td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9">
+		  <% if @jia_ju_piao.attachments.present? %>
+			<%= link_to_plugin_attachments @jia_ju_piao,:back=>request.url %>
+	      <% else %>
+	      	<%= "无附件"%>
+		  <% end %>
+		</td>
+	</tr
+	<tr>
+		<td rowspan="6">追加</td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9"><label class="demo--label">
+			<%= f.radio_button :xin_she, 4,disabled:'disabled' %>产量增加(明确生产体制与治具的对应关系:)</label></td>
+	</tr>
+	<tr>
+		<td>现体制</td>
+		<td>新体制</td>
+		<td>开始时间</td>
+		<td>现有数量</td>
+		<td>最大能力</td>
+		<td>申请追加数量</td>
+	</tr>
+	<tr>
+		<td><%= @jia_ju_piao.try(:zhui_jia_xtz) %></td>
+		<td><%= @jia_ju_piao.try(:zhui_jia_xin_ti_zhi) %></td>
+		<td><%= @jia_ju_piao.try(:zhui_jia_kssj).try(:to_date) %></td>
+		<td><%= @jia_ju_piao.try(:zhui_jia_xysl) %></td>
+		<td><%= @jia_ju_piao.try(:zhui_jia_zdnl) %></td>
+		<td><%= @jia_ju_piao.try(:zhui_jia_sqzjsl) %></td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9"><label class="demo--label"><%= f.radio_button :xin_she, 5,disabled:'disabled' %>
+		其他:</label><%= @jia_ju_piao.try(:zhui_jia_qt) %></td>
+	</tr>
+	<tr>
+		<td colspan="6" class="td_style9">注:数量超过1小时需提出计算公式,最大能力以<%= @jia_ju_piao.try(:zui_num) %>台/8H计算</td>
+	</tr>
+	<tr>
+		<td colspan="8" class="td_style3">说明或计算式(夹具数量超过1件时,由申请部门记入):
+			<textarea class="textarea_style2"><%= @jia_ju_piao.try(:sm_jss)%></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6"></td>
+		<td>希望纳期</td>
+		<td><%= @jia_ju_piao.try(:xi_wang_na_qi).try(:to_date) %></td>
+	</tr>
+	<tr>
+		<td colspan="8" class="td_style3">上司意见(申请部门):
+			<textarea class="textarea_style2"><%= @jia_ju_piao.try(:shang_si_yi_jian)%></textarea>
+		</td>
+	</tr>
+</table>
+<br>
+<table>
+	<tr>
+		<td colspan="20">以下由夹具管理部门填写</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="td_style6">配步先</td>
+		<td class="td_style4">部</td>
+		<td class="td_style4" rowspan="6"></td>
+		<td colspan="2" class="td_style6">管理部门:</td>
+		<td colspan="4"><%= @jia_ju_piao.try(:guan_li_bu_men) %></td>
+		<td class="td_style4" rowspan="6"></td>
+		<td colspan="9" class="td_style9"><label class="demo--label">
+        <%= f.radio_button :ny_zhui_jia, 1,disabled:'disabled' %>按申请内容追加
+    </label></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= @jia_ju_piao.try(:pei_bu_xian_1) %></td>
+		<td class="td_style4"><%= @jia_ju_piao.try(:bu_1) %></td>
+		<td colspan="2">受理日期:</td>
+		<td colspan="4"><%= @jia_ju_piao.try(:shou_li_ri_qi).try(:to_date) %></td>
+		<td colspan="9" class="td_style9"><label class="demo--label">
+        <%= f.radio_button :ny_zhui_jia, 2,disabled:'disabled' %>不按申请内容追加
+    </label></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= @jia_ju_piao.try(:pei_bu_xian_2) %></td>
+		<td class="td_style4"><%=@jia_ju_piao.try(:bu_2) %></td>
+		<td colspan="2">发行No:</td>
+		<td colspan="4"><%= @jia_ju_piao.try(:fa_xing_hao) %></td>
+		<td colspan="9" class="td_style9">不按申请内容追加时、理由记入</td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= @jia_ju_piao.try(:pei_bu_xian_3) %></td>
+		<td class="td_style4"><%= @jia_ju_piao.try(:bu_3) %></td>
+		<td colspan="2" class="td_style6">承认</td>
+		<td colspan="2" class="td_style6">确认</td>
+		<td colspan="2" class="td_style6">担当</td>
+		<td colspan="9" rowspan="3" class="td_style44"><%= @jia_ju_piao.try(:bn_reason) %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= @jia_ju_piao.try(:pei_bu_xian_4) %></td>
+		<td class="td_style4"><%= @jia_ju_piao.try(:bu_4) %></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_cr_user.try(:lastname)%></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_qr_user.try(:lastname)%></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_dd_user.try(:lastname)%></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= @jia_ju_piao.try(:pei_bu_xian_5) %></td>
+		<td class="td_style4"><%= @jia_ju_piao.try(:bu_5) %></td>
+	</tr>
+</table>
+<br>
+<% end %>
+</div>
+</body>
+<script type="text/javascript">
+	$('img').remove()
+</script>

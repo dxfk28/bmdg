@@ -179,8 +179,15 @@
                       <div class="list_div">
                       </div>
                       <p><%= pr.language_name%></p>
+                      <% end %>
                     <% end %>
-                  <% end %>
+                    <%if project.name == "业务流程管理"%>
+                        <%= link_to piaoju_index_polls_path(), class:" pr_a" do%>
+                          <div class="list_div">
+                          </div>
+                          <p><%= l(:piaoju_guanli) %></p>
+                        <% end %>
+                    <% end %>
                 <% end %>
             </div>
           <% end %>

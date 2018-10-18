@@ -32,8 +32,7 @@ module AttachmentsHelper
   #   :author -- author names are not displayed if set to false
   #   :thumbails -- display thumbnails if enabled in settings
   def link_to_attachments(container, options = {})
-    options.assert_valid_keys(:author, :thumbnails)
-
+    options.assert_valid_keys(:author, :thumbnails,:back)
     attachments = container.attachments.preload(:author).to_a
     if attachments.any?
       options = {
@@ -42,6 +41,25 @@ module AttachmentsHelper
         :author => true
       }.merge(options)
       render :partial => 'attachments/links',
+        :locals => {
+          :container => container,
+          :attachments => attachments,
+          :options => options,
+          :thumbnails => (options[:thumbnails] && Setting.thumbnails_enabled?)
+        }
+    end
+  end
+
+  def link_to_plugin_attachments(container, options = {})
+    options.assert_valid_keys(:author, :thumbnails,:back)
+    attachments = container.attachments.preload(:author).to_a
+    if attachments.any?
+      options = {
+        :editable => container.attachments_editable?,
+        :deletable => container.attachments_deletable?,
+        :author => true
+      }.merge(options)
+      render :partial => 'attachments/plugin_links',
         :locals => {
           :container => container,
           :attachments => attachments,

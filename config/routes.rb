@@ -299,7 +299,11 @@ Rails.application.routes.draw do
   get 'attachments/download/:id/:filename', :to => 'attachments#download', :id => /\d+/, :filename => /.*/, :as => 'download_named_attachment'
   get 'attachments/download/:id', :to => 'attachments#download', :id => /\d+/
   get 'attachments/thumbnail/:id(/:size)', :to => 'attachments#thumbnail', :id => /\d+/, :size => /\d+/, :as => 'thumbnail'
-  resources :attachments, :only => [:show, :destroy]
+  resources :attachments, :only => [:show, :destroy] do
+    member do
+      delete :plugin_destroy
+    end
+  end
   get 'attachments/:object_type/:object_id/edit', :to => 'attachments#edit', :as => :object_attachments_edit
   patch 'attachments/:object_type/:object_id', :to => 'attachments#update', :as => :object_attachments
 

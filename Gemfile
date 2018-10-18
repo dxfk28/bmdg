@@ -26,6 +26,8 @@ gem "binding_of_caller", "~> 0.7.2"
 gem 'pry-byebug'
 #表单
 gem 'simple_form'
+# 查询
+gem 'ransack', '1.7.0'
 # Request at least nokogiri 1.6.7.2 because of security advisories
 gem "nokogiri", ">= 1.6.7.2"
 

@@ -10,6 +10,7 @@ RedmineApp::Application.routes.draw do
        get 'point_check_index'
        get 'point_check_new'
        get 'point_check_list'
+       get 'piaoju_index'
        match 'bulk_edit', :via => [:get, :post]
        post 'bulk_update'
        get 'pandian_tubiao'
@@ -29,4 +30,6 @@ RedmineApp::Application.routes.draw do
       end
     end
   end
+
+  resources :jia_ju_piaos
 end

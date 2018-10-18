@@ -16,13 +16,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class AttachmentsController < ApplicationController
-  before_filter :find_attachment, :only => [:show, :download, :thumbnail, :destroy]
+  before_filter :find_attachment, :only => [:show, :download, :thumbnail, :destroy, :plugin_destroy]
   before_filter :find_editable_attachments, :only => [:edit, :update]
-  before_filter :file_readable, :read_authorize, :only => [:show, :download, :thumbnail]
+  before_filter :file_readable, :read_authorize, :only => [:show, :download, :thumbnail,:plugin_destroy]
   before_filter :delete_authorize, :only => :destroy
   before_filter :authorize_global, :only => :upload
 
-  accept_api_auth :show, :download, :thumbnail, :upload
+  accept_api_auth :show, :download, :thumbnail, :upload, :plugin_destroy
 
   def show
     respond_to do |format|
@@ -126,9 +126,22 @@ class AttachmentsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to_referer_or project_path(@project) }
+      format.html { redirect_to_referer_or project_path(@project),params[:back] }
       format.js
     end
+  end
+
+  def plugin_destroy
+    if @attachment.container.respond_to?(:init_journal)
+      @attachment.container.init_journal(User.current)
+    end
+    if @attachment.container
+      # Make sure association callbacks are called
+      @attachment.container.attachments.delete(@attachment)
+    else
+      @attachment.destroy
+    end
+    redirect_to edit_jia_ju_piao_path(params[:jia_ju_piao_id])
   end
 
   private

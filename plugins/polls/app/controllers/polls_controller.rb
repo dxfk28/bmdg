@@ -566,6 +566,10 @@ class PollsController < ApplicationController
     @journal_details = @journal_details.page(params[:page]).per(20)
   end
 
+  def piaoju_index
+
+  end
+
   private
 
   def find_optional_project

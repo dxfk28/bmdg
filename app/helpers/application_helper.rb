@@ -1348,6 +1348,14 @@ module ApplicationHelper
     tags
   end
 
+  def javascript_heads_piao
+    tags = javascript_include_tag('jsPdf.debug','creatpdf','html2canvas')
+    unless User.current.pref.warn_on_leaving_unsaved == '0'
+      tags << "\n".html_safe + javascript_tag("$(window).load(function(){ warnLeavingUnsaved('#{escape_javascript l(:text_warn_on_leaving_unsaved)}'); });")
+    end
+    tags
+  end
+
   def favicon
     "<link rel='shortcut icon' href='#{favicon_path}' />".html_safe
   end

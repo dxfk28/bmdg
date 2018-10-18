@@ -43,18 +43,30 @@ module Redmine
         end
 
         def attachments_visible?(user=User.current)
-          (respond_to?(:visible?) ? visible?(user) : true) &&
+          if self.name != "Issue"
+            return true
+          else
+             (respond_to?(:visible?) ? visible?(user) : true) &&
             user.allowed_to?(self.class.attachable_options[:view_permission], self.project)
+          end
         end
 
         def attachments_editable?(user=User.current)
-          (respond_to?(:visible?) ? visible?(user) : true) &&
-            user.allowed_to?(self.class.attachable_options[:edit_permission], self.project)
+          if self.name != "Issue"
+            return true
+          else
+            (respond_to?(:visible?) ? visible?(user) : true) &&
+              user.allowed_to?(self.class.attachable_options[:edit_permission], self.project)
+          end
         end
 
         def attachments_deletable?(user=User.current)
-          (respond_to?(:visible?) ? visible?(user) : true) &&
-            user.allowed_to?(self.class.attachable_options[:delete_permission], self.project)
+          if self.name != "Issue"
+            return true
+          else
+            (respond_to?(:visible?) ? visible?(user) : true) &&
+              user.allowed_to?(self.class.attachable_options[:delete_permission], self.project)
+          end
         end
 
         def saved_attachments

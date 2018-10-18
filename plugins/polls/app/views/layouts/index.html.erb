@@ -69,6 +69,11 @@
                                 </li>
                             <% end %>
                         <% end %>
+                        <% if project.name == "业务流程管理"%>
+                            <li>
+                               <%= link_to l(:piaoju_guanli), piaoju_index_polls_path()%>
+                            </li>
+                        <% end %>
                     </ul>
                 </dd>
             </dl>

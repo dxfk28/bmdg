@@ -178,6 +178,9 @@ ja:
   notice_successful_create: 作成しました。
   notice_successful_update: 更新しました。
   notice_successful_delete: 削除しました。
+  notice_error_create: 作成できません。
+  notice_error_update: 削除できません。
+  notice_error_delete: 削除できません。
   notice_successful_connection: 接続しました。
   notice_file_not_found: アクセスしようとしたページは存在しないか削除されています。
   notice_locking_conflict: 別のユーザーがデータを更新しています。
@@ -1215,6 +1218,9 @@ ja:
   yiyou_ruku: 既存資産種類入庫
   zai_ku_guan_li: 在庫管理
   logo_yu: BMDG資産管理システム
+  piaoju_guanli: 帳票管理
+  piaoju_fenlei: 帳票分类
+  xi_tong_number: 資産管理番号
   views:
     pagination:
       first: ファーストページ

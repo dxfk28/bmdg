@@ -1,0 +1,65 @@
+<!--请在下方写此页面业务相关的脚本-->
+ 
+<nav class="breadcrumb"> <%= l(:piaoju_guanli)%>
+	<span class="c-gray en">&gt;</span>
+夹具申请表
+</nav>
+
+<div class="">
+	<article class="cl pd-20">
+		<div class="mt-20">
+			<%= form_for @q,url: jia_ju_piaos_path(), :html => {:multipart => true,:method => :get} do |f| %>
+				<div class="">
+					<%= l(:field_name)%>:
+					<%= f.text_field :name_cont, class: "input-text",style:"width:150px;" %>
+					<%= l(:xi_tong_number)%>:
+					<%= f.text_field :fan_hao_cont, class: "input-text",style:"width:250px;" %>
+					<%= l(:field_status)%>:
+					<%= f.select :state_eq, JiaJuPiao::STATUS.to_a.map(&:reverse),include_blank: "不限",class:'select'%>
+					<button type="submit" class="btn btn-success" id="" name=""><i class=""></i> <%= l(:label_search)%></button>
+				</div>
+				<div class="cl pd-5 bg-1 bk-gray mt-20">
+					<span class="l"> <a href="/jia_ju_piaos/new" class="btn btn-primary radius" style="color:white;"><i class=""></i><%= l(:button_add)%></a> </span>
+					<span class="r"><%= l(:label_total_time)%>:<strong><%= @count %></strong>条</span>
+				</div>
+			<% end %>
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th><%= l(:field_name)%></th>
+						<th><%= l(:xi_tong_number)%></th>
+						<th><%= l(:field_status)%></th>
+						<th><%= l(:cao_zuo)%></th>
+					</tr>
+				</thead>
+				<tbody>
+				  <% @jia_ju_piaos.each do |j|%>
+				        <tr class="text-c"">
+				          <td class="name">
+				            <%= link_to j.name, jia_ju_piao_path(j) %>
+				          </td>
+				          <td class="name">
+				            <%= j.fan_hao %>
+				          </td>
+				          <td class="name">
+				            <%= JiaJuPiao::STATUS[j.state]%>
+				          </td>
+				          <td class="name">
+				            <%= link_to l(:button_change), edit_jia_ju_piao_path(j) %>
+				            <%= link_to l(:button_delete), jia_ju_piao_path(j), method: :delete, data: { confirm: '确定要刪除吗?' } %>
+				          </td>
+				        </tr>
+			        <% end %>
+				</tbody>
+			</table>
+		</div>
+	</article>
+</div>
+<script type="text/javascript">
+	$(document).ready(function (argument) {
+		$("#q_state_eq").addClass("select")
+		$("#q_state_eq").css("width",'50px')
+		$("#q_state_eq").css("height",'31px')
+		$("#q_state_eq").css("background-color",'white')
+	})
+</script>
