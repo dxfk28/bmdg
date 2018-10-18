@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
   before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
   before_filter :authorize, :except => [:index, :new, :create, :plugin_issues,:add_num,:show]
-  before_filter :find_optional_project, :only => [:index, :new, :create, :plugin_issues]
+  before_filter :find_optional_project, :only => [:index, :new, :create]
   before_filter :build_new_issue_from_params, :only => [:new, :create]
   accept_rss_auth :index, :show, :plugin_issues
   accept_api_auth :index, :show, :create, :update, :destroy, :plugin_issues
