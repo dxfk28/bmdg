@@ -570,6 +570,10 @@ class PollsController < ApplicationController
 
   end
 
+  def piaoju_moban_index
+    
+  end
+
   private
 
   def find_optional_project

@@ -1195,6 +1195,9 @@ en:
   logo_yu: BMDG asset management system
   piaoju_guanli: Form managment
   xi_tong_number: System asset management number
+  piaoju_moban_guanli: Bill template management
+  moban_name: Template name
+  moban_guanli: Template management
   views:
     pagination:
       first: first

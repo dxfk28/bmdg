@@ -1213,6 +1213,9 @@ zh:
   zai_ku_guan_li: 在库管理
   logo_yu: BMDG资产管理系统
   piaoju_guanli: 票据管理
+  piaoju_moban_guanli: 票据模板管理
+  moban_name: 模版名称
+  moban_guanli: 模版管理
   piaoju_fenlei: 票据分类
   xi_tong_number: 系统资产管理编号
   views:

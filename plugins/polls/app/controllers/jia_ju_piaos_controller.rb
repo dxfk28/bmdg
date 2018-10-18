@@ -16,6 +16,10 @@ class JiaJuPiaosController < ApplicationController
     @jia_ju_piao = JiaJuPiao.new()
   end
 
+  def moban_new
+    @jia_ju_piao = JiaJuPiao.new()
+  end
+
   def create
     @jia_ju_piao = JiaJuPiao.new(jia_ju_piao_params)
     @jia_ju_piao.state = 1
