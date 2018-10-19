@@ -43,9 +43,9 @@
 	<tr>
 		<td colspan="3">夹具使用场所</td>
 		<td colspan="3"><%= f.text_field :jjsycs, class: "input_text_style1" %></td>
-		<td rowspan="2"><%= f.select :sqbm_cr, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:"font-size:10px;"%></td>
-		<td rowspan="2"><%= f.select :sqbm_qr, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:"font-size:10px;"%></td>
-		<td rowspan="2"><%= f.select :sqbm_dd, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:"font-size:10px;"%></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_cr_user).try(:lastname)%></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_qr_user).try(:lastname)%></td>
+		<td rowspan="2"><%= @jia_ju_piao.try(:sqbm_dd_user).try(:lastname)%></td>
 	</tr>
 	<tr>
 		<td colspan="3">关联标准书管理番号及整理番号</td>
@@ -137,8 +137,8 @@
 		<td colspan="4"><%= f.text_field :guan_li_bu_men, class: "input_text_style1" %></td>
 		<td class="td_style4" rowspan="6"></td>
 		<td colspan="9" class="td_style9"><label class="demo--label">
-        <%= f.radio_button :ny_zhui_jia, 1 %>
-        <span class="radio_styleInput"></span>按申请内容追加
+        <%= f.radio_button :ny_zhui_jia, 1, disabled:"disabled"%>
+        </span>按申请内容追加
     </label></td>
 	</tr>
 	<tr>
@@ -147,8 +147,8 @@
 		<td colspan="2">受理日期:</td>
 		<td colspan="4"><%= f.date_field :shou_li_ri_qi, class: "input_text_style1" %></td>
 		<td colspan="9" class="td_style9"><label class="demo--label">
-        <%= f.radio_button :ny_zhui_jia, 2 %>
-        <span class="radio_styleInput"></span>不按申请内容追加
+        <%= f.radio_button :ny_zhui_jia, 2,disabled:"disabled" %>
+        不按申请内容追加
     </label></td>
 	</tr>
 	<tr>
@@ -169,9 +169,9 @@
 	<tr>
 		<td colspan="2"><%= f.text_field :pei_bu_xian_4, class: "input_text_style1"%></td>
 		<td class="td_style4"><%= f.number_field :bu_4, class: "input_text_style1",min:0 %></td>
-		<td colspan="2" rowspan="2" class="td_style43"><%= f.select :gl_cr, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:'font-size:10px;'%></td>
-		<td colspan="2" rowspan="2" class="td_style43"><%= f.select :gl_qr, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:'font-size:10px;'%></td>
-		<td colspan="2" rowspan="2" class="td_style43"><%= f.select :gl_dd, User.all.collect {|u| [(u.login.to_s + u.lastname.to_s),u.id] },{ include_blank: true },class:'list_cf input_text_style1',style:'font-size:10px;'%></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_cr_user.try(:lastname)%></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_qr_user.try(:lastname)%></td>
+		<td colspan="2" rowspan="2" class="td_style43"><%= @jia_ju_piao.gl_dd_user.try(:lastname)%></td>
 	</tr>
 	<tr>
 		<td colspan="2"><%= f.text_field :pei_bu_xian_5, class: "input_text_style1"%></td>

@@ -10,8 +10,9 @@ class JiaJuPiao < ActiveRecord::Base
   belongs_to :gl_cr_user, class_name:"User",:foreign_key => :gl_cr
   belongs_to :gl_qr_user, class_name:"User",:foreign_key => :gl_qr
   belongs_to :gl_dd_user, class_name:"User",:foreign_key => :gl_dd
+  belongs_to :issue, :dependent => :destroy
 
-  STATUS = { 1 => "审核中",  2 => "已废弃",  3 => "使用中"}
+  STATUS = { 1 => "审核中",  2 => "已废弃",  3 => "使用中", 4 => '未通过', 5 => '仓库担当修改'}
   XIN_SHE = { 1 => "新增作业",  2 => "品质对应",  3 => "作业改进", 4 => '产量增加', 4 => '其他' }
   NY = { 1 => "是",  2 => "否" }
   # Callback on file attachment

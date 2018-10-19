@@ -92,17 +92,19 @@
   end
 end %>
 <%= render_custom_fields_rows(@issue) %>
-<div class="attribute">
-  <div class="label">
-    <span>设备位置信息:</span>
+<% if @issue.project.parent.id == 1 || @issue.project.parent.id == 2 %>
+  <div class="attribute">
+    <div class="label">
+      <span>设备位置信息:</span>
+    </div>
+    <div class="value">
+      <%= CustomValue.find_by(custom_field_id:1394,customized_id:@issue.id).try(:value)%>
+      <%= CustomValue.find_by(custom_field_id:1395,customized_id:@issue.id).try(:value)%>
+      <%= CustomValue.find_by(custom_field_id:1396,customized_id:@issue.id).try(:value)%>
+      <%= CustomValue.find_by(custom_field_id:1397,customized_id:@issue.id).try(:value)%>
+    </div>
   </div>
-  <div class="value">
-    <%= CustomValue.find_by(custom_field_id:1394,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:1395,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:1396,customized_id:@issue.id).try(:value)%>
-    <%= CustomValue.find_by(custom_field_id:1397,customized_id:@issue.id).try(:value)%>
-  </div>
-</div>
+<% end %>
 <%= call_hook(:view_issues_show_details_bottom, :issue => @issue) %>
 </div>
 
@@ -131,8 +133,8 @@ end %>
 <%= render :partial => 'relations' %>
 </div>
 <% end %>
-
 </div>
+
 
 <% if @changesets.present? %>
 <div id="issue-changesets">

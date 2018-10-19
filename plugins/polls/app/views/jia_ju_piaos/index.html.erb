@@ -45,8 +45,8 @@
 				            <%= JiaJuPiao::STATUS[j.state]%>
 				          </td>
 				          <td class="name">
-				            <%= link_to l(:button_change), edit_jia_ju_piao_path(j) %>
-				            <%= link_to l(:button_delete), jia_ju_piao_path(j), method: :delete, data: { confirm: '确定要刪除吗?' } %>
+				            <%= link_to l(:button_change), edit_jia_ju_piao_path(j) if j.state == 5 && User.current.id == j.zhi_pai %>
+				            <%= link_to l(:button_delete), jia_ju_piao_path(j), method: :delete, data: { confirm: '确定要刪除吗?' } if j.state == 2 %>
 				          </td>
 				        </tr>
 			        <% end %>

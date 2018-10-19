@@ -24,12 +24,18 @@ class JiaJuPiaosController < ApplicationController
     @jia_ju_piao = JiaJuPiao.new(jia_ju_piao_params)
     @jia_ju_piao.state = 1
     @jia_ju_piao.save_attachments(params[:attachments] || (params[:jia_ju_piao] && params[:jia_ju_piao][:uploads]))
+    @jia_ju_piao.sqbm_dd = User.current.id
+    issue = Issue.new(project_id:22,tracker_id:80,subject:@jia_ju_piao.fan_hao,assigned_to_id:@jia_ju_piao.zhi_pai)
+    issue.priority_id = 2
+    issue.author_id = User.current.id
+    issue.save
+    @jia_ju_piao.issue_id = issue.id
     if @jia_ju_piao.save
      flash[:success] = l(:notice_successful_create)
      redirect_to jia_ju_piaos_path()
     else
       flash[:error] = l(:notice_error_create)
-      redirect_to new_jia_ju_piaos_path()
+      redirect_to new_jia_ju_piao_path()
     end
   end
 

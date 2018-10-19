@@ -24,6 +24,7 @@ class Issue < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :tracker
+  has_one :jia_ju_piao
   belongs_to :status, :class_name => 'IssueStatus'
   belongs_to :author, :class_name => 'User'
   belongs_to :assigned_to, :class_name => 'Principal'
@@ -106,10 +107,10 @@ class Issue < ActiveRecord::Base
   before_validation :clear_disabled_fields
   before_create :default_assign
   before_save :close_duplicates, :update_done_ratio_from_issue_status,
-              :force_updated_on_change, :update_closed_on, :set_assigned_to_was
+              :force_updated_on_change, :update_closed_on, :set_assigned_to_was, :change_assigned_from_id
   after_save {|issue| issue.send :after_project_change if !issue.id_changed? && issue.project_id_changed?}
   after_save :reschedule_following_issues, :update_nested_set_attributes,
-             :update_parent_attributes, :create_journal
+             :update_parent_attributes, :create_journal,:change_piao_status
   # Should be after_create but would be called before previous after_save callbacks
   after_save :after_create_from_copy
   after_destroy :update_parent_attributes
@@ -1686,15 +1687,74 @@ class Issue < ActiveRecord::Base
   end
 
   def send_notification
-    if self.subject.size < 9
+    if self.subject.size < 9 && (self.project.parent.id == 1 || self.project.parent.id == 2 )
       self.subject = "DG" + "%010d" % self.id
       self.save
+      cv = CustomValue.find_by(customized_id:self.id,custom_field_id:384)
+      cv.value = self.subject
+      cv.save
     end
-    cv = CustomValue.find_by(customized_id:self.id,custom_field_id:384)
-    cv.value = self.subject
-    cv.save
+    self.assigned_from_id = User.current.id
     if notify? && Setting.notified_events.include?('issue_added')
       Mailer.deliver_issue_add(self)
+    end
+  end
+  def change_assigned_from_id
+    if assigned_to_id_changed?
+      self.assigned_from_id = User.current.id
+    end
+  end
+
+  def change_piao_status
+    if self.tracker_id == 80 && self.jia_ju_piao.present?
+      if self.status_id == 23
+        self.jia_ju_piao.sqbm_qr = self.jia_ju_piao.zhi_pai
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+      if self.status_id == 22
+        self.jia_ju_piao.sqbm_cr = self.jia_ju_piao.zhi_pai
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+      
+      if self.status_id == 31
+        self.jia_ju_piao.gl_dd = self.jia_ju_piao.zhi_pai
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+        self.jia_ju_piao.state = 1
+      end
+      if self.status_id == 20
+        self.jia_ju_piao.gl_qr = self.jia_ju_piao.zhi_pai
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+
+      if self.status_id == 21
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+        self.jia_ju_piao.ny_zhui_jia = 1
+      end
+      
+      if self.status_id == 19
+        self.jia_ju_piao.gl_cr = self.jia_ju_piao.zhi_pai
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+        self.jia_ju_piao.state == 3
+      end
+      if self.status_id == 26 || self.status_id == 28
+        self.jia_ju_piao.state = 2
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+      if self.status_id == 39
+        self.jia_ju_piao.state = 2
+        self.jia_ju_piao.ny_zhui_jia = 2
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+
+      if self.status_id == 36
+        self.jia_ju_piao.state = 5
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+      if self.status_id == 38
+        self.jia_ju_piao.state = 5
+        self.jia_ju_piao.zhi_pai = self.assigned_to_id
+      end
+      self.jia_ju_piao.save
     end
   end
 
