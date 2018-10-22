@@ -6,4 +6,5 @@
 <%#= link_to l(:button_copy), project_copy_issue_path(@project, @issue), :class => 'icon icon-copy' if User.current.allowed_to?(:copy_issues, @project) && Issue.allowed_target_projects.any? %>
 <%= link_to l(:button_delete), poll_path(@issue,project_id:params[:project_id]), :data => {:confirm => issues_destroy_confirmation_message(@issue)}, :method => :delete, :class => 'icon icon-del' if User.current.allowed_to?(:delete_issues, @project) %>
 <%= link_to "|  " + l(:piaoju_guanli),  jia_ju_piao_path(@issue.jia_ju_piao) if @issue.jia_ju_piao.present? && @issue.project_id == 22 && @issue.tracker_id == 80 %>
+<a href="/qrcode/singleQRCode.php?data=<%= @issue.subject%>">| 二维码</a>
 </div>

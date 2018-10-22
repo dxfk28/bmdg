@@ -32,7 +32,7 @@ module AttachmentsHelper
   #   :author -- author names are not displayed if set to false
   #   :thumbails -- display thumbnails if enabled in settings
   def link_to_attachments(container, options = {})
-    options.assert_valid_keys(:author, :thumbnails,:back)
+    options.assert_valid_keys(:author, :thumbnails)
     attachments = container.attachments.preload(:author).to_a
     if attachments.any?
       options = {
@@ -51,7 +51,7 @@ module AttachmentsHelper
   end
 
   def link_to_plugin_attachments(container, options = {})
-    options.assert_valid_keys(:author, :thumbnails,:back)
+    options.assert_valid_keys(:author, :thumbnails)
     attachments = container.attachments.preload(:author).to_a
     if attachments.any?
       options = {
