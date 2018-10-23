@@ -13,8 +13,11 @@ class JiaJuPiao < ActiveRecord::Base
   belongs_to :issue, :dependent => :destroy
 
   STATUS = { 1 => "审核中",  2 => "已废弃",  3 => "使用中", 4 => '未通过', 5 => '仓库担当修改'}
-  XIN_SHE = { 1 => "新增作业",  2 => "品质对应",  3 => "作业改进", 4 => '产量增加', 4 => '其他' }
+  XIN_SHE = { 1 => "新增作业",  2 => "品质对应",  3 => "作业改进"}
+  ZUI_JIA = {1 => '产量增加', 2 => '其他' }
   NY = { 1 => "是",  2 => "否" }
+  BM = { '生产革新室' => "生产革新室",  "人事总务部" => "人事总务部", '经营管理部' => "经营管理部",  "技术部" => "技术部",
+  '采购物流部' => "采购物流部",  "生产部" => "生产部", '品质保证部' => "品质保证部",  "Device生产部" => "Device生产部"}
   # Callback on file attachment
   def attachment_added(attachment)
     if current_journal && !attachment.new_record?

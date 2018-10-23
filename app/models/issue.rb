@@ -1690,11 +1690,10 @@ class Issue < ActiveRecord::Base
     if self.subject.size < 9 && (self.project.parent.id == 1 || self.project.parent.id == 2 )
       self.subject = "DG" + "%010d" % self.id
       self.save
-      cv = CustomValue.find_by(customized_id:self.id,custom_field_id:384)
+      cv = CustomValue.find_or_create_by(customized_id:self.id,custom_field_id:384)
       cv.value = self.subject
       cv.save
     end
-    self.assigned_from_id = User.current.id
     if notify? && Setting.notified_events.include?('issue_added')
       Mailer.deliver_issue_add(self)
     end

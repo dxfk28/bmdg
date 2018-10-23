@@ -21,7 +21,7 @@ class IssuesController < ApplicationController
 
   before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :destroy]
-  before_filter :authorize, :except => [:index, :new, :create, :plugin_issues,:add_num,:show]
+  before_filter :authorize, :except => [:index, :new, :create, :plugin_issues,:add_num,:show,:get_name]
   before_filter :find_optional_project, :only => [:index, :new, :create]
   before_filter :build_new_issue_from_params, :only => [:new, :create]
   accept_rss_auth :index, :show, :plugin_issues
@@ -205,6 +205,16 @@ class IssuesController < ApplicationController
     respond_to do |format|
       format.html { }
       format.js
+    end
+  end
+
+  def get_name
+    @issue = Issue.find_by(subject:params[:subject])
+    jia_name = CustomValue.find_by(customized_id:@issue.id,custom_field_id:1400).try(:value)
+    if jia_name.present?
+      render json: {"success" => true, "value" => jia_name}
+    else
+      render json: {"success" => true, "value" => '无数据'}
     end
   end
 

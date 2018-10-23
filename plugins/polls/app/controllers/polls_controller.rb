@@ -136,7 +136,6 @@ class PollsController < ApplicationController
     sort_init(@query.sort_criteria.empty? ? [['id', 'desc']] : @query.sort_criteria)
     sort_update(@query.sortable_columns)
     @query.sort_criteria = sort_criteria.to_a
-
     if @query.valid?
       case params[:format]
       when 'csv', 'pdf'
@@ -152,7 +151,6 @@ class PollsController < ApplicationController
       else
         @limit = per_page_option
       end
-
       @issue_count = @query.issue_count
       @issue_pages = Paginator.new @issue_count, @limit, params['page']
       @offset ||= @issue_pages.offset
@@ -160,6 +158,15 @@ class PollsController < ApplicationController
                               :order => sort_clause,
                               :offset => @offset,
                               :limit => @limit)
+     if params[:project_id] == '22'
+        group_id = User.current.groups.pluck(:id)
+        user_bm = CustomValue.where(customized_type:"Principal",custom_field_id:1466,customized_id:group_id).pluck(:value).uniq
+        @issues = @issues.select{|i|
+         CustomValue.where(customized_id:i.id,customized_type:"Issue",custom_field_id:1468).pluck(:value).uniq.map{|v| user_bm.include?(v)}.include?(true)
+       }
+        @issue_count = @issues.count
+        @issue_pages = Paginator.new @issue_count, @limit, params['page']
+      end
       @issue_count_by_group = @query.issue_count_by_group
 
       respond_to do |format|
@@ -216,6 +223,13 @@ class PollsController < ApplicationController
     @issue = Issue.find(params[:id])
     @project = @issue.project
     return unless update_issue_from_params
+    if @project.id == 22 && params[:issue][:notes].present?
+      jia_ju_piao = @issue.jia_ju_piao
+      if jia_ju_piao.present?
+        jia_ju_piao.shang_si_yi_jian = (jia_ju_piao.shang_si_yi_jian.present? ? (jia_ju_piao.shang_si_yi_jian + ".") : "") + User.current.lastname + ":"  + params[:issue][:notes]
+        jia_ju_piao.save
+      end
+    end
     @issue.save_attachments(params[:attachments] || (params[:issue] && params[:issue][:uploads]))
     saved = false
     begin

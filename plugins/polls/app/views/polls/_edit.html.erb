@@ -26,7 +26,7 @@ input[type="submit"] {
     <%= render :partial => 'conflict' if @conflict %>
     <div class="box">
     <% if @issue.attributes_editable? %>
-        <fieldset class="tabular" ><legend><%= l(:label_change_properties) %></legend>
+        <fieldset class="tabular" ><legend><%= @issue.project_id == 22 ? "审批流程" : l(:label_change_properties) %></legend>
         <div id="all_attributes">
         <%= render :partial => 'form', :locals => {:f => f} %>
         </div>
@@ -51,7 +51,7 @@ input[type="submit"] {
     </fieldset>
     <% end %>
 
-    <fieldset><legend><%= l(:field_notes) %></legend>
+    <fieldset><legend><%= @issue.project_id == 22 ? "上司意见" : l(:field_notes) %></legend>
     <%= f.text_area :notes, :cols => 60, :rows => 10, :class => 'wiki-edit', :no_label => true %>
     <%= wikitoolbar_for 'issue_notes' %>
 

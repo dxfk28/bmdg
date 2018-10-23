@@ -25,10 +25,15 @@ class JiaJuPiaosController < ApplicationController
     @jia_ju_piao.state = 1
     @jia_ju_piao.save_attachments(params[:attachments] || (params[:jia_ju_piao] && params[:jia_ju_piao][:uploads]))
     @jia_ju_piao.sqbm_dd = User.current.id
-    issue = Issue.new(project_id:22,tracker_id:80,subject:@jia_ju_piao.fan_hao,assigned_to_id:@jia_ju_piao.zhi_pai)
+    issue = Issue.new(project_id:22,tracker_id:80,assigned_to_id:@jia_ju_piao.zhi_pai)
+    issue.subject = @jia_ju_piao.sqbm + Time.now.strftime('%Y%m%d-%H%M').to_s
     issue.priority_id = 2
     issue.author_id = User.current.id
     issue.save
+    cv = CustomValue.new(customized_id:issue.id,custom_field_id:1400,value:@jia_ju_piao.name,customized_type:"Issue")
+    cv.save
+    cv = CustomValue.new(customized_id:issue.id,custom_field_id:384,value:@jia_ju_piao.fan_hao,customized_type:"Issue")
+    cv.save
     @jia_ju_piao.issue_id = issue.id
     if @jia_ju_piao.save
      flash[:success] = l(:notice_successful_create)

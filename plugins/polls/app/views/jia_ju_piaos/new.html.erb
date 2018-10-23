@@ -9,14 +9,14 @@
 <body>
 <nav class="breadcrumb"> <%= l(:piaoju_guanli)%>
 	<span class="c-gray en">&gt;</span>
-	夹具申请表
+	夹具申请书
 	<span class="c-gray en">&gt;</span>
 	新建
 	<%= link_to l(:button_back), jia_ju_piaos_path(),style:"float:right;"%>
 </nav>
 
 <div class="piao_style">
-<label class="th_style1">夹具申请表</label>
+<label class="th_style1">夹具申请书</label>
 <br><br>
 <%= form_for @jia_ju_piao,url: jia_ju_piaos_path(), :html => {:multipart => true,:method => :post} do |f| %>
 <table>
@@ -28,13 +28,15 @@
 		<td colspan="3">夹具番号</td>
 		<td colspan="3"><%= f.text_field :fan_hao, class: "input_text_style1" %></td>
 		<td class="td_style1">申请日</td>
-		<td colspan="2"><%= f.date_field :sqr, class: "input_text_style1" %></td>
+		<td colspan="2"><%= f.date_field :sqr, value:Time.now().to_date, class: "input_text_style1" %></td>
 	</tr>
 	<tr>
 		<td colspan="3">夹具名称</td>
 		<td colspan="3"><%= f.text_field :name, class: "input_text_style1" %></td>
 		<td class="td_style1">申请部门</td>
-		<td colspan="2"><%= f.text_field :sqbm, class: "input_text_style1" %></td>
+		<td colspan="2">
+			<%= f.select :sqbm, JiaJuPiao::BM.invert,{ include_blank: true },class:'input_text_style1'%></td>	
+			</td>
 	</tr>
 	<tr>
 		<td colspan="3">申请数量</td>
@@ -48,7 +50,7 @@
 		<td colspan="3"><%= f.text_field :jjsycs, class: "input_text_style1" %></td>
 		<td rowspan="2"><%= %></td>
 		<td rowspan="2"><%= %></td>
-		<td rowspan="2"><%= %></td>
+		<td rowspan="2"><%= User.current.lastname%></td>
 	</tr>
 	<tr>
 		<td colspan="3">关联标准书管理番号及整理番号</td>
@@ -60,18 +62,18 @@
 	<tr>
 		<td rowspan="10" class="td_style8">申请理由</td>
 		<td rowspan="4">新设</td>
-		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="radio" name="jia_ju_piao[xin_she]" value='1'>
+		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="checkbox" name="jia_ju_piao[xin_she]" value='1'>
         <span class="demo--checkbox demo--radioInput"></span>新增作业(请添附标准书)
     </label></td>
 	</tr>
 	<tr>
 		<td colspan="6" class="td_style9"><label class="demo--label">
-        <input class="demo--radio" type="radio" name="jia_ju_piao[xin_she]" value='2'>
+        <input class="demo--radio" type="checkbox" name="jia_ju_piao[xin_she]" value='2'>
         <span class="demo--checkbox demo--radioInput"></span>品质对应(请添附标准书或问题点表)
     </label></td>
 	</tr>
 	<tr>
-		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="radio" name="jia_ju_piao[xin_she]" value='3' >
+		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="checkbox" name="jia_ju_piao[xin_she]" value='3' >
         <span class="demo--checkbox demo--radioInput"></span>作业改进(请提出分析报告及预测效果)</label></td>
 	</tr>
 	<tr>
@@ -83,7 +85,7 @@
 		<td rowspan="6">追加</td>
 	</tr>
 	<tr>
-		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="radio" name="xin_she" value='4'>
+		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="checkbox" name="jia_ju_piao[zui_jia]" value='1'>
         <span class="demo--checkbox demo--radioInput"></span>产量增加(明确生产体制与治具的对应关系:)</label></td>
 	</tr>
 	<tr>
@@ -95,19 +97,19 @@
 		<td>申请追加数量</td>
 	</tr>
 	<tr>
-		<td><%= f.text_field :zhui_jia_xtz, class: "input_text_style1" %></td>
-		<td><%= f.text_field :zhui_jia_xin_ti_zhi, class: "input_text_style1" %></td>
-		<td><%= f.date_field :zhui_jia_kssj, class: "input_text_style1" %></td>
-		<td><%= f.number_field :zhui_jia_xysl, class: "input_text_style1" %></td>
-		<td><%= f.text_field :zhui_jia_zdnl, class: "input_text_style1" %></td>
-		<td><%= f.text_field :zhui_jia_sqzjsl, class: "input_text_style1" %></td>
+		<td><%= f.text_field :zhui_jia_xtz, class: "input_text_style1",disabled:true %></td>
+		<td><%= f.text_field :zhui_jia_xin_ti_zhi, class: "input_text_style1",disabled:true %></td>
+		<td><%= f.date_field :zhui_jia_kssj, class: "input_text_style1" ,disabled:true%></td>
+		<td><%= f.number_field :zhui_jia_xysl, class: "input_text_style1",disabled:true %></td>
+		<td><%= f.text_field :zhui_jia_zdnl, class: "input_text_style1" ,disabled:true%></td>
+		<td><%= f.text_field :zhui_jia_sqzjsl, class: "input_text_style1",disabled:true %></td>
 	</tr>
 	<tr>
-		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="radio" name="xin_she" value='5'>
+		<td colspan="6" class="td_style9"><label class="demo--label"><input class="demo--radio" type="checkbox" name="jia_ju_piao[zui_jia]" value='2'>
         <span class="demo--checkbox demo--radioInput"></span>其他:</label><%= f.text_field :zhui_jia_qt, class: "td_style38" %></td>
 	</tr>
 	<tr>
-		<td colspan="6" class="td_style9">注:数量超过1小时需提出计算公式,最大能力以<%= f.number_field :zui_num, class: "td_style39",min:0 %>台/8H计算</td>
+		<td colspan="6" class="td_style9">注:数量超过1个时需提出计算公式,最大能力以<%= f.number_field :zui_num, class: "td_style39",min:0 %>台/8H计算</td>
 	</tr>
 	<tr>
 		<td colspan="8" class="td_style3">说明或计算式(夹具数量超过1件时,由申请部门记入):
@@ -183,3 +185,41 @@
 <% end %>
 </div>
 </body>
+
+<script type="text/javascript">
+	$("#jia_ju_piao_fan_hao").on('change',function (argument) {
+		var subject = $(this).val();
+	    $.ajax({
+		      type: "get",
+		      dataType: "json",
+		      url: '/issues/get_name?subject=' + subject,
+		      success: function(data) {
+		      	$("#jia_ju_piao_name").val(data.value)
+		      }
+	     });
+	})
+
+	$(".btn_style").on("click",function (argument) {
+		if ($(".filename").length < 1 && $('input:checkbox[name="jia_ju_piao[xin_she]"]:checked').val() != undefined ) {
+			alert("新设时附件不能为空");
+			return false;
+		}
+	})
+	$("input[name='jia_ju_piao[zui_jia]']").on('change',function (argument) {
+		if ($('input:checkbox[name="jia_ju_piao[zui_jia]"]:checked').val() == 1) {
+			$('#jia_ju_piao_zhui_jia_xtz').attr('disabled',false);
+			$('#jia_ju_piao_zhui_jia_xin_ti_zhi').attr('disabled',false);
+			$('#jia_ju_piao_zhui_jia_kssj').attr('disabled',false);
+			$('#jia_ju_piao_zhui_jia_xysl').attr('disabled',false);
+			$('#jia_ju_piao_zhui_jia_zdnl').attr('disabled',false);
+			$('#jia_ju_piao_zhui_jia_sqzjsl').attr('disabled',false);
+		}else{
+			$('#jia_ju_piao_zhui_jia_xtz').attr('disabled',true);
+			$('#jia_ju_piao_zhui_jia_xin_ti_zhi').attr('disabled',true);
+			$('#jia_ju_piao_zhui_jia_kssj').attr('disabled',true);
+			$('#jia_ju_piao_zhui_jia_xysl').attr('disabled',true);
+			$('#jia_ju_piao_zhui_jia_zdnl').attr('disabled',true);
+			$('#jia_ju_piao_zhui_jia_sqzjsl').attr('disabled',true);
+		}
+	})
+</script>

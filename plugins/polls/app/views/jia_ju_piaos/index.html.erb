@@ -2,7 +2,7 @@
  
 <nav class="breadcrumb"> <%= l(:piaoju_guanli)%>
 	<span class="c-gray en">&gt;</span>
-夹具申请表
+夹具申请书
 </nav>
 
 <div class="">
@@ -29,11 +29,12 @@
 						<th><%= l(:field_name)%></th>
 						<th><%= l(:xi_tong_number)%></th>
 						<th><%= l(:field_status)%></th>
+						<th><%= l(:field_created_on)%></th>
 						<th><%= l(:cao_zuo)%></th>
 					</tr>
 				</thead>
 				<tbody>
-				  <% @jia_ju_piaos.each do |j|%>
+				  <% @jia_ju_piaos.order("created_at desc").each do |j|%>
 				        <tr class="text-c"">
 				          <td class="name">
 				            <%= link_to j.name, jia_ju_piao_path(j) %>
@@ -43,6 +44,9 @@
 				          </td>
 				          <td class="name">
 				            <%= JiaJuPiao::STATUS[j.state]%>
+				          </td>
+				          <td class="name">
+				            <%= j.created_at.to_date%>
 				          </td>
 				          <td class="name">
 				            <%= link_to l(:button_change), edit_jia_ju_piao_path(j) if j.state == 5 && User.current.id == j.zhi_pai %>

@@ -9,14 +9,14 @@
 <body>
 <nav class="breadcrumb"> <%= l(:piaoju_guanli)%>
 	<span class="c-gray en">&gt;</span>
-	夹具申请表
+	夹具申请书
 	<span class="c-gray en">&gt;</span>
 	新建
 	<%= link_to l(:button_back), piaoju_moban_index_polls_path(),style:"float:right;"%>
 </nav>
 
 <div class="piao_style">
-<label class="th_style1">夹具申请表</label>
+<label class="th_style1">夹具申请书</label>
 <br><br>
 <%= form_for @jia_ju_piao,url: jia_ju_piaos_path(), :html => {:multipart => true,:method => :post} do |f| %>
 <table>			
